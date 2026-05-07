@@ -19,4 +19,8 @@ export default {
     },
 
     plugins: [forms],
+
+    safelist: [
+        { pattern: /opacity-(0|100)/ },
+    ],
 };

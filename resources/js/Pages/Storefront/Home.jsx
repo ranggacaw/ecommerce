@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/Components/ui/Card';
 import StorefrontLayout from '@/Layouts/StorefrontLayout';
 import { formatCurrency, productPrimaryImage, productPrice } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 function ProductTile({ product }) {
     return (
@@ -22,14 +24,127 @@ function ProductTile({ product }) {
     );
 }
 
+function HeroSlideshow({ banners }) {
+    const heroBanners = banners || [];
+    const [activeBannerIndex, setActiveBannerIndex] = useState(0);
+    const activeBanner = heroBanners[activeBannerIndex] || null;
+
+    useEffect(() => {
+        if (!heroBanners.length) {
+            return;
+        }
+        setActiveBannerIndex((currentIndex) => Math.min(currentIndex, heroBanners.length - 1));
+    }, [heroBanners.length]);
+
+    useEffect(() => {
+        if (heroBanners.length < 2) {
+            return;
+        }
+        const intervalId = window.setInterval(() => {
+            setActiveBannerIndex((currentIndex) => (currentIndex + 1) % heroBanners.length);
+        }, 6000);
+        return () => window.clearInterval(intervalId);
+    }, [heroBanners.length]);
+
+    const showPreviousBanner = () => {
+        setActiveBannerIndex((currentIndex) => (currentIndex - 1 + heroBanners.length) % heroBanners.length);
+    };
+
+    const showNextBanner = () => {
+        setActiveBannerIndex((currentIndex) => (currentIndex + 1) % heroBanners.length);
+    };
+
+    if (!activeBanner) {
+        return null;
+    }
+
+    return (
+        <section className="relative w-full overflow-hidden" style={{ height: '70vh' }}>
+            <div className="absolute inset-0 z-0">
+                {heroBanners.map((banner, index) => {
+                    const fallbackImages = [
+                        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&h=900&fit=crop&q=80',
+                        'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1600&h=900&fit=crop&q=80',
+                        'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&h=900&fit=crop&q=80'
+                    ];
+                    return (
+                        <div
+                            key={banner.id}
+                            className={`absolute inset-0 transition-opacity duration-700 ${index === activeBannerIndex ? 'opacity-100' : 'opacity-0'}`}
+                        >
+                            <img src={banner.image_url || fallbackImages[index % fallbackImages.length]} alt={banner.title} className="h-full w-full object-cover" />
+                        </div>
+                    );
+                })}
+            </div>
+            <div className="absolute inset-0 z-10 bg-black/10" />
+
+            <div className="relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center px-[4%]">
+                <div className="max-w-xl">
+                    <Badge className="mb-6 border-white/25 bg-[var(--cbx-secondary)] text-white backdrop-blur uppercase tracking-widest text-[11px] font-bold px-3 py-1">{activeBanner.cta_label || 'Limited Edition'}</Badge>
+                    <h1 className="mb-6 font-heading text-5xl font-black uppercase leading-[1.1] tracking-[-0.02em] text-white lg:text-7xl">
+                        {activeBanner.title?.split(' ').map((word, i, arr) => (
+                            <span key={i}>{word}{i < arr.length - 1 ? <br /> : null}</span>
+                        ))}
+                    </h1>
+                    <p className="mb-8 max-w-md text-base leading-7 text-white/90 lg:text-lg">{activeBanner.subtitle}</p>
+                    <div className="flex flex-wrap gap-4">
+                        <Link href={activeBanner.cta_href || route('shop.index')}>
+                            <Button size="lg" className="bg-white text-[var(--cbx-primary)] hover:bg-gray-100 uppercase tracking-widest text-xs px-10 py-4 font-semibold">Shop Now</Button>
+                        </Link>
+                        <Link href={route('collections.show', 'new-arrivals')}>
+                            <Button variant="secondary" size="lg" className="border-white/60 bg-white/10 text-white hover:border-white hover:bg-white/15 hover:text-white uppercase tracking-widest text-xs px-10 py-4 font-semibold">Explore All</Button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            {heroBanners.length > 1 && (
+                <>
+                    <div className="absolute bottom-8 left-[4%] z-20 flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={showPreviousBanner}
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+                            aria-label="Previous slide"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={showNextBanner}
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+                            aria-label="Next slide"
+                        >
+                            <ChevronRight className="h-4 w-4" />
+                        </button>
+                    </div>
+                    <div className="absolute bottom-8 right-[4%] z-20 flex gap-2">
+                        {heroBanners.map((_, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                onClick={() => setActiveBannerIndex(index)}
+                                className={`h-1 transition-all ${index === activeBannerIndex ? 'w-12 bg-white' : 'w-8 bg-white/40 hover:bg-white/60'}`}
+                                aria-label={`Go to slide ${index + 1}`}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
+        </section>
+    );
+}
+
 export default function Home({ banners, categories, newArrivals, promoCollection, featuredProducts }) {
     const categoryAccents = [
         'from-[var(--cbx-brand-light-pink)] to-white',
         'from-[var(--cbx-neutral-light)] to-white',
         'from-[var(--cbx-secondary-container)]/20 to-white',
     ];
+    const heroBanners = banners || [];
     const socialImages = [
-        ...(banners || []).map((banner) => banner.image_url),
+        ...heroBanners.map((banner) => banner.image_url),
         ...(featuredProducts || []).flatMap((product) => product.images?.map((image) => image.url) || []),
     ].filter(Boolean).slice(0, 4);
     const categoryVisuals = categories.slice(0, 3).map((category, index) => category.image_url || socialImages[index] || banners?.[index + 1]?.image_url || banners?.[0]?.image_url || null);
@@ -37,60 +152,7 @@ export default function Home({ banners, categories, newArrivals, promoCollection
 
     return (
         <StorefrontLayout title="Home" categories={categories}>
-            <section className="grid gap-4 lg:grid-cols-[minmax(0,1.08fr)_20rem]">
-                {banners?.[0] ? (
-                    <div className="relative isolate flex min-h-[36rem] flex-col justify-end overflow-hidden rounded-[1.75rem] border border-[var(--cbx-border-subtle)] bg-[var(--cbx-primary-container)] p-8 text-white shadow-[var(--cbx-shadow-soft)] lg:min-h-[41rem] lg:p-12">
-                        <img src={banners[0].image_url} alt={banners[0].title} className="absolute inset-0 -z-20 h-full w-full object-cover" />
-                        <div className="absolute inset-0 -z-10 bg-[linear-gradient(140deg,rgba(0,0,0,0.18),rgba(0,0,0,0.08)_32%,rgba(0,0,0,0.62))]" />
-                        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_34%)]" />
-
-                        <div className="max-w-xl space-y-6">
-                            <Badge className="w-fit border-white/25 bg-white/10 text-white backdrop-blur">Season Campaign</Badge>
-                            <div className="space-y-4">
-                                <p className="cbx-kicker text-white/70">Spring campaign</p>
-                                <h1 className="max-w-md font-heading text-5xl font-black leading-[0.92] tracking-[-0.04em] lg:text-7xl">
-                                    {banners[0].title}
-                                </h1>
-                                <p className="max-w-md text-sm leading-7 text-white/80 lg:text-base">{banners[0].subtitle}</p>
-                            </div>
-                            <div className="flex flex-wrap gap-3">
-                                <Link href={banners[0].cta_href || route('shop.index')}>
-                                    <Button size="lg" className="bg-white text-[var(--cbx-primary)] hover:bg-[var(--cbx-surface-container-low)]">{banners[0].cta_label || 'Shop now'}</Button>
-                                </Link>
-                                <Link href={route('collections.show', 'new-arrivals')}>
-                                    <Button variant="secondary" size="lg" className="border-white/60 bg-white/10 text-white hover:border-white hover:bg-white/15 hover:text-white">Explore all</Button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                ) : null}
-
-                <div className="grid gap-4">
-                    <Card className="bg-[linear-gradient(180deg,var(--cbx-surface-container-lowest),var(--cbx-surface-container-low))]">
-                        <CardContent className="space-y-4 p-5">
-                            <p className="cbx-kicker">Style Direction</p>
-                            <h2 className="font-heading text-2xl font-semibold tracking-[-0.03em] text-[var(--cbx-on-surface)]">Sharper hierarchy, less clutter</h2>
-                            <p className="text-sm leading-6 text-[var(--cbx-on-surface-variant)]">A stronger hero leads the storefront, while promo and discovery content move into cleaner, more deliberate sections.</p>
-                        </CardContent>
-                    </Card>
-
-                    {banners?.slice(1, 3).map((banner) => (
-                        <Card key={banner.id} className="overflow-hidden">
-                            <div className="h-40 w-full bg-[var(--cbx-surface-container-low)]">
-                                <img src={banner.image_url} alt={banner.title} className="h-full w-full object-cover" />
-                            </div>
-                            <CardContent className="space-y-3 p-5">
-                                <Badge>{banner.cta_label || 'Curated edit'}</Badge>
-                                <h2 className="font-heading text-xl font-semibold text-[var(--cbx-on-surface)]">{banner.title}</h2>
-                                <p className="text-sm leading-6 text-[var(--cbx-on-surface-variant)]">{banner.subtitle}</p>
-                                <Link href={banner.cta_href || route('shop.index')} className="inline-flex text-sm font-semibold text-[var(--cbx-secondary)]">
-                                    Explore collection
-                                </Link>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </section>
+            <HeroSlideshow banners={banners} />
 
             <section className="grid gap-px overflow-hidden rounded-[1.5rem] border border-[var(--cbx-border-subtle)] bg-[var(--cbx-border-subtle)] lg:grid-cols-3">
                 <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-6">
