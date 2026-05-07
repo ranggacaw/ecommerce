@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "neutral-mid": "#565656",
+                      "on-primary-fixed": "#1b1b1b",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "accent-crimson": "#A70100",
+                      "surface-container-high": "#e8e8e8",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#b5191e",
+                      "brand-pink": "#FF369C",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#ffb3ac",
+                      "on-tertiary-container": "#848484",
+                      "on-surface-variant": "#4c4546",
+                      "background": "#f9f9f9",
+                      "on-secondary-fixed-variant": "#93000f",
+                      "border-subtle": "#e5e8eb",
+                      "secondary-fixed": "#ffdad6",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-primary": "#c6c6c6",
+                      "on-surface": "#1b1b1b",
+                      "tertiary": "#000000",
+                      "brand-light-pink": "#F0AAA4",
+                      "accent-gold": "#A77A06",
+                      "surface": "#f9f9f9",
+                      "error": "#ba1a1a",
+                      "primary": "#000000",
+                      "tertiary-container": "#1b1b1b",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-background": "#1b1b1b",
+                      "outline": "#7e7576",
+                      "inverse-surface": "#303030",
+                      "on-primary-container": "#848484",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "surface-container": "#eeeeee",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "accent-forest": "#3C9342",
+                      "brand-green": "#478947",
+                      "surface-variant": "#e2e2e2",
+                      "neutral-dark": "#212121",
+                      "surface-bright": "#f9f9f9",
+                      "surface-alt": "#fafafa",
+                      "outline-variant": "#cfc4c5",
+                      "surface-dim": "#dadada",
+                      "inverse-on-surface": "#f1f1f1",
+                      "on-secondary-fixed": "#410003",
+                      "on-tertiary": "#ffffff",
+                      "neutral-light": "#ededed",
+                      "tertiary-fixed": "#e2e2e2",
+                      "primary-container": "#1b1b1b",
+                      "surface-container-low": "#f3f3f3",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#fffbff",
+                      "secondary-container": "#d93633"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "grid-gutter": "12px",
+                      "touch-padding": "10px",
+                      "section-gap": "40px",
+                      "container-padding": "4%",
+                      "component-gap": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "h1": ["Epilogue"],
+                      "label-caps": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "h2": ["Epilogue"],
+                      "h3": ["Epilogue"],
+                      "body-md": ["Inter"],
+                      "price-display": ["Epilogue"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background">
+<!-- Global Multi-brand Header Top Bar -->
+<div class="bg-surface-container-highest py-2 px-container-padding flex justify-center space-x-8 text-label-caps font-label-caps border-b border-border-subtle">
+<span class="opacity-100 font-bold border-b-2 border-primary">COLORBOX</span>
+<span class="opacity-50 hover:opacity-100 cursor-pointer transition-opacity">EXECUTIVE</span>
+<span class="opacity-50 hover:opacity-100 cursor-pointer transition-opacity">et cetera</span>
+<span class="opacity-50 hover:opacity-100 cursor-pointer transition-opacity">Wrangler</span>
+<span class="opacity-50 hover:opacity-100 cursor-pointer transition-opacity">Lee</span>
+</div>
+<!-- TopAppBar Component -->
+<header class="bg-surface dark:bg-neutral-dark border-b border-border-subtle dark:border-neutral-mid docked full-width top-0 sticky z-50 flat no shadows">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="font-h2 text-h2 font-bold tracking-tighter text-primary dark:text-on-primary">COLORBOX</div>
+<nav class="hidden md:flex space-x-8 font-label-caps text-label-caps uppercase">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-on-primary transition-opacity" href="#">New Arrival</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-on-primary transition-opacity" href="#">Clothing</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-on-primary transition-opacity" href="#">Accessories</a>
+<a class="text-secondary dark:text-secondary-fixed border-b-2 border-secondary pb-1" href="#">Sale</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-on-primary transition-opacity" href="#">Collections</a>
+</nav>
+<div class="flex items-center space-x-6">
+<div class="hidden lg:flex items-center bg-neutral-light px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-neutral-mid mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-32" placeholder="Search..." type="text"/>
+</div>
+<div class="flex space-x-4">
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer">person</span>
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer">favorite</span>
+<div class="relative">
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">2</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Promotional Hero Slideshow -->
+<section class="relative w-full h-[70vh] overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A high-fashion editorial shot featuring a young woman modeling vibrant, modern streetwear from the Colorbox collection. She poses confidently in a bright, minimalist studio with high-key lighting that emphasizes clean lines and bold textures. The scene is styled with a contemporary youth-oriented aesthetic, utilizing a bright white background and high-contrast styling elements. The lighting is soft yet directional, highlighting the fabric's quality and the bold color palette of the season." style="background-image: url('https://colorbox.co.id/')">
+<div class="absolute inset-0 bg-black/10"></div>
+<div class="relative h-full flex flex-col justify-center px-container-padding max-w-7xl mx-auto">
+<div class="max-w-xl">
+<span class="inline-block bg-secondary text-on-secondary font-label-caps text-label-caps px-3 py-1 mb-6 uppercase tracking-widest">Limited Edition</span>
+<h1 class="font-h1 text-h1 text-white mb-6 uppercase">Summer <br/>Rebellion</h1>
+<p class="text-white font-body-lg text-body-lg mb-8 opacity-90 max-w-md">Discover the latest drop inspired by street culture and bold color blocking.</p>
+<div class="flex space-x-4">
+<button class="bg-white text-primary font-label-caps text-label-caps py-4 px-10 hover:bg-neutral-light transition-colors uppercase tracking-widest">Shop Now</button>
+<button class="border-2 border-white text-white font-label-caps text-label-caps py-4 px-10 hover:bg-white/10 transition-colors uppercase tracking-widest">Explore All</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Carousel Controls -->
+<div class="absolute bottom-8 right-container-padding flex space-x-2">
+<button class="h-1 w-12 bg-white"></button>
+<button class="h-1 w-12 bg-white/40"></button>
+<button class="h-1 w-12 bg-white/40"></button>
+</div>
+</section>
+<!-- Flash Sale Section -->
+<section class="py-section-gap px-container-padding max-w-7xl mx-auto">
+<div class="bg-secondary-container rounded-xl overflow-hidden flex flex-col md:flex-row items-center p-8 mb-10 text-white">
+<div class="md:w-1/3 mb-6 md:mb-0">
+<h2 class="font-h2 text-h2 uppercase italic mb-2">Flash Sale</h2>
+<p class="font-body-md text-body-md opacity-90">Grab your favorites before they're gone!</p>
+</div>
+<div class="md:w-1/3 flex justify-center space-x-4">
+<div class="text-center">
+<div class="bg-black/20 backdrop-blur-md rounded-lg w-16 h-16 flex items-center justify-center font-h3 text-h3 mb-1">02</div>
+<span class="text-label-caps font-label-caps">HOURS</span>
+</div>
+<div class="text-center">
+<div class="bg-black/20 backdrop-blur-md rounded-lg w-16 h-16 flex items-center justify-center font-h3 text-h3 mb-1">45</div>
+<span class="text-label-caps font-label-caps">MINS</span>
+</div>
+<div class="text-center">
+<div class="bg-black/20 backdrop-blur-md rounded-lg w-16 h-16 flex items-center justify-center font-h3 text-h3 mb-1">12</div>
+<span class="text-label-caps font-label-caps">SECS</span>
+</div>
+</div>
+<div class="md:w-1/3 text-right hidden md:block">
+<a class="underline font-label-caps text-label-caps hover:no-underline" href="#">VIEW ALL OFFERS</a>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-grid-gutter">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-neutral-light mb-4 rounded-lg">
+<img alt="Sale product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A studio product photograph of a trendy oversized graphic tee in washed black, styled against a neutral grey background. The lighting is crisp and commercial, highlighting the cotton texture and the vibrant screen-printed design. Part of a youth-focused retail collection, the image conveys high energy and modern streetwear fashion. The composition is clean, centered, and optimized for an e-commerce grid." src="https://colorbox.co.id/"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 uppercase">40% OFF</div>
+<button class="absolute bottom-0 w-full bg-primary text-white py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-label-caps text-label-caps">Quick Add</button>
+</div>
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Oversized Graphic Tee</p>
+<div class="flex items-baseline space-x-2">
+<span class="font-price-display text-price-display text-secondary">Rp 149.000</span>
+<span class="text-body-sm text-neutral-mid line-through">Rp 249.000</span>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-neutral-light mb-4 rounded-lg">
+<img alt="Sale product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up detail shot of high-waisted denim jeans with distressed edges, presented in a bright and airy studio setting. The lighting is soft and natural, emphasizing the denim's grain and the metallic hardware details. This e-commerce visual is designed for a youth fashion brand, focusing on quality construction and trendy fit. The background is a consistent, clean white to maintain a professional retail aesthetic." src="https://colorbox.co.id/"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 uppercase">20% OFF</div>
+<button class="absolute bottom-0 w-full bg-primary text-white py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-label-caps text-label-caps">Quick Add</button>
+</div>
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">High-Waist Cargo Pants</p>
+<div class="flex items-baseline space-x-2">
+<span class="font-price-display text-price-display text-secondary">Rp 219.000</span>
+<span class="text-body-sm text-neutral-mid line-through">Rp 279.000</span>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-neutral-light mb-4 rounded-lg">
+<img alt="Sale product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Full-body fashion photograph of a model wearing a ribbed knit crop top in a vibrant pastel color, set against a bright, modern studio backdrop. The lighting is high-key and flattering, casting soft shadows that define the garment's silhouette. The overall mood is youthful and optimistic, characteristic of contemporary fast-fashion retail. The clean composition allows the product's color and texture to stand out as the primary focus." src="https://colorbox.co.id/"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 uppercase">50% OFF</div>
+<button class="absolute bottom-0 w-full bg-primary text-white py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-label-caps text-label-caps">Quick Add</button>
+</div>
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Ribbed Knit Crop Top</p>
+<div class="flex items-baseline space-x-2">
+<span class="font-price-display text-price-display text-secondary">Rp 99.000</span>
+<span class="text-body-sm text-neutral-mid line-through">Rp 199.000</span>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] overflow-hidden bg-neutral-light mb-4 rounded-lg">
+<img alt="Sale product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="E-commerce product shot of a stylish mini skirt with a plaid pattern, photographed on a white seamless background. The lighting is bright and even, perfect for highlighting the intricate pattern and fabric quality. The image capture is sharp and focused, showcasing the garment from a slightly elevated perspective to emphasize the cut and length. The visual style is clean, modern, and perfectly aligned with a professional retail catalog." src="https://colorbox.co.id/"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 uppercase">30% OFF</div>
+<button class="absolute bottom-0 w-full bg-primary text-white py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-label-caps text-label-caps">Quick Add</button>
+</div>
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">A-Line Plaid Skirt</p>
+<div class="flex items-baseline space-x-2">
+<span class="font-price-display text-price-display text-secondary">Rp 169.000</span>
+<span class="text-body-sm text-neutral-mid line-through">Rp 239.000</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Shop by Category (Asymmetric Grid) -->
+<section class="py-section-gap px-container-padding max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-8">
+<h2 class="font-h2 text-h2 uppercase tracking-tighter">Shop by Category</h2>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary hover:opacity-70 transition-opacity" href="#">Explore Categories</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-6 h-[800px] md:h-[600px]">
+<div class="md:col-span-8 md:row-span-2 relative overflow-hidden group rounded-xl">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A high-energy fashion category image showing a curated collection of modern tops and outerwear. The scene features multiple models in a dynamic group pose, set against a sleek, architectural concrete wall in bright daylight. The lighting is crisp and high-contrast, emphasizing the bold silhouettes and vibrant textures of the clothing. The aesthetic is sophisticated and editorial, aimed at a fashion-forward youth audience." src="https://colorbox.co.id/"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-10 left-10 text-white">
+<h3 class="font-h1 text-h2 uppercase mb-4">The New Uniform: Tops</h3>
+<button class="bg-white text-primary font-label-caps text-[10px] py-3 px-8 uppercase tracking-widest hover:bg-neutral-light transition-colors">Lihat Koleksi</button>
+</div>
+</div>
+<div class="md:col-span-4 relative overflow-hidden group rounded-xl">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A fashion category visual for dresses, featuring a model in a flowing summer dress standing in a brightly lit, minimalist sunroom. The lighting is warm and natural, creating soft highlights on the lightweight fabric. The setting is modern and clean, with large windows casting geometric shadows. The overall mood is breezy, feminine, and high-fashion, appealing to a trendy customer base." src="https://colorbox.co.id/"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="font-h3 text-h3 uppercase mb-2">Dresses</h3>
+<a class="text-label-caps font-label-caps underline hover:no-underline" href="#">Shop Now</a>
+</div>
+</div>
+<div class="md:col-span-4 relative overflow-hidden group rounded-xl">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A category spotlight for trousers and denim, showcasing a low-angle shot of trendy wide-leg pants in a modern urban setting. The lighting is bright and clear, emphasizing the garment's fit and detailing. The background is a minimalist city street with clean architectural lines, reinforcing the brand's contemporary identity. The visual is sharp, high-contrast, and focused on style and movement." src="https://colorbox.co.id/"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="font-h3 text-h3 uppercase mb-2">Trousers</h3>
+<a class="text-label-caps font-label-caps underline hover:no-underline" href="#">Shop Now</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Instagram Feed @Colorbox -->
+<section class="py-section-gap bg-surface-container-low">
+<div class="px-container-padding max-w-7xl mx-auto text-center mb-12">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">camera_alt</span>
+<h2 class="font-h2 text-h2 uppercase mb-2">On Instagram</h2>
+<p class="font-body-md text-body-md text-neutral-mid">Follow us <a class="text-primary font-bold" href="#">@colorbox</a> and tag us for a chance to be featured!</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-6 gap-2">
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="A vibrant lifestyle Instagram photo featuring a stylish young person in a trendy Colorbox outfit, posing in front of a colorful graffiti wall. The lighting is bright, natural outdoor light, creating an energetic and authentic mood. The photo is composed with a square crop, capturing the urban youth culture and the brand's high-contrast aesthetic." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="An Instagram-style flat-lay photo showcasing a curated outfit including a graphic tee, denim shorts, and trendy accessories. The items are neatly arranged on a clean, light-textured surface under soft, diffused lighting. The color palette is modern and cohesive, reflecting the vibrant and youthful fashion sense of the Colorbox brand." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="A candid-style lifestyle photograph of a group of friends laughing together while wearing trendy streetwear. The setting is a brightly lit outdoor plaza with modern architecture. The lighting is warm and golden, conveying a sense of community and fun. The image is captured with a high-key, modern aesthetic suitable for a social media feed." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="Close-up detail shot of a unique fashion accessory, like a chunky necklace or colorful handbag, held against a minimalist pastel-colored wall. The lighting is soft and flattering, highlighting the product's texture and craftsmanship. The composition is clean and modern, following contemporary social media photography trends for fashion brands." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="A stylish mirror selfie of a model wearing a full Colorbox look in a modern, well-lit bedroom. The lighting is natural and soft, creating a relatable and authentic brand image. The aesthetic is clean and trendy, focusing on the outfit's fit and how it can be worn in everyday life." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-square overflow-hidden cursor-pointer relative group">
+<img class="w-full h-full object-cover group-hover:brightness-75 transition-all" data-alt="An energetic street-style photo of a model walking across a crosswalk in a busy city, wearing a bold, colorful jacket. The lighting is bright and direct, casting dynamic shadows. The shot captures movement and urban life, perfectly aligning with the fast-paced, vibrant personality of the Colorbox brand." src="https://colorbox.co.id/"/>
+</div>
+</div>
+</section>
+<!-- Track Order & Subscription Section -->
+<section class="py-section-gap px-container-padding max-w-7xl mx-auto border-t border-border-subtle">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<div>
+<h3 class="font-h3 text-h3 uppercase mb-6">Lacak Pesanan</h3>
+<p class="font-body-md text-body-md text-neutral-mid mb-6">Enter your order number to track your fashion journey.</p>
+<form class="flex space-x-2">
+<input class="flex-grow border border-border-subtle p-3 rounded text-body-sm focus:border-primary focus:ring-0" placeholder="Order ID (e.g. CBX123456)" type="text"/>
+<button class="bg-primary text-white font-label-caps text-label-caps px-8 uppercase hover:opacity-90">Lacak</button>
+</form>
+</div>
+<div>
+<h3 class="font-h3 text-h3 uppercase mb-6">Join the Box</h3>
+<p class="font-body-md text-body-md text-neutral-mid mb-6">Get 10% off your first order and stay updated on the latest trends.</p>
+<form class="flex space-x-2">
+<input class="flex-grow border border-border-subtle p-3 rounded text-body-sm focus:border-primary focus:ring-0" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white font-label-caps text-label-caps px-8 uppercase hover:opacity-90">Subscribe</button>
+</form>
+</div>
+</div>
+</section>
+<!-- Footer Component -->
+<footer class="bg-surface-container-low dark:bg-neutral-dark border-t border-border-subtle w-full mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-grid-gutter px-container-padding py-12 w-full max-w-7xl mx-auto">
+<div class="flex flex-col space-y-4">
+<div class="font-h3 text-h3 font-black text-primary dark:text-on-primary">COLORBOX</div>
+<p class="font-body-sm text-body-sm text-neutral-mid">Part of the Delamibrands family. Delivering high-energy fashion for the youth generation since 1993.</p>
+<div class="flex space-x-4 mt-2">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">social_leaderboard</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">photo_camera</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">play_circle</span>
+</div>
+</div>
+<div class="flex flex-col space-y-3">
+<h4 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase">Information</h4>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">About Us</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Find a Store</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a>
+</div>
+<div class="flex flex-col space-y-3">
+<h4 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase">Customer Care</h4>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">FAQ</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Size Guide</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Track Order</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col space-y-3">
+<h4 class="font-label-caps text-label-caps font-bold text-primary mb-2 uppercase">Multi-Brand Links</h4>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Executive Online</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Et Cetera Store</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Lee Jeans Indonesia</a>
+<a class="font-body-sm text-body-sm text-neutral-mid dark:text-surface-variant hover:text-secondary transition-colors" href="#">Wrangler Official</a>
+</div>
+</div>
+<div class="border-t border-border-subtle py-6 px-container-padding text-center">
+<p class="font-body-sm text-body-sm text-neutral-mid">© 2024 COLORBOX. All Rights Reserved. PT Delami Garment Industries.</p>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation (Visible only on mobile) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-border-subtle flex justify-around py-3 z-50">
+<div class="flex flex-col items-center text-secondary">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-label-caps">Home</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px] font-label-caps">Explore</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] font-label-caps">Wishlist</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="text-[10px] font-label-caps">Cart</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label-caps">Profile</span>
+</div>
+</div>
+</body></html>

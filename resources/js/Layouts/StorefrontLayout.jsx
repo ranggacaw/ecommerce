@@ -30,58 +30,59 @@ export default function StorefrontLayout({ title, categories = [], children }) {
         <div className="min-h-screen bg-[var(--cbx-background)] text-[var(--cbx-on-background)]">
             <Head title={title} />
 
-            <header className="border-b border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)]/95 backdrop-blur">
-                <div className="mx-auto flex max-w-7xl flex-col gap-5 px-[4%] py-6">
-                    <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex items-center justify-between gap-6">
-                            <div>
-                                <p className="cbx-kicker">{appName || 'Colorbox'}</p>
-                                <Link href={route('home')} className="mt-2 block font-heading text-3xl font-bold tracking-[-0.02em] text-[var(--cbx-on-surface)]">
-                                    Curated daily wear, sharper online.
-                                </Link>
-                            </div>
-                        </div>
+            <div className="border-b border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-highest)]">
+                <div className="mx-auto flex max-w-7xl items-center justify-center gap-4 px-[4%] py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--cbx-neutral-mid)] sm:gap-6">
+                    <span className="border-b border-[var(--cbx-primary)] pb-0.5 text-[var(--cbx-primary)]">{appName || 'Colorbox'}</span>
+                    <span>Executive</span>
+                    <span>et cetera</span>
+                    <span>Wrangler</span>
+                </div>
+            </div>
 
-                        <div className="flex flex-col gap-3 lg:min-w-[34rem] lg:flex-row lg:items-center lg:justify-end">
-                            <form onSubmit={submitSearch} className="flex flex-1 items-center gap-3">
-                                <div className="relative min-w-0 flex-1">
+            <header className="sticky top-0 z-20 border-b border-[var(--cbx-border-subtle)] bg-white backdrop-blur">
+                <div className="mx-auto flex max-w-[92rem] flex-col gap-4 px-[4%] py-4">
+                    <div className="flex items-center justify-between gap-4">
+                        <Link href={route('home')} className="font-heading text-2xl font-black tracking-[-0.03em] text-[var(--cbx-primary)] sm:text-3xl">
+                            COLORBOX
+                        </Link>
+
+                        <nav className="hidden items-center gap-6 text-[12px] font-semibold uppercase tracking-[0.16em] text-[var(--cbx-on-surface-variant)] md:flex">
+                            <Link href={route('collections.show', 'new-arrivals')} className="transition hover:text-[var(--cbx-primary)]">New Arrival</Link>
+                            <Link href={route('shop.index')} className="transition hover:text-[var(--cbx-primary)]">Clothing</Link>
+                            {categoryLinks.slice(0, 2).map((category) => (
+                                <Link key={category.id} href={route('categories.show', category.slug)} className="transition hover:text-[var(--cbx-primary)]">
+                                    {category.name}
+                                </Link>
+                            ))}
+                            <Link href={route('shop.index')} className="border-b border-[var(--cbx-secondary)] pb-1 text-[var(--cbx-secondary)]">Sale</Link>
+                        </nav>
+
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <form onSubmit={submitSearch} className="hidden lg:block">
+                                <div className="relative">
                                     <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--cbx-neutral-mid)]" />
-                                    <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search materials, fits, and collections" className="pl-11" />
+                                    <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products" className="h-11 w-56 rounded-full border-transparent bg-[var(--cbx-surface-container-low)] pl-11 pr-4" />
                                 </div>
-                                <Button type="submit" variant="secondary">Search</Button>
                             </form>
 
-                            <div className="flex flex-wrap items-center gap-2 text-sm">
-                            {auth.user ? (
-                                <>
-                                    <Link href={route('dashboard')} className="cbx-button cbx-button-secondary px-4 py-3">
-                                        <span className="inline-flex items-center gap-2"><User2 className="h-4 w-4" />Account</span>
-                                    </Link>
-                                    <Link href={route('account.wishlist')} className="cbx-button cbx-button-secondary px-4 py-3">
-                                        <span className="inline-flex items-center gap-2"><Heart className="h-4 w-4" />Wishlist</span>
-                                    </Link>
-                                    <Link href={route('logout')} method="post" as="button" className="cbx-button cbx-button-ghost px-4 py-3">
-                                        Log out
-                                    </Link>
-                                </>
-                            ) : (
-                                <>
-                                    <Link href={route('login')} className="cbx-button cbx-button-secondary px-4 py-3">Sign in</Link>
-                                    <Link href={route('register')} className="cbx-button cbx-button-primary px-4 py-3">Create account</Link>
-                                </>
-                            )}
-                            <Link href={route('cart.index')} className="cbx-button cbx-button-primary px-4 py-3">
-                                <span className="inline-flex items-center gap-2"><ShoppingBag className="h-4 w-4" />Bag ({cart?.count || 0})</span>
+                            <Link href={auth.user ? route('dashboard') : route('login')} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] text-[var(--cbx-on-surface)] transition hover:border-[var(--cbx-primary)]">
+                                <User2 className="h-4 w-4" />
+                            </Link>
+                            <Link href={route('account.wishlist')} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] text-[var(--cbx-on-surface)] transition hover:border-[var(--cbx-primary)]">
+                                <Heart className="h-4 w-4" />
+                            </Link>
+                            <Link href={route('cart.index')} className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--cbx-primary)] text-[var(--cbx-on-primary)] transition hover:bg-[var(--cbx-secondary)]">
+                                <ShoppingBag className="h-4 w-4" />
+                                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--cbx-secondary)] px-1 text-[10px] font-bold text-white">{cart?.count || 0}</span>
                             </Link>
                         </div>
                     </div>
-                    </div>
 
-                    <nav className="flex flex-wrap items-center gap-2 text-sm text-[var(--cbx-on-surface-variant)]">
-                        <Link href={route('shop.index')} className="rounded-full bg-[var(--cbx-surface-container)] px-4 py-2 font-semibold text-[var(--cbx-on-surface)]">Shop</Link>
-                        <Link href={route('collections.show', 'new-arrivals')} className="rounded-full px-4 py-2 hover:bg-[var(--cbx-surface-container-low)]">New Arrivals</Link>
-                        {categoryLinks.map((category) => (
-                            <Link key={category.id} href={route('categories.show', category.slug)} className="rounded-full px-4 py-2 hover:bg-[var(--cbx-surface-container-low)]">
+                    <nav className="flex gap-2 overflow-x-auto pb-1 text-[12px] font-medium text-[var(--cbx-on-surface-variant)] md:hidden">
+                        <Link href={route('shop.index')} className="whitespace-nowrap rounded-full bg-[var(--cbx-primary)] px-4 py-2 text-white">Shop</Link>
+                        <Link href={route('collections.show', 'new-arrivals')} className="whitespace-nowrap rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] px-4 py-2">New Arrival</Link>
+                        {categoryLinks.slice(0, 3).map((category) => (
+                            <Link key={category.id} href={route('categories.show', category.slug)} className="whitespace-nowrap rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] px-4 py-2">
                                 {category.name}
                             </Link>
                         ))}
@@ -89,34 +90,65 @@ export default function StorefrontLayout({ title, categories = [], children }) {
                 </div>
             </header>
 
-            <main className="mx-auto max-w-7xl space-y-10 px-[4%] py-8 lg:py-10">
+            <main className="mx-auto max-w-[92rem] space-y-10 px-[4%] py-8 lg:py-10">
                 <FlashMessages />
                 {children}
             </main>
 
-            <footer className="border-t border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] px-[4%] py-10 text-sm text-[var(--cbx-on-surface-variant)]">
-                <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
-                    <div className="space-y-3">
-                        <p className="cbx-kicker">Temukan Kami</p>
-                        <p className="font-heading text-xl font-semibold text-[var(--cbx-on-surface)]">COLORBOX</p>
-                        <p>Tailored layers, fluid bottoms, and accessories designed for the office-to-evening switch.</p>
-                    </div>
-                    <div className="space-y-3">
-                        <p className="cbx-kicker">Info</p>
-                        <Link href={route('shop.index')} className="block hover:text-[var(--cbx-secondary)]">Shop all</Link>
-                        <Link href={route('collections.show', 'new-arrivals')} className="block hover:text-[var(--cbx-secondary)]">New arrivals</Link>
-                    </div>
-                    <div className="space-y-3">
-                        <p className="cbx-kicker">Bantuan</p>
-                        <Link href={route('cart.index')} className="block hover:text-[var(--cbx-secondary)]">Shopping bag</Link>
-                        <Link href={route('login')} className="block hover:text-[var(--cbx-secondary)]">Customer access</Link>
-                    </div>
-                    <div className="space-y-3">
-                        <p className="cbx-kicker">Lacak Pesanan</p>
-                        <form onSubmit={submitOrderTracking} className="space-y-3">
-                            <Input value={trackingNumber} onChange={(event) => setTrackingNumber(event.target.value)} placeholder="Enter order number" />
-                            <Button type="submit" className="w-full">Track order</Button>
+            <section className="border-t border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)] px-[4%]">
+                <div className="mx-auto grid max-w-[82rem] gap-px bg-[var(--cbx-border-subtle)] lg:grid-cols-2">
+                    <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-8">
+                        <p className="cbx-kicker">Track Order</p>
+                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">Quick order utility</h3>
+                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Support tools stay accessible, but the presentation is quieter and cleaner.</p>
+                        <form onSubmit={submitOrderTracking} className="mt-5 flex flex-col gap-3 sm:flex-row">
+                            <Input value={trackingNumber} onChange={(event) => setTrackingNumber(event.target.value)} placeholder="Order ID" className="h-12 flex-1 rounded-md bg-[var(--cbx-surface-container-low)]" />
+                            <Button type="submit" className="px-5 py-3">Track</Button>
                         </form>
+                    </div>
+                    <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-8">
+                        <p className="cbx-kicker">Join the Box</p>
+                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">Create your account</h3>
+                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Save favorites, review orders, and move through checkout faster.</p>
+                        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                            <Link href={auth.user ? route('dashboard') : route('register')} className="cbx-button cbx-button-primary px-5 py-3 text-sm">
+                                {auth.user ? 'Open account' : 'Create account'}
+                            </Link>
+                            {!auth.user ? <Link href={route('login')} className="cbx-button cbx-button-secondary px-5 py-3 text-sm">Sign in</Link> : null}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer className="bg-[var(--cbx-surface-container-lowest)] px-[4%] py-10 text-sm text-[var(--cbx-on-surface-variant)] lg:py-12">
+                <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                        <p className="font-heading text-2xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)]">COLORBOX</p>
+                        <p className="mt-4 max-w-xs leading-6">Tailored layers, fluid bottoms, and accessories designed for the office-to-evening switch.</p>
+                    </div>
+                    <div>
+                        <p className="cbx-kicker">Information</p>
+                        <div className="mt-4 space-y-3">
+                            <Link href={route('shop.index')} className="block hover:text-[var(--cbx-secondary)]">Shop all</Link>
+                            <Link href={route('collections.show', 'new-arrivals')} className="block hover:text-[var(--cbx-secondary)]">New arrivals</Link>
+                            <Link href={route('register')} className="block hover:text-[var(--cbx-secondary)]">Create account</Link>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="cbx-kicker">Customer Care</p>
+                        <div className="mt-4 space-y-3">
+                            <Link href={route('cart.index')} className="block hover:text-[var(--cbx-secondary)]">Shopping bag</Link>
+                            <Link href={route('login')} className="block hover:text-[var(--cbx-secondary)]">Customer access</Link>
+                            <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="block text-left hover:text-[var(--cbx-secondary)]">Back to top</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="cbx-kicker">Multi-brand Links</p>
+                        <div className="mt-4 space-y-3">
+                            <div>Executive</div>
+                            <div>Lee</div>
+                            <div>Wrangler</div>
+                        </div>
                     </div>
                 </div>
             </footer>

@@ -170,4 +170,4 @@ The layout utilizes a combination of CSS Grid and Flexbox for responsive and ada
 *   **Shadows:**
     *   `box-shadow: 0px 2px 12px #e5e8eb`
     *   `box-shadow: 0px 2px 12px rgba(229, 232, 235, 0.5)`
-    
+    *   `box-shadow: 0 3px 3px rgba(0, 0
