@@ -1,4 +1,5 @@
 import FlashMessages from '@/Components/FlashMessages';
+import StorefrontFooter from '@/Components/Storefront/StorefrontFooter';
 import { Button } from '@/Components/ui/Button';
 import { Input } from '@/Components/ui/Input';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -121,38 +122,7 @@ export default function StorefrontLayout({ title, categories = [], children }) {
                 </div>
             </section>
 
-            <footer className="bg-[var(--cbx-surface-container-lowest)] px-[4%] py-10 text-sm text-[var(--cbx-on-surface-variant)] lg:py-12">
-                <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-4">
-                    <div>
-                        <p className="font-heading text-2xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)]">COLORBOX</p>
-                        <p className="mt-4 max-w-xs leading-6">Tailored layers, fluid bottoms, and accessories designed for the office-to-evening switch.</p>
-                    </div>
-                    <div>
-                        <p className="cbx-kicker">Information</p>
-                        <div className="mt-4 space-y-3">
-                            <Link href={route('shop.index')} className="block hover:text-[var(--cbx-secondary)]">Shop all</Link>
-                            <Link href={route('collections.show', 'new-arrivals')} className="block hover:text-[var(--cbx-secondary)]">New arrivals</Link>
-                            <Link href={route('register')} className="block hover:text-[var(--cbx-secondary)]">Create account</Link>
-                        </div>
-                    </div>
-                    <div>
-                        <p className="cbx-kicker">Customer Care</p>
-                        <div className="mt-4 space-y-3">
-                            <Link href={route('cart.index')} className="block hover:text-[var(--cbx-secondary)]">Shopping bag</Link>
-                            <Link href={route('login')} className="block hover:text-[var(--cbx-secondary)]">Customer access</Link>
-                            <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="block text-left hover:text-[var(--cbx-secondary)]">Back to top</button>
-                        </div>
-                    </div>
-                    <div>
-                        <p className="cbx-kicker">Multi-brand Links</p>
-                        <div className="mt-4 space-y-3">
-                            <div>Executive</div>
-                            <div>Lee</div>
-                            <div>Wrangler</div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <StorefrontFooter />
         </div>
     );
 }
