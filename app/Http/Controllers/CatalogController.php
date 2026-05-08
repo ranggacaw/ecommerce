@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -72,6 +73,14 @@ class CatalogController extends Controller
             $query->whereHas('variants', fn (Builder $builder) => $builder->where('color', $color));
         }
 
+        if ($brand = $request->string('brand')->toString()) {
+            $query->where('brand', $brand);
+        }
+
+        if ($categories = $request->array('categories')) {
+            $query->whereIn('category_id', $categories);
+        }
+
         if ($request->boolean('in_stock')) {
             $query->whereHas('variants', fn (Builder $builder) => $builder->whereRaw('stock_on_hand - stock_reserved > 0'));
         }
@@ -93,10 +102,23 @@ class CatalogController extends Controller
 
         $products = $query->paginate(12)->withQueryString();
 
+        $brands = Product::where('is_active', true)
+            ->whereNotNull('brand')
+            ->distinct()
+            ->orderBy('brand')
+            ->pluck('brand');
+
+        $collections = Collection::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->pluck('name');
+
         return Inertia::render('Storefront/Catalog', [
             'products' => $products,
             'categories' => Category::query()->where('is_active', true)->orderBy('name')->get(),
-            'filters' => $request->only(['q', 'size', 'color', 'in_stock', 'min_price', 'max_price', 'sort']),
+            'brands' => $brands,
+            'collections' => $collections,
+            'filters' => $request->only(['q', 'size', 'color', 'brand', 'categories', 'in_stock', 'min_price', 'max_price', 'sort', 'collections']),
             'activeCategory' => $category,
             'activeCollection' => $collection,
         ]);

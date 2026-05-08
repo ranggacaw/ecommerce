@@ -1,46 +1,69 @@
-import { Badge } from '@/Components/ui/Badge';
+import { useState } from 'react';
 import { Card, CardContent } from '@/Components/ui/Card';
 import { formatCurrency, productPrimaryImage, productPrice } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import { Heart } from 'lucide-react';
 
 export default function ProductCard({ product }) {
-    const hasComparePrice = Number(product.compare_price || 0) > Number(productPrice(product));
+    const currentPrice = Number(productPrice(product));
+    const comparePrice = Number(product.compare_price || 0);
+    const hasComparePrice = comparePrice > currentPrice;
+    const discountPercent = hasComparePrice ? Math.round(((comparePrice - currentPrice) / comparePrice) * 100) : 0;
+    const [isWishlisted, setIsWishlisted] = useState(false);
+
+    const toggleWishlist = (e) => {
+        e.preventDefault(); // Prevent Link navigation
+        setIsWishlisted(!isWishlisted);
+        // We always try to store since the prompt specifically mentions saving. 
+        // Backend logic can handle duplicates if needed.
+        router.post(route('account.wishlist.store'), { product_id: product.id }, { preserveScroll: true });
+    };
 
     return (
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden rounded-sm border-0 bg-gray-50/50">
             <Link href={route('products.show', product.slug)}>
-                <img
-                    src={productPrimaryImage(product)}
-                    alt={product.name}
-                    className="h-80 w-full object-cover"
-                />
-            </Link>
-            <CardContent className="space-y-4">
-                <div className="flex flex-wrap gap-2">
-                    {product.is_new_arrival ? <Badge className="border-[var(--cbx-brand-light-pink)] bg-[var(--cbx-brand-light-pink)] text-[var(--cbx-accent-crimson)]">New</Badge> : null}
-                    {product.is_promoted ? <Badge className="border-[var(--cbx-secondary-container)] bg-[var(--cbx-secondary-container)] text-white">Promo</Badge> : null}
-                    <Badge>{product.category?.name}</Badge>
+                <div className="relative">
+                    <img
+                        src={productPrimaryImage(product)}
+                        alt={product.name}
+                        className="h-80 w-full object-cover mix-blend-multiply"
+                    />
+                    {hasComparePrice && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-black text-white py-1.5 px-2 text-center flex flex-col">
+                            <span className="font-bold text-[0.7rem] leading-tight">{discountPercent}% off</span>
+                            <span className="text-[9px] leading-tight">Tanpa min. belanja, maks. potongan Rp500.000.</span>
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <Link href={route('products.show', product.slug)} className="font-heading text-xl font-semibold text-[var(--cbx-on-surface)] hover:text-[var(--cbx-secondary)]">
-                        {product.name}
-                    </Link>
-                    <p className="mt-2 text-sm leading-6 text-[var(--cbx-on-surface-variant)]">{product.short_description}</p>
-                </div>
-                <div className="flex items-center justify-between">
-                    <div className="space-y-2">
-                        <p className="cbx-kicker">From</p>
-                        <div className="flex items-center gap-2">
-                            <p className="cbx-price">{formatCurrency(productPrice(product))}</p>
-                            {hasComparePrice ? <span className="text-sm text-[var(--cbx-neutral-mid)] line-through">{formatCurrency(product.compare_price)}</span> : null}
+                <CardContent className="px-3 py-3 space-y-2 bg-white">
+                    <div>
+                        <div className="flex justify-between items-start">
+                            <p className="font-heading text-sm font-semibold text-[var(--cbx-on-surface)] hover:text-[var(--cbx-secondary)]">
+                                {product.brand || 'Unknown'}
+                            </p>
+                            <button onClick={toggleWishlist} className={`text-gray-400 hover:text-red-500 transition-colors ${isWishlisted ? 'text-red-500' : ''}`}>
+                                <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
+                            </button>
+                        </div>
+                        <p className="text-xs text-[var(--cbx-on-surface)] hover:text-[var(--cbx-secondary)]">
+                            {product.name}
+                        </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                                <p className={`text-sm font-bold ${hasComparePrice ? 'text-red-600' : 'text-[var(--cbx-neutral-mid)]'}`}>{formatCurrency(currentPrice)}</p>
+                                {hasComparePrice && (
+                                    <>
+                                        <span className="text-xs text-[var(--cbx-neutral-mid)] line-through">{formatCurrency(comparePrice)}</span>
+                                        <span className="text-[10px] text-red-600 bg-red-50 px-1 py-0.5 rounded font-medium">-{discountPercent}%</span>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
-                    <p className="text-sm text-[var(--cbx-on-surface-variant)]">{product.variants?.length || 0} variants</p>
-                </div>
-                <Link href={route('products.show', product.slug)} className="cbx-button cbx-button-secondary w-full px-4 py-3 text-sm">
-                    Select options
-                </Link>
-            </CardContent>
+                </CardContent>
+            </Link>
         </Card>
     );
 }
