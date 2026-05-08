@@ -24,7 +24,7 @@ class CartService
                 ->with(['items.variant.product.images'])
                 ->firstOrCreate(
                     ['user_id' => $request->user()->id, 'status' => 'active'],
-                    ['cart_token' => $token],
+                    ['cart_token' => $this->newToken()],
                 )
                 ->load(['items.variant.product.images']);
         }
@@ -124,11 +124,20 @@ class CartService
             return;
         }
 
-        DB::transaction(function () use ($guestCart, $user, $token): void {
-            $userCart = Cart::query()->firstOrCreate(
-                ['user_id' => $user->id, 'status' => 'active'],
-                ['cart_token' => $token],
-            );
+        DB::transaction(function () use ($guestCart, $user): void {
+            $userCart = Cart::query()
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->first();
+
+            if (! $userCart) {
+                $guestCart->forceFill([
+                    'user_id' => $user->id,
+                    'expires_at' => null,
+                ])->save();
+
+                return;
+            }
 
             foreach ($guestCart->items as $guestItem) {
                 $existing = $userCart->items()->firstOrNew([
@@ -152,6 +161,15 @@ class CartService
 
     protected function token(Request $request): string
     {
-        return (string) ($request->cookie('cart_token') ?: Str::uuid());
+        return (string) ($request->cookie('cart_token') ?: $this->newToken());
+    }
+
+    protected function newToken(): string
+    {
+        do {
+            $token = (string) Str::uuid();
+        } while (Cart::query()->where('cart_token', $token)->exists());
+
+        return $token;
     }
 }

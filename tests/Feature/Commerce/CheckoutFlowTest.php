@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Address;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -95,6 +96,44 @@ it('creates an order, payment, and shipment from checkout', function () {
     ]);
 
     expect($variant->fresh()->stock_reserved)->toBe(2);
+});
+
+it('reuses the guest cart when an authenticated user adds an item', function () {
+    $user = User::factory()->create();
+    $variant = createCheckoutVariant(5);
+    $guestToken = (string) Str::uuid();
+
+    $guestCart = Cart::create([
+        'cart_token' => $guestToken,
+        'status' => 'active',
+        'expires_at' => now()->addDays(30),
+    ]);
+
+    $guestCart->items()->create([
+        'product_variant_id' => $variant->id,
+        'quantity' => 1,
+        'unit_price' => $variant->price,
+    ]);
+
+    $this->actingAs($user)
+        ->withCookie('cart_token', $guestToken)
+        ->post(route('cart.store'), ['variant_id' => $variant->id, 'quantity' => 2])
+        ->assertRedirect();
+
+    $userCart = Cart::query()
+        ->where('user_id', $user->id)
+        ->where('status', 'active')
+        ->first();
+
+    expect($userCart)->not->toBeNull();
+    expect($userCart->id)->toBe($guestCart->id);
+    expect($userCart->cart_token)->toBe($guestToken);
+
+    $this->assertDatabaseHas('cart_items', [
+        'cart_id' => $guestCart->id,
+        'product_variant_id' => $variant->id,
+        'quantity' => 3,
+    ]);
 });
 
 it('rejects checkout when requested quantity exceeds available stock', function () {

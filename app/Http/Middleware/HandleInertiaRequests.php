@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Category;
+use App\Models\WishlistItem;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -33,9 +34,16 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $cart = ['count' => 0, 'subtotal' => 0.0];
+        $wishlist = ['count' => 0];
 
         if (Schema::hasTable('carts') && Schema::hasTable('cart_items')) {
             $cart = app(CartService::class)->summary($request);
+        }
+
+        if ($request->user() && Schema::hasTable('wishlist_items')) {
+            $wishlist['count'] = WishlistItem::query()
+                ->where('user_id', $request->user()->id)
+                ->count();
         }
 
         $navigationCategories = [];
@@ -54,6 +62,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'appName' => config('app.name'),
             'cart' => $cart,
+            'wishlist' => $wishlist,
             'navigationCategories' => $navigationCategories,
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

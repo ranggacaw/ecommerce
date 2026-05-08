@@ -6,7 +6,7 @@ import { Heart, Search, ShoppingBag, User2 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function StorefrontLayout({ title, categories = [], children }) {
-    const { auth, cart, appName, navigationCategories } = usePage().props;
+    const { auth, cart, wishlist, appName, navigationCategories } = usePage().props;
     const [query, setQuery] = useState('');
     const [trackingNumber, setTrackingNumber] = useState('');
     const categoryLinks = categories.length ? categories : navigationCategories || [];
@@ -68,8 +68,9 @@ export default function StorefrontLayout({ title, categories = [], children }) {
                             <Link href={auth.user ? route('dashboard') : route('login')} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] text-[var(--cbx-on-surface)] transition hover:border-[var(--cbx-primary)]">
                                 <User2 className="h-4 w-4" />
                             </Link>
-                            <Link href={route('account.wishlist')} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] text-[var(--cbx-on-surface)] transition hover:border-[var(--cbx-primary)]">
+                            <Link href={route('account.wishlist')} className="relative grid h-10 w-10 place-items-center rounded-full border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] text-[var(--cbx-on-surface)] transition hover:border-[var(--cbx-primary)]">
                                 <Heart className="h-4 w-4" />
+                                {wishlist?.count > 0 ? <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--cbx-secondary)] px-1 text-[10px] font-bold text-white">{wishlist.count}</span> : null}
                             </Link>
                             <Link href={route('cart.index')} className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--cbx-primary)] text-[var(--cbx-on-primary)] transition hover:bg-[var(--cbx-secondary)]">
                                 <ShoppingBag className="h-4 w-4" />
