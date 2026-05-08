@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "accent-forest": "#3C9342",
+                    "accent-crimson": "#A70100",
+                    "border-subtle": "#e5e8eb",
+                    "outline-variant": "#cfc4c5",
+                    "brand-light-pink": "#F0AAA4",
+                    "outline": "#7e7576",
+                    "surface-tint": "#5e5e5e",
+                    "surface-alt": "#fafafa",
+                    "on-secondary-container": "#fffbff",
+                    "secondary-fixed": "#ffdad6",
+                    "secondary-container": "#d93633",
+                    "primary": "#000000",
+                    "brand-green": "#478947",
+                    "tertiary-container": "#1b1b1b",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#4c4546",
+                    "on-secondary-fixed": "#410003",
+                    "on-error": "#ffffff",
+                    "background": "#f9f9f9",
+                    "on-secondary-fixed-variant": "#93000f",
+                    "neutral-mid": "#565656",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary": "#b5191e",
+                    "primary-container": "#1b1b1b",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-bright": "#f9f9f9",
+                    "accent-gold": "#A77A06",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1b1b",
+                    "brand-pink": "#FF369C",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#303030",
+                    "on-surface": "#1b1b1b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#dadada",
+                    "on-primary": "#ffffff",
+                    "neutral-light": "#ededed",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-primary-container": "#848484",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "tertiary": "#000000",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-fixed-variant": "#474747",
+                    "neutral-dark": "#212121",
+                    "surface": "#f9f9f9",
+                    "primary-fixed": "#e2e2e2",
+                    "on-primary-fixed": "#1b1b1b",
+                    "inverse-on-surface": "#f1f1f1",
+                    "secondary-fixed-dim": "#ffb3ac",
+                    "surface-container-highest": "#e2e2e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "touch-padding": "10px",
+                    "component-gap": "16px",
+                    "grid-gutter": "12px",
+                    "section-gap": "40px",
+                    "container-padding": "4%"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "h1": ["Epilogue"],
+                    "price-display": ["Epilogue"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Epilogue"],
+                    "h2": ["Epilogue"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .legal-content ol { list-style-type: decimal; padding-left: 1.5rem; }
+        .legal-content li { margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-brand-pink selection:text-white">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 sticky border-b border-border-subtle z-50">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="font-h2 text-h2 font-bold tracking-tighter text-primary" href="#">COLORBOX</a>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">New Arrival</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Clothing</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Accessories</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Sale</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Collections</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity p-2">person</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity p-2">favorite</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity p-2">shopping_bag</button>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-container-padding py-16">
+<!-- Hero Header -->
+<section class="mb-16 border-b border-neutral-light pb-12">
+<h1 class="font-h1 text-h1 mb-4">Legal Agreements</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Please read our Terms of Service and Privacy Policy carefully. These documents govern your relationship with Colorbox and how we manage your data.
+            </p>
+<div class="mt-8 flex flex-wrap gap-4">
+<a class="bg-primary text-on-primary px-6 py-3 font-label-caps text-label-caps transition-transform active:scale-95" href="#tos">TERMS OF SERVICE</a>
+<a class="border border-primary text-primary px-6 py-3 font-label-caps text-label-caps transition-transform active:scale-95" href="#privacy">PRIVACY POLICY</a>
+</div>
+</section>
+<!-- Terms of Service Section -->
+<article class="legal-content mb-24" id="tos">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-brand-pink text-4xl">gavel</span>
+<h2 class="font-h2 text-h2 uppercase tracking-tight">Terms of Service</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-8 italic">Last Updated: October 24, 2023</p>
+<div class="space-y-12">
+<section>
+<h3 class="font-h3 text-h3 mb-4">1. Acceptance of Terms</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+                        By accessing and using the Colorbox website, products, and services, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.
+                    </p>
+</section>
+<section>
+<h3 class="font-h3 text-h3 mb-4">2. Use License</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant mb-4">
+                        Permission is granted to temporarily download one copy of the materials (information or software) on Colorbox's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                    </p>
+<ol class="font-body-md text-body-md text-on-surface-variant">
+<li>Modify or copy the materials;</li>
+<li>Use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
+<li>Attempt to decompile or reverse engineer any software contained on Colorbox's website;</li>
+<li>Remove any copyright or other proprietary notations from the materials; or</li>
+<li>Transfer the materials to another person or "mirror" the materials on any other server.</li>
+</ol>
+</section>
+<section>
+<h3 class="font-h3 text-h3 mb-4">3. Disclaimer</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+                        The materials on Colorbox's website are provided on an 'as is' basis. Colorbox makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                    </p>
+</section>
+</div>
+</article>
+<!-- Visual Divider -->
+<div class="w-full h-px bg-border-subtle my-20"></div>
+<!-- Privacy Policy Section -->
+<article class="legal-content mb-16" id="privacy">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-brand-green text-4xl">verified_user</span>
+<h2 class="font-h2 text-h2 uppercase tracking-tight">Privacy Policy</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-8 italic">Last Updated: October 24, 2023</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-12">
+<section>
+<h3 class="font-h3 text-h3 mb-4">Data Collection</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+                            We collect information from you when you register on our site, place an order, subscribe to our newsletter, respond to a survey or fill out a form. When ordering or registering on our site, as appropriate, you may be asked to enter your: name, e-mail address, mailing address, phone number or credit card information.
+                        </p>
+</section>
+<section>
+<h3 class="font-h3 text-h3 mb-4">Cookies Usage</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+                            Yes, we use cookies to help us remember and process the items in your shopping cart, understand and save your preferences for future visits and compile aggregate data about site traffic and site interaction so that we can offer better site experiences and tools in the future.
+                        </p>
+</section>
+</div>
+<div class="bg-surface-container-low p-8 rounded-lg border border-border-subtle">
+<h3 class="font-h3 text-h3 mb-6">Security Standards</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">lock</span>
+<div>
+<p class="font-label-caps text-label-caps mb-1">SSL ENCRYPTION</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">All sensitive information is transmitted via Secure Socket Layer (SSL) technology.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">payments</span>
+<div>
+<p class="font-label-caps text-label-caps mb-1">PCI COMPLIANCE</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your transaction data is only stored as long as is necessary to complete your purchase transaction.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">privacy_tip</span>
+<div>
+<p class="font-label-caps text-label-caps mb-1">GDPR READY</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">We respect your rights under the General Data Protection Regulation and offer full transparency.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="mt-12">
+<h3 class="font-h3 text-h3 mb-4">How we use your information</h3>
+<p class="font-body-md text-body-md leading-relaxed text-on-surface-variant mb-6">
+                    Any of the information we collect from you may be used in one of the following ways:
+                </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<div class="border-l-4 border-primary pl-4 py-2">
+<p class="font-h3 text-h3">Personalize</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">To better respond to your individual needs.</p>
+</div>
+<div class="border-l-4 border-secondary pl-4 py-2">
+<p class="font-h3 text-h3">Improve</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Continually improving our website offerings based on your feedback.</p>
+</div>
+<div class="border-l-4 border-accent-forest pl-4 py-2">
+<p class="font-h3 text-h3">Service</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Processing transactions and sending periodic emails.</p>
+</div>
+</div>
+</section>
+</article>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-alt w-full mt-section-gap border-t border-border-subtle">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-grid-gutter px-container-padding py-12 w-full max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<p class="font-h3 text-h3 font-black text-primary mb-4">COLORBOX</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bold, expressive retail for the modern generation. Making fashion accessible and vibrant.</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps mb-4 text-primary">CUSTOMER CARE</p>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Find a Store</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<p class="font-label-caps text-label-caps mb-4 text-primary">COMPANY</p>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-sm text-body-sm text-primary underline" href="#">Privacy Policy</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<p class="font-label-caps text-label-caps mb-4 text-primary">NEWSLETTER</p>
+<div class="flex border border-outline-variant rounded-lg overflow-hidden">
+<input class="bg-white px-4 py-2 w-full border-none focus:ring-0 text-body-sm" placeholder="Your Email" type="email"/>
+<button class="bg-primary text-white px-4 py-2 material-symbols-outlined">arrow_forward</button>
+</div>
+</div>
+</div>
+<div class="px-container-padding py-6 border-t border-border-subtle text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 COLORBOX. All Rights Reserved.</p>
+</div>
+</footer>
+</body></html>
