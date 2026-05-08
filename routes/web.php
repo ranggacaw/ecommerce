@@ -12,11 +12,16 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorefrontController;
+use App\Http\Controllers\StorefrontPageController;
 use App\Http\Controllers\Webhook\ShipmentStatusController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', StorefrontController::class)->name('home');
+Route::get('/about', [StorefrontPageController::class, 'about'])->name('storefront.about');
+Route::get('/location', [StorefrontPageController::class, 'location'])->name('storefront.location');
+Route::get('/contact-us', [StorefrontPageController::class, 'contact'])->name('storefront.contact');
+Route::get('/terms-and-policy', [StorefrontPageController::class, 'terms'])->name('storefront.terms');
 Route::get('/shop', [CatalogController::class, 'index'])->name('shop.index');
 Route::get('/categories/{category}', [CatalogController::class, 'category'])->name('categories.show');
 Route::get('/collections/{collection}', [CatalogController::class, 'collection'])->name('collections.show');

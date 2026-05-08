@@ -94,3 +94,15 @@ it('filters the catalog by color and stock availability', function () {
         ->assertSee('Red Scarf')
         ->assertDontSee('Blue Scarf');
 });
+
+it('renders storefront information pages', function (string $routeName, string $component) {
+    $this->get(route($routeName))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component($component));
+})->with([
+    ['storefront.about', 'Storefront/About'],
+    ['storefront.location', 'Storefront/Location'],
+    ['storefront.contact', 'Storefront/ContactUs'],
+    ['storefront.terms', 'Storefront/TermsPolicy'],
+]);

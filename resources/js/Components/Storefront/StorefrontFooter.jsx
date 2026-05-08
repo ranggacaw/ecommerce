@@ -12,10 +12,10 @@ const footerSections = [
     {
         title: 'Company',
         items: [
-            { type: 'text', label: 'About' },
-            { type: 'text', label: 'Location' },
-            { type: 'text', label: 'Contact Us' },
-            { type: 'text', label: 'Term & Policy' },
+            { type: 'link', label: 'About', href: route('storefront.about') },
+            { type: 'link', label: 'Location', href: route('storefront.location') },
+            { type: 'link', label: 'Contact Us', href: route('storefront.contact') },
+            { type: 'link', label: 'Term & Policy', href: route('storefront.terms') },
         ],
     },
     {
