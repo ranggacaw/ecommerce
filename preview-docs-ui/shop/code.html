@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "neutral-mid": "#565656",
+                      "on-primary-fixed": "#1b1b1b",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "accent-crimson": "#A70100",
+                      "surface-container-high": "#e8e8e8",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#b5191e",
+                      "brand-pink": "#FF369C",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#ffb3ac",
+                      "on-tertiary-container": "#848484",
+                      "on-surface-variant": "#4c4546",
+                      "background": "#f9f9f9",
+                      "on-secondary-fixed-variant": "#93000f",
+                      "border-subtle": "#e5e8eb",
+                      "secondary-fixed": "#ffdad6",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-primary": "#c6c6c6",
+                      "on-surface": "#1b1b1b",
+                      "tertiary": "#000000",
+                      "brand-light-pink": "#F0AAA4",
+                      "accent-gold": "#A77A06",
+                      "surface": "#f9f9f9",
+                      "error": "#ba1a1a",
+                      "primary": "#000000",
+                      "tertiary-container": "#1b1b1b",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-background": "#1b1b1b",
+                      "outline": "#7e7576",
+                      "inverse-surface": "#303030",
+                      "on-primary-container": "#848484",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "surface-container": "#eeeeee",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "accent-forest": "#3C9342",
+                      "brand-green": "#478947",
+                      "surface-variant": "#e2e2e2",
+                      "neutral-dark": "#212121",
+                      "surface-bright": "#f9f9f9",
+                      "surface-alt": "#fafafa",
+                      "outline-variant": "#cfc4c5",
+                      "surface-dim": "#dadada",
+                      "inverse-on-surface": "#f1f1f1",
+                      "on-secondary-fixed": "#410003",
+                      "on-tertiary": "#ffffff",
+                      "neutral-light": "#ededed",
+                      "tertiary-fixed": "#e2e2e2",
+                      "primary-container": "#1b1b1b",
+                      "surface-container-low": "#f3f3f3",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-primary": "#ffffff",
+                      "primary-fixed": "#e2e2e2",
+                      "on-secondary-container": "#fffbff",
+                      "secondary-container": "#d93633"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "grid-gutter": "12px",
+                      "touch-padding": "10px",
+                      "section-gap": "40px",
+                      "container-padding": "4%",
+                      "component-gap": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "h1": ["Epilogue"],
+                      "label-caps": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "h2": ["Epilogue"],
+                      "h3": ["Epilogue"],
+                      "body-md": ["Inter"],
+                      "price-display": ["Epilogue"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 sticky z-50 border-b border-border-subtle">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<h1 class="font-h2 text-h2 font-bold tracking-tighter text-primary">COLORBOX</h1>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">New Arrival</a>
+<a class="font-label-caps text-label-caps text-secondary border-b-2 border-secondary pb-1" href="#">Clothing</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Accessories</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Sale</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Collections</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center border border-neutral-light bg-surface-container-low px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-neutral-mid text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm px-2" placeholder="Search..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">person</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding py-8">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 mb-8 font-body-sm text-body-sm text-neutral-mid">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface font-bold">Clothing</span>
+</nav>
+<div class="flex flex-col md:flex-row gap-grid-gutter">
+<!-- Sidebar Filter -->
+<aside class="w-full md:w-64 flex-shrink-0">
+<div class="sticky top-24 space-y-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">Collection</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Essential</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-on-surface transition-colors">Street Style</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded border-outline focus:ring-secondary text-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Summer 24</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">Size</h3>
+<div class="grid grid-cols-4 gap-2">
+<button class="py-2 border border-neutral-light font-body-sm text-body-sm hover:border-primary transition-colors">XS</button>
+<button class="py-2 border border-primary bg-primary text-on-primary font-body-sm text-body-sm">S</button>
+<button class="py-2 border border-neutral-light font-body-sm text-body-sm hover:border-primary transition-colors">M</button>
+<button class="py-2 border border-neutral-light font-body-sm text-body-sm hover:border-primary transition-colors">L</button>
+<button class="py-2 border border-neutral-light font-body-sm text-body-sm hover:border-primary transition-colors">XL</button>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">Color</h3>
+<div class="flex flex-wrap gap-3">
+<button class="w-8 h-8 rounded-full border border-neutral-light bg-white ring-offset-2 hover:ring-2 ring-primary transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-neutral-dark hover:ring-2 ring-primary transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-secondary hover:ring-2 ring-primary transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-brand-pink hover:ring-2 ring-primary transition-all"></button>
+<button class="w-8 h-8 rounded-full bg-brand-green hover:ring-2 ring-primary transition-all"></button>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">Price Range</h3>
+<div class="space-y-4">
+<input class="w-full accent-secondary" max="1000000" min="0" type="range"/>
+<div class="flex justify-between font-body-sm text-body-sm text-neutral-mid">
+<span>Rp 0</span>
+<span>Rp 1,000,000+</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Canvas -->
+<div class="flex-grow">
+<!-- Toolbar -->
+<div class="flex justify-between items-center mb-8 pb-4 border-b border-border-subtle">
+<p class="font-body-md text-body-md text-neutral-mid">Showing <span class="text-on-surface font-bold">24</span> Products</p>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-neutral-mid">Sort by:</span>
+<select class="border-none bg-transparent font-body-md text-body-md focus:ring-0 cursor-pointer">
+<option>Featured</option>
+<option>Newest Arrival</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-grid-gutter">
+<!-- Product Card 1 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional fashion editorial shot of a young woman wearing a vibrant, oversized pink blazer against a clean, white studio background. The lighting is crisp and high-key, highlighting the bold texture of the fabric. The overall mood is energetic, modern, and youthful, perfectly aligning with the Colorbox brand identity of high-contrast and vibrant retail aesthetics." src="https://colorbox.co.id/"/>
+<div class="absolute top-3 left-3 bg-white px-2 py-1 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-brand-green text-[14px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="text-[10px] font-bold text-brand-green uppercase tracking-wider">Sustainable</span>
+</div>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Colorbox Essentials</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Oversized Pink Blazer</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 459,000</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 rounded-full bg-brand-pink border border-neutral-light"></div>
+<div class="w-3 h-3 rounded-full bg-neutral-dark border border-neutral-light"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up fashion photography of a trendy street-style outfit featuring a graphic t-shirt and distressed denim. The lighting is warm and natural, suggesting an urban afternoon setting. The composition is asymmetrical, focusing on the textures and bold graphic design of the clothing, maintaining a modern corporate and youth-oriented aesthetic." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Street Style</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Urban Graphic Tee</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-secondary">IDR 189,000</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 rounded-full bg-white border border-neutral-light"></div>
+<div class="w-3 h-3 rounded-full bg-neutral-mid border border-neutral-light"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fashion-forward model posing in a minimalist concrete environment, wearing a sleek black evening dress with asymmetric cuts. The mood is sophisticated and editorial, with dramatic soft shadows that define the silhouette. The image uses a palette of deep blacks and neutral grays, reflecting a high-end retail experience for the modern consumer." src="https://colorbox.co.id/"/>
+<div class="absolute top-3 left-3 bg-secondary text-white px-2 py-1 rounded-sm shadow-sm font-label-caps text-[10px]">NEW</div>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Evening Wear</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Asymmetric Cut Dress</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 399,000</span>
+<div class="w-3 h-3 rounded-full bg-neutral-dark border border-neutral-light"></div>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-contrast retail photography of a stylish pair of wide-leg denim jeans styled with a cropped white top. The background is a vibrant red, creating a bold, eye-catching visual that drives urgency. The model's pose is dynamic and energetic, showcasing the movement of the fabric in a bright, modern light-mode setting." src="https://colorbox.co.id/"/>
+<div class="absolute top-3 left-3 bg-white px-2 py-1 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-brand-green text-[14px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="text-[10px] font-bold text-brand-green uppercase tracking-wider">Sustainable</span>
+</div>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Eco-Denim</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Wide-Leg Classic Denim</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 529,000</span>
+<div class="w-3 h-3 rounded-full bg-[#3b5998] border border-neutral-light"></div>
+</div>
+</div>
+</div>
+<!-- Repeated Rows with varying items for layout demo -->
+<!-- Product Card 5 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up detail shot of a soft-knit sweater in a pastel mint green color. The lighting is soft and diffused, emphasizing the high-quality texture and weave of the garment. The background is a clean neutral, maintaining the sophisticated corporate retail aesthetic while focusing on product quality and comfort." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Knitwear</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Pastel Knit Sweater</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 299,000</span>
+<div class="w-3 h-3 rounded-full bg-brand-light-pink border border-neutral-light"></div>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Full-length studio portrait of a model wearing a coordinated two-piece linen set in a light beige tone. The styling is minimalist and elegant, with soft high-key lighting that creates an airy, fresh atmosphere. The image emphasizes breezy fabrics and a relaxed fit, ideal for a summer category collection." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Summer 24</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Linen Co-ord Set</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-secondary">IDR 649,000</span>
+<div class="w-3 h-3 rounded-full bg-[#f5f5dc] border border-neutral-light"></div>
+</div>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bold, stylized fashion photograph of a model in a reflective metallic silver puffer jacket. The lighting is dramatic and directional, creating high-contrast highlights and deep shadows. The setting is a dark, industrial space, making the jacket pop as the primary focal point, emphasizing a forward-thinking and adventurous brand personality." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Outerwear</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Metallic Puffer Jacket</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 899,000</span>
+<div class="w-3 h-3 rounded-full bg-neutral-mid border border-neutral-light"></div>
+</div>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="group relative bg-white border border-border-subtle overflow-hidden">
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An editorial fashion shot of a young man wearing a sustainable cotton button-down shirt in a soft forest green. The model is set against a textured earthen wall, with soft, natural lighting highlighting the eco-friendly materials. The mood is calm and grounded, reinforcing the brand's commitment to sustainability through high-quality visual storytelling." src="https://colorbox.co.id/"/>
+<div class="absolute top-3 left-3 bg-white px-2 py-1 rounded-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-brand-green text-[14px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="text-[10px] font-bold text-brand-green uppercase tracking-wider">Sustainable</span>
+</div>
+<button class="absolute bottom-4 left-4 right-4 bg-primary text-on-primary py-3 font-label-caps text-label-caps opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 active:scale-95">QUICK ADD</button>
+</div>
+<div class="p-4 bg-surface-lowest">
+<p class="font-body-sm text-body-sm text-neutral-mid mb-1">Eco-Line</p>
+<h4 class="font-body-md text-body-md text-on-surface font-bold truncate mb-2">Organic Cotton Shirt</h4>
+<div class="flex justify-between items-end">
+<span class="font-price-display text-price-display text-primary">IDR 329,000</span>
+<div class="w-3 h-3 rounded-full bg-accent-forest border border-neutral-light"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-subtle hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-subtle hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-subtle hover:bg-surface-container-high transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-subtle hover:bg-surface-container-high transition-colors">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-subtle hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface-container-low border-t border-border-subtle">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-grid-gutter px-container-padding py-12 w-full max-w-7xl mx-auto">
+<div class="col-span-1">
+<h2 class="font-h3 text-h3 font-black text-primary mb-6">COLORBOX</h2>
+<p class="font-body-sm text-body-sm text-neutral-mid max-w-xs">Elevate your style with the latest trends. Bold, expressive, and always on-point.</p>
+</div>
+<div class="col-span-1">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-6">Quick Links</h3>
+<ul class="space-y-3">
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Find a Store</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-6">Customer Care</h3>
+<ul class="space-y-3">
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">FAQ</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Order Tracking</a></li>
+<li><a class="font-body-sm text-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Size Guide</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-6">Join The Club</h3>
+<p class="font-body-sm text-body-sm text-neutral-mid mb-4">Subscribe for exclusive offers and news.</p>
+<div class="flex">
+<input class="bg-surface-lowest border border-border-subtle px-3 py-2 w-full font-body-sm outline-none focus:border-primary" placeholder="Your email" type="email"/>
+<button class="bg-primary text-on-primary px-4 font-label-caps text-[10px] whitespace-nowrap">JOIN</button>
+</div>
+</div>
+</div>
+<div class="border-t border-border-subtle py-6 text-center">
+<p class="font-body-sm text-body-sm text-neutral-mid">© 2024 COLORBOX. All Rights Reserved.</p>
+</div>
+</footer>
+</body></html>

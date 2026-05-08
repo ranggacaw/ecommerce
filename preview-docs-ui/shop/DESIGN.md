@@ -109,11 +109,6 @@ rounded:
   lg: 0.5rem
   xl: 0.75rem
   full: 9999px
-
-## Border Radius Guidelines
-- **Prefer rounded-sm** (0.125rem / 2px) for cards, containers, and sections — subtle rounding looks more professional and modern
-- Avoid large border-radius values like rounded-[1.5rem] or rounded-[1.75rem] — excessive rounding makes UI feel cartoonish
-- Use rounded-full (9999px) only for circular elements (avatars, badges, icon buttons)
 spacing:
   container-padding: 4%
   section-gap: 40px
@@ -175,4 +170,4 @@ The layout utilizes a combination of CSS Grid and Flexbox for responsive and ada
 *   **Shadows:**
     *   `box-shadow: 0px 2px 12px #e5e8eb`
     *   `box-shadow: 0px 2px 12px rgba(229, 232, 235, 0.5)`
-    
+    *   `box-shadow: 0 3px 3px rgba(0, 0

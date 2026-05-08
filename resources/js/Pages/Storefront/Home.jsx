@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 function ProductTile({ product }) {
     return (
         <article className="group">
-            <Link href={route('products.show', product.slug)} className="block overflow-hidden rounded-[1.5rem] border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] shadow-[var(--cbx-shadow-soft)]">
+            <Link href={route('products.show', product.slug)} className="block overflow-hidden rounded-sm border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)] shadow-[var(--cbx-shadow-soft)]">
                 <img src={productPrimaryImage(product)} alt={product.name} className="aspect-[3/4] h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
             </Link>
             <div className="mt-4 space-y-1">
@@ -154,24 +154,24 @@ export default function Home({ banners, categories, newArrivals, promoCollection
         <StorefrontLayout title="Home" categories={categories}>
             <HeroSlideshow banners={banners} />
 
-            <section className="grid gap-px overflow-hidden rounded-[1.5rem] border border-[var(--cbx-border-subtle)] bg-[var(--cbx-border-subtle)] lg:grid-cols-3">
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-6">
+            <section className="grid gap-px overflow-hidden rounded-sm border border-[var(--cbx-border-subtle)] bg-[var(--cbx-border-subtle)] lg:grid-cols-3">
+                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
                     <p className="cbx-kicker">New In Weekly</p>
-                    <p className="mt-2 max-w-sm text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Rotating drops and curated edits get their own lane beneath the hero instead of competing above the fold.</p>
+                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Rotating drops and curated edits get their own lane beneath the hero instead of competing above the fold.</p>
                 </div>
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-6">
+                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
                     <p className="cbx-kicker">Delivery & Pickup</p>
-                    <p className="mt-2 max-w-sm text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Short, useful reassurance replaces scattered utility content throughout the homepage.</p>
+                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Short, useful reassurance replaces scattered utility content throughout the homepage.</p>
                 </div>
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-6">
+                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
                     <p className="cbx-kicker">Member Perks</p>
-                    <p className="mt-2 max-w-sm text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Wishlist, account, and campaign hooks still surface without overcrowding the hero.</p>
+                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Wishlist, account, and campaign hooks still surface without overcrowding the hero.</p>
                 </div>
             </section>
 
             {promoCollection ? (
                 <section className="space-y-6">
-                    <div className="grid gap-6 rounded-[1.75rem] border border-[var(--cbx-secondary)] bg-[linear-gradient(135deg,var(--cbx-secondary-container),var(--cbx-secondary))] p-6 text-white shadow-[var(--cbx-shadow-soft)] lg:grid-cols-[1fr_auto_auto] lg:items-center lg:px-8 lg:py-8">
+                    <div className="grid gap-6 rounded-sm border border-[var(--cbx-secondary)] bg-[linear-gradient(135deg,var(--cbx-secondary-container),var(--cbx-secondary))] p-6 text-white shadow-[var(--cbx-shadow-soft)] lg:grid-cols-[1fr_auto_auto] lg:items-center lg:px-8 lg:py-8">
                         <div>
                             <Badge className="border-white/10 bg-black/10 text-white backdrop-blur">Flash Sale</Badge>
                             <h2 className="mt-4 font-heading text-3xl font-black tracking-[-0.03em] text-white lg:text-4xl">{promoCollection.name}</h2>
@@ -215,7 +215,7 @@ export default function Home({ banners, categories, newArrivals, promoCollection
                                 href={route('categories.show', category.slug)}
                                 className={isPrimary ? 'md:col-span-7 md:row-span-2' : 'md:col-span-5'}
                             >
-                                <article className={`relative flex min-h-[16rem] overflow-hidden rounded-[1.75rem] border border-[var(--cbx-border-subtle)] p-6 text-white shadow-[var(--cbx-shadow-soft)] ${isPrimary ? 'lg:min-h-[35rem] lg:p-10' : ''}`}>
+                                <article className={`relative flex min-h-[16rem] overflow-hidden rounded-sm border border-[var(--cbx-border-subtle)] p-6 text-white shadow-[var(--cbx-shadow-soft)] ${isPrimary ? 'lg:min-h-[35rem] lg:p-10' : ''}`}>
                                     {visual ? <img src={visual} alt={category.name} className="absolute inset-0 h-full w-full object-cover" /> : null}
                                     <div className={`absolute inset-0 bg-gradient-to-br ${categoryAccents[index % categoryAccents.length]}`} />
                                     <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.5),rgba(0,0,0,0.08))]" />
