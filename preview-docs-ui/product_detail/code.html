@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "neutral-mid": "#565656",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "accent-crimson": "#A70100",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#b5191e",
+                        "brand-pink": "#FF369C",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb3ac",
+                        "on-tertiary-container": "#848484",
+                        "on-surface-variant": "#4c4546",
+                        "background": "#f9f9f9",
+                        "on-secondary-fixed-variant": "#93000f",
+                        "border-subtle": "#e5e8eb",
+                        "secondary-fixed": "#ffdad6",
+                        "surface-tint": "#5e5e5e",
+                        "inverse-primary": "#c6c6c6",
+                        "on-surface": "#1b1b1b",
+                        "tertiary": "#000000",
+                        "brand-light-pink": "#F0AAA4",
+                        "accent-gold": "#A77A06",
+                        "surface": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "primary": "#000000",
+                        "tertiary-container": "#1b1b1b",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-background": "#1b1b1b",
+                        "outline": "#7e7576",
+                        "inverse-surface": "#303030",
+                        "on-primary-container": "#848484",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-container": "#eeeeee",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "accent-forest": "#3C9342",
+                        "brand-green": "#478947",
+                        "surface-variant": "#e2e2e2",
+                        "neutral-dark": "#212121",
+                        "surface-bright": "#f9f9f9",
+                        "surface-alt": "#fafafa",
+                        "outline-variant": "#cfc4c5",
+                        "surface-dim": "#dadada",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-secondary-fixed": "#410003",
+                        "on-tertiary": "#ffffff",
+                        "neutral-light": "#ededed",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-container": "#1b1b1b",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-container": "#d93633"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "grid-gutter": "12px",
+                        "touch-padding": "10px",
+                        "section-gap": "40px",
+                        "container-padding": "4%",
+                        "component-gap": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "h1": ["Epilogue"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h2": ["Epilogue"],
+                        "h3": ["Epilogue"],
+                        "body-md": ["Inter"],
+                        "price-display": ["Epilogue"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased">
+<!-- Top Navigation -->
+<header class="bg-surface docked full-width top-0 sticky z-50 border-b border-border-subtle">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-h2 text-h2 font-bold tracking-tighter text-primary">COLORBOX</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">New Arrival</a>
+<a class="font-label-caps text-label-caps text-secondary border-b-2 border-secondary pb-1" href="#">Clothing</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Accessories</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Sale</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity" href="#">Collections</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-80">search</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80">person</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80">favorite</button>
+<button class="material-symbols-outlined text-primary hover:opacity-80">shopping_bag</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding py-8">
+<!-- Breadcrumbs -->
+<nav class="flex gap-2 mb-6 font-body-sm text-body-sm text-on-surface-variant">
+<a class="hover:text-primary" href="#">Home</a>
+<span>/</span>
+<a class="hover:text-primary" href="#">Clothing</a>
+<span>/</span>
+<span class="text-on-surface font-bold">Oversized Graphic Tee</span>
+</nav>
+<!-- Product Hero Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left: Image Gallery (Asymmetric Layout) -->
+<div class="lg:col-span-7 grid grid-cols-12 gap-4">
+<div class="col-span-2 flex flex-col gap-4">
+<div class="aspect-[3/4] border-2 border-primary overflow-hidden cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional fashion photography studio shot of a vibrant oversized graphic t-shirt. The lighting is high-key and crisp, emphasizing the texture of the soft cotton fabric. The color palette is dominated by deep blacks and bright whites with bold red accents. The atmosphere is youthful, energetic, and modern." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-[3/4] border border-border-subtle overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="Close-up detail shot of a premium quality cotton oversized t-shirt, showing the intricate graphic print and reinforced stitching. The background is a clean, neutral grey that makes the bold product colors pop. The lighting is soft and diffused to highlight the material's premium feel." src="https://colorbox.co.id/"/>
+</div>
+<div class="aspect-[3/4] border border-border-subtle overflow-hidden cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="A stylish lifestyle photograph of a model wearing an oversized graphic tee in a modern urban setting. The composition uses a sophisticated 55/45 split layout typical of high-end fashion magazines. The mood is candid and fashionable, featuring bright daylight and sharp shadows." src="https://colorbox.co.id/"/>
+</div>
+</div>
+<div class="col-span-10">
+<div class="aspect-[3/4] w-full bg-surface-container relative overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Primary hero shot of an oversized graphic t-shirt displayed on a minimalist background. The photography style is bold and high-contrast, perfectly aligning with a vibrant retail brand identity. The lighting is cinematic, creating a clear focus on the product's silhouette and bold typography design." src="https://colorbox.co.id/"/>
+<button class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right: Product Controls -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div>
+<p class="font-label-caps text-label-caps text-secondary mb-2">NEW ARRIVAL</p>
+<h1 class="font-h2 text-h2 text-primary mb-1">Oversized "No Limits" Graphic Tee</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SKU: CBX-OT-2401-BK</p>
+</div>
+<div class="flex items-baseline gap-4">
+<span class="font-price-display text-price-display text-primary">IDR 199.000</span>
+<span class="font-body-md text-body-md text-on-surface-variant line-through">IDR 249.000</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 font-label-caps text-[10px] rounded">20% OFF</span>
+</div>
+<!-- Color Swatches -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-3 uppercase">Color: Phantom Black</p>
+<div class="flex gap-3">
+<button class="w-10 h-10 rounded-full bg-primary ring-2 ring-offset-2 ring-primary"></button>
+<button class="w-10 h-10 rounded-full bg-neutral-light ring-1 ring-border-subtle"></button>
+<button class="w-10 h-10 rounded-full bg-accent-crimson ring-1 ring-border-subtle"></button>
+</div>
+</div>
+<!-- Size Selector -->
+<div>
+<div class="flex justify-between items-center mb-3">
+<p class="font-label-caps text-label-caps text-primary uppercase">Select Size</p>
+<button class="text-body-sm font-bold underline hover:text-secondary">Size Guide</button>
+</div>
+<div class="grid grid-cols-5 gap-2">
+<button class="h-12 border border-border-subtle font-body-md hover:border-primary transition-colors">S</button>
+<button class="h-12 border-2 border-primary font-bold font-body-md bg-surface-container-high">M</button>
+<button class="h-12 border border-border-subtle font-body-md hover:border-primary transition-colors">L</button>
+<button class="h-12 border border-border-subtle font-body-md hover:border-primary transition-colors">XL</button>
+<button class="h-12 border border-border-subtle font-body-md opacity-40 cursor-not-allowed bg-neutral-light">XXL</button>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 mt-4">
+<button class="w-full bg-primary text-on-primary py-4 font-bold font-label-caps text-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">shopping_bag</span>
+                        ADD TO BAG
+                    </button>
+<button class="w-full border border-primary text-primary py-4 font-bold font-label-caps flex items-center justify-center gap-2 hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">favorite</span>
+                        ADD TO WISHLIST
+                    </button>
+</div>
+<!-- Accordion Sections -->
+<div class="mt-8 border-t border-border-subtle">
+<div class="border-b border-border-subtle">
+<button class="w-full py-4 flex justify-between items-center group">
+<span class="font-label-caps text-label-caps uppercase text-primary">Description</span>
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform">expand_more</span>
+</button>
+<div class="pb-4 text-body-sm text-on-surface-variant leading-relaxed">
+                            Upgrade your streetwear game with our signature oversized tee. Featuring a bold "No Limits" typographic print on high-grade 100% heavy cotton, this piece combines ultimate comfort with high-fashion aesthetics. Perfect for layered looks or casual statement outfits.
+                        </div>
+</div>
+<div class="border-b border-border-subtle">
+<button class="w-full py-4 flex justify-between items-center group">
+<span class="font-label-caps text-label-caps uppercase text-primary">Composition &amp; Care</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+<div class="border-b border-border-subtle">
+<button class="w-full py-4 flex justify-between items-center group">
+<span class="font-label-caps text-label-caps uppercase text-primary">Shipping &amp; Returns</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Shipping Summary -->
+<div class="bg-surface-container-low p-4 rounded flex gap-4 items-start">
+<span class="material-symbols-outlined text-accent-forest">local_shipping</span>
+<div>
+<p class="font-body-sm font-bold text-primary">FREE Shipping to Jakarta</p>
+<p class="font-body-sm text-on-surface-variant">Estimated arrival: 2-3 business days.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendations Slider -->
+<section class="mt-section-gap">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-h3 text-h3 text-primary uppercase">You Might Also Like</h2>
+<p class="font-body-sm text-on-surface-variant">Curated matches for your style</p>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center hover:bg-white"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center hover:bg-white"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-grid-gutter">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] bg-surface-container relative overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Fashion product card showcasing a pair of distressed denim jeans on a clean white background. The image has a modern, editorial vibe with soft shadowing and a crisp focus. Part of a cohesive fashion collection with high-contrast elements." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-white py-2 font-label-caps text-[10px] translate-y-12 group-hover:translate-y-0 transition-transform duration-300 shadow-sm uppercase font-bold">Quick Add</button>
+</div>
+<h3 class="font-body-md text-body-md text-primary mb-1">Distressed Straight Jeans</h3>
+<p class="font-price-display text-price-display">IDR 399.000</p>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] bg-surface-container relative overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Lifestyle product shot of a minimalist canvas tote bag with bold black typography. The setting is a bright, modern studio with high-key lighting and a youthful, fashion-forward mood. The design is part of a premium retail collection." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-white py-2 font-label-caps text-[10px] translate-y-12 group-hover:translate-y-0 transition-transform duration-300 shadow-sm uppercase font-bold">Quick Add</button>
+</div>
+<h3 class="font-body-md text-body-md text-primary mb-1">Graphic Canvas Tote</h3>
+<p class="font-price-display text-price-display">IDR 89.000</p>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] bg-surface-container relative overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fashion photography image of a oversized zip-up hoodie in a soft pastel color. The image features a bold 30/70 asymmetric grid composition, providing a sophisticated magazine-style feel. The lighting is soft, creating a calm and modern aesthetic." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-white py-2 font-label-caps text-[10px] translate-y-12 group-hover:translate-y-0 transition-transform duration-300 shadow-sm uppercase font-bold">Quick Add</button>
+</div>
+<h3 class="font-body-md text-body-md text-primary mb-1">Essential Oversized Hoodie</h3>
+<p class="font-price-display text-price-display">IDR 349.000</p>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[3/4] bg-surface-container relative overflow-hidden mb-3">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Fashion portrait of a model wearing a pair of chunky designer sneakers. The style is urban and trendy, featuring high-contrast color blocking and vibrant accents. The photography is sharp and professional, aimed at a youthful, conversion-focused audience." src="https://colorbox.co.id/"/>
+<button class="absolute bottom-4 left-4 right-4 bg-white py-2 font-label-caps text-[10px] translate-y-12 group-hover:translate-y-0 transition-transform duration-300 shadow-sm uppercase font-bold">Quick Add</button>
+</div>
+<h3 class="font-body-md text-body-md text-primary mb-1">Chunky Platform Sneakers</h3>
+<p class="font-price-display text-price-display">IDR 459.000</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-alt dark:bg-neutral-dark border-t border-border-subtle mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-grid-gutter px-container-padding py-12 w-full max-w-7xl mx-auto">
+<div>
+<span class="font-h3 text-h3 font-black text-primary mb-6 block">COLORBOX</span>
+<p class="font-body-sm text-on-surface-variant pr-4">Redefining streetwear for the next generation. Bold designs, premium quality, no limits.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-primary uppercase mb-2">Shopping</h4>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">New Arrival</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Clothing</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Accessories</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Sale</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-primary uppercase mb-2">Support</h4>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Find a Store</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Contact Us</a>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary uppercase mb-4">Join the Club</h4>
+<p class="font-body-sm text-on-surface-variant mb-4">Get 10% off your first order.</p>
+<div class="flex">
+<input class="w-full bg-white border border-border-subtle px-4 py-2 text-sm focus:outline-none focus:border-primary" placeholder="Your Email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 font-label-caps text-[10px]">JOIN</button>
+</div>
+</div>
+</div>
+<div class="border-t border-border-subtle py-6 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 COLORBOX. All Rights Reserved.</p>
+</div>
+</footer>
+</body></html>

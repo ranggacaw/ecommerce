@@ -17,6 +17,12 @@ export function productPrimaryImage(product) {
     return product?.images?.find((image) => image.is_primary)?.url || product?.images?.[0]?.url || 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80';
 }
 
-export function productPrice(product) {
+export function productPrice(product, variant) {
+    if (variant?.price) {
+        return Number(variant.price);
+    }
+    if (product?.price) {
+        return Number(product.price);
+    }
     return Number(product?.base_price || product?.variants?.[0]?.price || 0);
 }
