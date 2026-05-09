@@ -11,6 +11,7 @@ export default function StorefrontLayout({ title, categories = [], children }) {
     const [query, setQuery] = useState('');
     const [trackingNumber, setTrackingNumber] = useState('');
     const categoryLinks = categories.length ? categories : navigationCategories || [];
+    const cartCount = cart?.count ?? cart?.items?.length ?? null;
 
     const submitSearch = (event) => {
         event.preventDefault();
@@ -75,7 +76,7 @@ export default function StorefrontLayout({ title, categories = [], children }) {
                             </Link>
                             <Link href={route('cart.index')} className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--cbx-primary)] text-[var(--cbx-on-primary)] transition hover:bg-[var(--cbx-secondary)]">
                                 <ShoppingBag className="h-4 w-4" />
-                                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--cbx-secondary)] px-1 text-[10px] font-bold text-white">{cart?.count || 0}</span>
+                                {cartCount != null ? <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--cbx-secondary)] px-1 text-[10px] font-bold text-white">{cartCount}</span> : null}
                             </Link>
                         </div>
                     </div>

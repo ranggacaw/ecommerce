@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;900&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "accent-forest": "#3C9342",
+                    "accent-crimson": "#A70100",
+                    "border-subtle": "#e5e8eb",
+                    "outline-variant": "#cfc4c5",
+                    "brand-light-pink": "#F0AAA4",
+                    "outline": "#7e7576",
+                    "surface-tint": "#5e5e5e",
+                    "surface-alt": "#fafafa",
+                    "on-secondary-container": "#fffbff",
+                    "secondary-fixed": "#ffdad6",
+                    "secondary-container": "#d93633",
+                    "primary": "#000000",
+                    "brand-green": "#478947",
+                    "tertiary-container": "#1b1b1b",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#4c4546",
+                    "on-secondary-fixed": "#410003",
+                    "on-error": "#ffffff",
+                    "background": "#f9f9f9",
+                    "on-secondary-fixed-variant": "#93000f",
+                    "neutral-mid": "#565656",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-tertiary-fixed": "#1b1b1b",
+                    "secondary": "#b5191e",
+                    "primary-container": "#1b1b1b",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e2e2e2",
+                    "tertiary-fixed-dim": "#c6c6c6",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-bright": "#f9f9f9",
+                    "accent-gold": "#A77A06",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1b1b",
+                    "brand-pink": "#FF369C",
+                    "surface-container": "#eeeeee",
+                    "inverse-surface": "#303030",
+                    "on-surface": "#1b1b1b",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-dim": "#dadada",
+                    "on-primary": "#ffffff",
+                    "neutral-light": "#ededed",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "on-primary-container": "#848484",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e8e8e8",
+                    "tertiary": "#000000",
+                    "on-tertiary-container": "#848484",
+                    "on-primary-fixed-variant": "#474747",
+                    "neutral-dark": "#212121",
+                    "surface": "#f9f9f9",
+                    "primary-fixed": "#e2e2e2",
+                    "on-primary-fixed": "#1b1b1b",
+                    "inverse-on-surface": "#f1f1f1",
+                    "secondary-fixed-dim": "#ffb3ac",
+                    "surface-container-highest": "#e2e2e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "touch-padding": "10px",
+                    "component-gap": "16px",
+                    "grid-gutter": "12px",
+                    "section-gap": "40px",
+                    "container-padding": "4%"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "h1": ["Epilogue"],
+                    "price-display": ["Epilogue"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Epilogue"],
+                    "h2": ["Epilogue"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<header class="bg-surface dark:bg-neutral-dark docked full-width top-0 sticky border-b border-border-subtle dark:border-neutral-mid z-50">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="font-h2 text-h2 font-bold tracking-tighter text-primary dark:text-on-primary">COLORBOX</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-opacity" href="#">New Arrival</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-opacity" href="#">Clothing</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-opacity" href="#">Accessories</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-opacity" href="#">Sale</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-opacity" href="#">Collections</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">person</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150 text-secondary border-b-2 border-secondary pb-1">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-150 relative">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">3</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding py-12">
+<section class="mb-section-gap">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<nav class="flex items-center gap-2 text-body-sm text-neutral-mid mb-2">
+<span>Home</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Wishlist</span>
+</nav>
+<h1 class="font-h1 text-h1 text-primary">My Wishlist</h1>
+<p class="font-body-md text-on-surface-variant mt-2">Manage your favorite items and find them later.</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-body-sm text-neutral-mid">8 Items Saved</span>
+<button class="flex items-center gap-2 border border-outline px-4 py-2 rounded hover:bg-neutral-light transition-colors font-body-sm">
+<span class="material-symbols-outlined">sort</span>
+                        Sort by: Newest
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-grid-gutter">
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Yellow Hoodie" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A fashionably dressed young woman wearing a bright yellow oversized hoodie and matching joggers, standing against a clean white studio wall. The lighting is bright and high-contrast, emphasizing the vibrant streetwear aesthetic and bold color blocking typical of modern youth retail. The shot is editorial and high-energy with a crisp, professional finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAULRYQ-fqvTOobd9YiKYA0HN41qMJWLWtRccfsOig_l-ysbYRd_1XZAIFLtyICeqYglFPJEuAafuZKBSiUrHnGXkmi-HLnqBayG-v-AU_fnlaO_uvfSvuudPSmKdWh8c8SIVsYnaXQGwFTwUJ-FukrOtPstN5SKmxTOUBJ4EnWNJo6pDErbWj5xeHRDtXDGrH9okeTUKH0U4uytWjQZIS_Xi1SO_SlBYp5SMvnxy6E1RI43oZZIuYXwby0JoeBT_t1h1P0Vh3H46I"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">NEW ARRIVAL</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Oversized Citrus Hoodie</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$45.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Denim Trousers" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up shot of light-wash denim wide-leg trousers paired with white sneakers on a minimalist grey background. The lighting is soft and neutral, highlighting the fabric texture and stitching details. The composition is clean and modern, reflecting a fashionable and approachable retail look suitable for an e-commerce product card." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNbLDpbYHhWtTqVDatDN4JGEUembG0t79D5rtzNzlz2dxOrOBahTmYLGRQEBdJSF8qLXtbEpES1lmM9bfOK9AQAXN-2UkGHCXMnTsReTV4nLGTAqM6SCIPOjkYztCFGFuKCvR2yBEjIkIlAq6zKs6XRoE3EXUAyvLbaI3nNDFJMjLhYqOVqKBG4oUFDAauNKl1ruOAhipd8SfEgzMr_UxLFyMC8AtjkaJKlhgtHggUJpDQ3oVwN0-Yy6FgSA-z7coMQr64SYAalfc"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">CLOTHING</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">High-Rise Wide Leg Denim</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$59.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Red Jacket" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A stylish portrait of a person wearing a vibrant red leather jacket and bold chunky jewelry against a muted urban background. The image has a high-fashion, editorial feel with dramatic lighting that creates strong highlights and shadows. The color palette is dominated by the striking brand-red, conveying energy and a premium shopping experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwVN0Z1Mr7dbWt8iA3mo9C8uGWWvqO5tBawJB3Q1VPfw-OmsViZyDHATJado8gDa2UH3yKagf3JpNkVa6L-M0Rupk8MCyjrFLcKC63WHVGSd3QXx-B5yKt6b41fn5ndsOP3PPF7jTrmPM5jhrY-AEEOiKL5aVmc3ySNU7ZxgZk3N6rt6mavUuvnD1QW0csaSMvcVOBTsAGxA7E3t5CJIj_LxLYH8sy9vgWKU89qV-iT9Ur7wAUyHrwHWFULIKj6J3S1393qLwIcto"/>
+<div class="absolute top-4 left-4 bg-secondary text-white font-label-caps text-[10px] px-2 py-1 rounded-sm">SALE</div>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-accent-crimson mb-1">SALE</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Vegan Leather Moto Jacket</h3>
+<div class="mt-auto">
+<div class="flex gap-3 items-center mb-4">
+<span class="font-price-display text-price-display text-secondary">$89.00</span>
+<span class="font-body-sm text-neutral-mid line-through">$120.00</span>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Digital Watch" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A minimalist studio product shot of a sleek, modern white digital watch on a matching white surface. The lighting is diffused and even, creating a clean and sophisticated aesthetic with subtle soft shadows. The overall vibe is minimalist and high-end, focusing on form and clean lines within a bright, contemporary retail framework." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJKgHgjp8budcdoRu4XRfDk0AxQzf3Ct3xUuKAqY74zBYpXQN6WX5UviFYsuG3YSbSvHRzSBPaz8XKpUCVJZlvfdRXa25hoSknUAgRek7bgsdtN8HKFuz2ctuYFbjx6fVPSmYxTcIVQHOjLr6Xcbj8zywoqpnGgPtxRsYsczRrraWSWQBeeXTsTxSUId4t11Bh-avwFbUHR1Lr7QsK0H8vGMbNX-L_L1RVfngUJfk7RTvlx81hMXsBm4Yz5_MZWxhILwOVJ0lEidA"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">ACCESSORIES</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Minimalist Digital Watch</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$35.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Trench Coat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A product photograph of a classic beige trench coat draped over a minimalist wooden chair in a bright, sunlit room. The lighting is warm and natural, creating a cozy yet elevated fashion mood. The setting uses soft neutrals and textures to highlight the premium quality of the garment, consistent with a high-end editorial fashion catalogue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_XG6rfor5j1nYrCP6HzMgQbF3pGcDaF9vHQXNVBa-YYiD4jWRr9dqN9_9nQn-BF0bMG70GDj1K0SafYCDjwCVf1B2BGXsWY-mkvQs9AfoJ7yaCm9wbarPG3EbhHzuM3G5kPO797Gh6V-YILuKc_I_MQRL5xtjWIcO_sJI0o8FGnFWZV_MHOI_DJqHg43AzVCCsju4PMlI87I0r0DAilxeEihP2nNaqB4eLXWKSBqlu6hKcxX_UYTmJFg6GjElhCP17KLfI7sB2S4"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">CLOTHING</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Classic Camel Trench</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$110.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Sneakers" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A studio shot of sleek red and white running shoes suspended against a deep black background. Dramatic spotlighting creates high contrast and emphasizes the aerodynamic design and vibrant brand colors. The mood is energetic, high-performance, and ultra-modern, perfect for a bold retail environment looking to drive urgency and fashion appeal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_06p1r0wP6l0VyCnbtanX5QNKYLxYdjllJiz7xSxanBcoOaY7-q_0cx6DjRTY9gtA7XCLsn0HIFhNVnnS33Db2TJha39pol1urmqp_eZpOi23aqczaGMJbp1z9G4VqbqPLXrjlDikf_cdtmM3Q8v_yHr9GuOfDoBPthrCSZIGi9OtBZ1WO_oPMuIBEZnZEnnNFzVE4Wo97m6ZPaR92rdIxX8V2iR3vEySvSCh1IOU61HFMn47GRl-ZGa4zOvuCKmKOR6gzdkm-q0"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">NEW ARRIVAL</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Crimson Blaze Runners</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$75.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Platform Boots" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A detailed product shot of stylish, chunky platform boots with vibrant green laces against a pastel pink background. The color contrast is playful and youth-oriented, characteristic of high-energy retail brands. The lighting is bright and flat, ensuring every detail of the stitching and material is visible for e-commerce clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCJECi34W4kfdS-NC2uUs0Sp4-qRiMjo1q8URFVB5zk_IEiGrgDIco8qWmDDi2N1kMrHcA0kvSSUSebhopvDUkQf4ebcTl8BLWbGtY9bGpEfMUM-ted2Ru_N9L6ofa0GNzn3USIcz5BLJ60FDel0evr7PLG1ovSmLx6Hqj9M6VLZhoR6gITgft1Lz5QCzRrgQvaVJhQN-_7ceLVBBYHjmS7Vh07BSecOUmTNsfXJpPdvO21vecYjjWlbvKlJ0Jn22wejWtL3OdZIk"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">COLLECTIONS</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Neo-Chunky Platform Boots</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$125.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+<div class="group relative bg-white border border-border-subtle overflow-hidden flex flex-col h-full">
+<div class="relative aspect-[3/4] overflow-hidden bg-surface-container">
+<img alt="Graphic Tee" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A clean, minimalist shot of a simple white graphic t-shirt displayed against a neutral background. The lighting is soft and artistic, highlighting the cotton texture and a small, bold black typographic print on the chest. The mood is effortless and fashionable, representing a core staple in a modern urban wardrobe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzp2Bx26VXPjgcw2mN6dhrYMK1d4bo9qARbY7cS_9U0trVHqruFtXAPmxaL-mPFjg0vwvw7kc1ia2alrzl0Vt1p1qGm6UmbfkzrIP8GFIvNzDpDCae8c1qp5VuQx31YLyQXgevIiQHZoUxSjSFc2o2hMrR8O41ijh28ouqCcns5RtsQUG5phEMTduIhsDy7GWyPQpAq32InkPojVW2SM-_FQ8gxYXa-ABr4wRAq1E9mKOgn17XnaouauNUJqGaC1957DRd23RDyb8"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm active:scale-95 transition-transform z-10">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<p class="font-body-sm text-neutral-mid mb-1">CLOTHING</p>
+<h3 class="font-body-md text-body-md text-primary font-semibold mb-2 group-hover:text-secondary transition-colors">Icon Typo Graphic Tee</h3>
+<div class="mt-auto">
+<span class="font-price-display text-price-display text-primary block mb-4">$28.00</span>
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-neutral-dark active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+                                ADD TO BAG
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-primary p-12 text-center text-on-primary">
+<h2 class="font-h2 text-h2 mb-4">WANT IT ALL?</h2>
+<p class="font-body-lg text-body-lg mb-8 max-w-xl mx-auto opacity-80">Check out our latest collections and get inspired by this season's hottest trends.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-on-primary text-primary px-8 py-4 font-label-caps text-label-caps hover:bg-neutral-light transition-colors">SHOP NEW ARRIVALS</button>
+<button class="border border-on-primary text-on-primary px-8 py-4 font-label-caps text-label-caps hover:bg-white/10 transition-colors">VIEW BEST SELLERS</button>
+</div>
+</section>
+</main>
+<footer class="w-full mt-section-gap bg-surface-container-low dark:bg-neutral-dark border-t border-border-subtle">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-grid-gutter px-container-padding py-12 w-full max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-h3 text-h3 font-black text-primary dark:text-on-primary mb-6">COLORBOX</div>
+<p class="font-body-sm text-neutral-mid mb-6 max-w-xs">Elevating street style since 2024. Your destination for high-energy fashion and modern trends.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 border border-border-subtle flex items-center justify-center hover:bg-secondary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 border border-border-subtle flex items-center justify-center hover:bg-secondary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">SHOP</h4>
+<ul class="flex flex-col gap-4">
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">New Arrival</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Clothing</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Accessories</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Sale</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">SUPPORT</h4>
+<ul class="flex flex-col gap-4">
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Find a Store</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Shipping &amp; Returns</a></li>
+<li><a class="font-body-sm text-neutral-mid hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">NEWSLETTER</h4>
+<p class="font-body-sm text-neutral-mid mb-4">Join our list and get 10% off your first order.</p>
+<form class="flex gap-2">
+<input class="bg-white border border-border-subtle px-4 py-2 flex-grow focus:outline-none focus:border-secondary font-body-sm" placeholder="Email address" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 font-label-caps text-label-caps">JOIN</button>
+</form>
+</div>
+</div>
+<div class="border-t border-border-subtle py-6 px-container-padding text-center">
+<p class="font-body-sm text-neutral-mid opacity-60">© 2024 COLORBOX. All Rights Reserved.</p>
+</div>
+</footer>
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border-subtle flex justify-around items-center py-3 z-50">
+<button class="flex flex-col items-center gap-1 text-neutral-mid">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-[10px] font-label-caps">SHOP</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-neutral-mid">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-[10px] font-label-caps">FLASH</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined filled-icon">favorite</span>
+<span class="text-[10px] font-label-caps">WISHLIST</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-neutral-mid">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label-caps">PROFILE</span>
+</button>
+</nav>
+</body></html>
