@@ -40,11 +40,13 @@ const topicOptions = [
 ];
 
 export default function ContactUs() {
+    const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+
     const [form, setForm] = useState({
         name: '',
         email: '',
-        topic: '',
-        orderNumber: '',
+        topic: params?.get('topic') || '',
+        orderNumber: params?.get('orderNumber') || '',
         message: '',
     });
 

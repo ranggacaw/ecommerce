@@ -58,4 +58,29 @@ class Order extends Model
     {
         return $this->hasMany(Shipment::class);
     }
+
+    public function getShippingNameAttribute(): string
+    {
+        return $this->address_snapshot['recipient_name'] ?? '';
+    }
+
+    public function getShippingAddressAttribute(): string
+    {
+        return $this->address_snapshot['line1'] ?? '';
+    }
+
+    public function getShippingCityAttribute(): string
+    {
+        return $this->address_snapshot['city'] ?? '';
+    }
+
+    public function getShippingPostalCodeAttribute(): string
+    {
+        return $this->address_snapshot['postal_code'] ?? '';
+    }
+
+    public function getTaxTotalAttribute(): float
+    {
+        return max(0, (float) $this->grand_total - (float) $this->subtotal - (float) $this->shipping_total + (float) $this->discount_total);
+    }
 }

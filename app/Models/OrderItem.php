@@ -37,4 +37,12 @@ class OrderItem extends Model
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        $product = $this->variant?->product;
+        $primaryImage = $product?->images->firstWhere('is_primary', true) ?? $product?->images->first();
+
+        return $primaryImage?->url;
+    }
 }

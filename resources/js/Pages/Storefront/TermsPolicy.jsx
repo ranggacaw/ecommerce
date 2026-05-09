@@ -163,7 +163,7 @@ export default function TermsPolicy() {
             </section>
 
             {/* Section: Legal Content */}
-            <div className="mx-auto w-full max-w-5xl space-y-16">
+            <div className="mx-auto w-full space-y-16">
                 {/* Section: Terms of Service */}
                 <article
                     id="terms-of-service"

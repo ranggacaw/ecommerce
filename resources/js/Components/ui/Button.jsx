@@ -10,6 +10,7 @@ const buttonVariants = cva(
                 secondary: 'cbx-button-secondary px-5 py-3',
                 ghost: 'cbx-button-ghost px-4 py-2',
                 danger: 'cbx-button-danger px-5 py-3',
+                outline: 'border border-[var(--cbx-on-surface)] bg-transparent px-5 py-3',
             },
             size: {
                 sm: 'px-3 py-2 text-xs',
