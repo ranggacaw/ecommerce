@@ -90,6 +90,7 @@ class CatalogController extends Controller
         $product = Product::create([
             'category_id' => $validated['category_id'],
             'promotion_id' => $validated['promotion_id'] ?? null,
+            'brand' => $validated['brand'] ?? null,
             'name' => $validated['name'],
             'slug' => Str::slug($validated['name']).'-'.Str::lower(Str::random(4)),
             'short_description' => $validated['short_description'] ?? null,
@@ -118,6 +119,7 @@ class CatalogController extends Controller
         $product->update([
             'category_id' => $validated['category_id'],
             'promotion_id' => $validated['promotion_id'] ?? null,
+            'brand' => $validated['brand'] ?? null,
             'name' => $validated['name'],
             'short_description' => $validated['short_description'] ?? null,
             'description' => $validated['description'] ?? null,
@@ -183,6 +185,7 @@ class CatalogController extends Controller
         return $request->validate([
             'category_id' => ['required', 'exists:categories,id'],
             'promotion_id' => ['nullable', 'exists:promotions,id'],
+            'brand' => ['nullable', 'string', 'max:120'],
             'name' => ['required', 'string', 'max:255'],
             'short_description' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],

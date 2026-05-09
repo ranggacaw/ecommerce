@@ -15,10 +15,10 @@ function ProductTile({ product }) {
             </Link>
             <div className="mt-4 space-y-1">
                 <p className="text-xs text-[var(--cbx-neutral-mid)]">{product.is_new_arrival ? 'New drop' : product.category?.name || 'Featured'}</p>
-                <Link href={route('products.show', product.slug)} className="font-heading text-lg font-semibold text-[var(--cbx-on-surface)] hover:text-[var(--cbx-secondary)]">
+                <Link href={route('products.show', product.slug)} className="font-heading text-sm font-semibold text-[var(--cbx-on-surface)] hover:text-[var(--cbx-secondary)]">
                     {product.name}
                 </Link>
-                <p className="font-heading text-lg font-bold text-[var(--cbx-primary)]">{formatCurrency(productPrice(product))}</p>
+                <p className="font-heading text-sm font-bold text-[var(--cbx-primary)]">{formatCurrency(productPrice(product))}</p>
             </div>
         </article>
     );

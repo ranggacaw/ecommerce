@@ -4,7 +4,7 @@ import { MapPin, Phone, Clock, Plus, Minus, Navigation, Search, Building2 } from
 
 export default function Location({ stores = [] }) {
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeStoreId, setActiveStoreId] = useState(1);
+    const [activeStoreId, setActiveStoreId] = useState(stores[0]?.id ?? null);
     const [filterType, setFilterType] = useState('nearby');
 
     const filteredStores = stores

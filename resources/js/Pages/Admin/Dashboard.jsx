@@ -14,6 +14,7 @@ function UpdateProductForm({ product, categories, promotions, collections }) {
     const form = useForm({
         category_id: product.category_id,
         promotion_id: product.promotion_id || '',
+        brand: product.brand || '',
         name: product.name,
         short_description: product.short_description || '',
         description: product.description || '',
@@ -34,8 +35,9 @@ function UpdateProductForm({ product, categories, promotions, collections }) {
 
     return (
         <form onSubmit={(event) => { event.preventDefault(); form.patch(route('admin.products.update', product.id)); }} className="grid gap-3 rounded-xl border border-[var(--cbx-border-subtle)] p-4">
-            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
                 <Input value={form.data.name} onChange={(event) => form.setData('name', event.target.value)} placeholder="Product name" />
+                <Input value={form.data.brand} onChange={(event) => form.setData('brand', event.target.value)} placeholder="Brand" />
                 <Input value={form.data.sku} onChange={(event) => form.setData('sku', event.target.value)} placeholder="SKU" />
                 <Input value={form.data.color} onChange={(event) => form.setData('color', event.target.value)} placeholder="Color" />
                 <Input value={form.data.size} onChange={(event) => form.setData('size', event.target.value)} placeholder="Size" />
@@ -72,7 +74,7 @@ function UpdateProductForm({ product, categories, promotions, collections }) {
 }
 
 export default function Dashboard({ stats, products, categories, collections, banners, promotions, orders, inventoryAdjustments }) {
-    const productForm = useForm({ category_id: categories[0]?.id || '', promotion_id: '', name: '', short_description: '', description: '', material: '', size_chart: '', price: '', compare_price: '', sku: '', color: '', size: '', stock_on_hand: 0, weight_grams: 0, primary_image_url: '', secondary_image_url: '', collection_ids: [] });
+    const productForm = useForm({ category_id: categories[0]?.id || '', promotion_id: '', brand: '', name: '', short_description: '', description: '', material: '', size_chart: '', price: '', compare_price: '', sku: '', color: '', size: '', stock_on_hand: 0, weight_grams: 0, primary_image_url: '', secondary_image_url: '', collection_ids: [] });
     const categoryForm = useForm({ name: '', description: '', type: '' });
     const collectionForm = useForm({ name: '', kind: 'editorial', description: '' });
     const bannerForm = useForm({ title: '', subtitle: '', image_url: '', cta_label: '', cta_href: '', sort_order: 0 });
@@ -102,6 +104,7 @@ export default function Dashboard({ stats, products, categories, collections, ba
                                     {promotions.map((promotion) => <option key={promotion.id} value={promotion.id}>{promotion.name}</option>)}
                                 </select>
                             </div>
+                            <Input value={productForm.data.brand} onChange={(event) => productForm.setData('brand', event.target.value)} placeholder="Brand" />
                             <Input value={productForm.data.name} onChange={(event) => productForm.setData('name', event.target.value)} placeholder="Product name" />
                             <Textarea value={productForm.data.short_description} onChange={(event) => productForm.setData('short_description', event.target.value)} placeholder="Short description" className="min-h-20" />
                             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">

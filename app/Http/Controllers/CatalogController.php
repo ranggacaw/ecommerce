@@ -60,6 +60,8 @@ class CatalogController extends Controller
             $query->where(function (Builder $builder) use ($search): void {
                 $builder
                     ->where('name', 'like', "%{$search}%")
+                    ->orWhere('brand', 'like', "%{$search}%")
+                    ->orWhere('short_description', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%")
                     ->orWhere('material', 'like', "%{$search}%");
             });
