@@ -1,15 +1,4 @@
-# catalog-administration Specification
-
-## Purpose
-TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
-## Requirements
-### Requirement: Product And Promotion CMS
-The system SHALL provide back-office workflows for staff or admins to create, update, publish, and unpublish products, variants, categories, prices, and promotions without changing application code.
-
-#### Scenario: Merchandiser publishes a campaign product
-- **WHEN** a staff or admin user updates product, pricing, or promo data in the back office
-- **THEN** the storefront reflects the new catalog state through normal publishing workflows
-
+## MODIFIED Requirements
 ### Requirement: Storefront Merchandising Controls
 The system SHALL allow staff or admins to manage hero banners, new-arrivals groupings, promo collections, and homepage hero call-to-action content used by the storefront.
 
@@ -17,6 +6,7 @@ The system SHALL allow staff or admins to manage hero banners, new-arrivals grou
 - **WHEN** a staff or admin user changes active hero banner copy, imagery, order, or call-to-action links
 - **THEN** the storefront home page uses the updated hero presentation
 
+## ADDED Requirements
 ### Requirement: Homepage Section Copy Management
 The system SHALL allow staff or admins to manage homepage-only section copy, labels, links, and supporting promotional content for the support cards, flash-sale messaging, category discovery heading, new-arrivals heading, editorial block, and featured-products section from the admin merchandising area.
 
@@ -27,4 +17,3 @@ The system SHALL allow staff or admins to manage homepage-only section copy, lab
 #### Scenario: Homepage content is first deployed
 - **WHEN** the homepage content capability is introduced to an existing storefront
 - **THEN** the system preserves the current homepage presentation by seeding editable defaults from the previous hard-coded content
-

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\HeroBanner;
+use App\Models\HomepageContent;
 use App\Models\Product;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,6 +17,7 @@ class StorefrontController extends Controller
         return Inertia::render('Storefront/Home', [
             'banners' => HeroBanner::query()->where('is_active', true)->orderBy('sort_order')->get(),
             'categories' => Category::query()->where('is_active', true)->orderBy('name')->get(),
+            'homepageContent' => HomepageContent::current(),
             'newArrivals' => Collection::query()
                 ->where('slug', 'new-arrivals')
                 ->with(['products.images', 'products.variants', 'products.category', 'products.promotion'])

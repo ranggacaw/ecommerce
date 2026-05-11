@@ -67,6 +67,7 @@ Route::prefix('/admin')
 
         Route::get('/catalog', [AdminCatalogController::class, 'index'])->name('catalog');
         Route::get('/merchandising', [AdminCatalogController::class, 'merchandising'])->name('merchandising');
+        Route::patch('/catalog/homepage-content', [AdminCatalogController::class, 'updateHomepageContent'])->name('homepage-content.update');
         Route::post('/catalog/categories', [AdminCatalogController::class, 'storeCategory'])->name('categories.store');
         Route::post('/catalog/collections', [AdminCatalogController::class, 'storeCollection'])->name('collections.store');
         Route::post('/catalog/banners', [AdminCatalogController::class, 'storeBanner'])->name('banners.store');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\HeroBanner;
+use App\Models\HomepageContent;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -32,8 +33,76 @@ class CatalogController extends Controller
     {
         return Inertia::render('Admin/Merchandising', [
             'banners' => HeroBanner::query()->orderBy('sort_order')->get(),
+            'homepageContent' => HomepageContent::current(),
             'promotions' => Promotion::query()->latest()->get(),
         ]);
+    }
+
+    public function updateHomepageContent(Request $request): RedirectResponse
+    {
+        $homepageContent = HomepageContent::current();
+        $section = $request->string('section')->value();
+
+        if (! in_array($section, ['hero', 'support_cards', 'flash_sale', 'category_discovery', 'new_arrivals', 'editorial', 'featured_products'], true)) {
+            abort(404);
+        }
+
+        $validated = match ($section) {
+            'hero' => $request->validate([
+                'section' => ['required', 'in:hero'],
+                'hero.primary_cta_label' => ['required', 'string', 'max:100'],
+                'hero.primary_cta_href' => ['required', 'string', 'max:255'],
+                'hero.secondary_cta_label' => ['required', 'string', 'max:100'],
+                'hero.secondary_cta_href' => ['required', 'string', 'max:255'],
+            ]),
+            'support_cards' => $request->validate([
+                'section' => ['required', 'in:support_cards'],
+                'support_cards' => ['required', 'array', 'size:3'],
+                'support_cards.*.title' => ['required', 'string', 'max:100'],
+                'support_cards.*.description' => ['required', 'string'],
+            ]),
+            'flash_sale' => $request->validate([
+                'section' => ['required', 'in:flash_sale'],
+                'flash_sale.badge_label' => ['required', 'string', 'max:100'],
+                'flash_sale.hours_label' => ['required', 'string', 'max:30'],
+                'flash_sale.minutes_label' => ['required', 'string', 'max:30'],
+                'flash_sale.seconds_label' => ['required', 'string', 'max:30'],
+                'flash_sale.highlight_label' => ['required', 'string', 'max:100'],
+            ]),
+            'category_discovery' => $request->validate([
+                'section' => ['required', 'in:category_discovery'],
+                'category_discovery.kicker' => ['required', 'string', 'max:100'],
+                'category_discovery.title' => ['required', 'string', 'max:255'],
+                'category_discovery.link_label' => ['required', 'string', 'max:100'],
+                'category_discovery.tile_primary_prefix' => ['required', 'string', 'max:100'],
+                'category_discovery.tile_cta_label' => ['required', 'string', 'max:100'],
+            ]),
+            'new_arrivals' => $request->validate([
+                'section' => ['required', 'in:new_arrivals'],
+                'new_arrivals.title' => ['required', 'string', 'max:255'],
+                'new_arrivals.link_label' => ['required', 'string', 'max:100'],
+            ]),
+            'editorial' => $request->validate([
+                'section' => ['required', 'in:editorial'],
+                'editorial.kicker' => ['required', 'string', 'max:100'],
+                'editorial.title' => ['required', 'string', 'max:255'],
+                'editorial.description' => ['required', 'string'],
+                'editorial.cta_label' => ['required', 'string', 'max:100'],
+                'editorial.cta_href' => ['required', 'string', 'max:255'],
+            ]),
+            'featured_products' => $request->validate([
+                'section' => ['required', 'in:featured_products'],
+                'featured_products.kicker' => ['required', 'string', 'max:100'],
+                'featured_products.title' => ['required', 'string', 'max:255'],
+                'featured_products.link_label' => ['required', 'string', 'max:100'],
+            ]),
+        };
+
+        $homepageContent->update([
+            $section => $validated[$section],
+        ]);
+
+        return back()->with('success', 'Homepage content updated.');
     }
 
     public function storeCategory(Request $request): RedirectResponse

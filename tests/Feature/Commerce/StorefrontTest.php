@@ -3,6 +3,7 @@
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\HeroBanner;
+use App\Models\HomepageContent;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -79,6 +80,7 @@ it('renders the storefront home experience with merchandising data', function ()
             ->has('banners', 1)
             ->has('categories', 1)
             ->has('featuredProducts', 1)
+            ->has('homepageContent')
             ->where('banners.0.title', 'Launch Story'));
 });
 
@@ -129,6 +131,46 @@ it('reads admin-created banner content on the storefront home page', function ()
             ->component('Storefront/Home')
             ->has('banners', 1)
             ->where('banners.0.title', 'CMS Banner'));
+});
+
+it('renders saved homepage content on the storefront home page', function () {
+    HomepageContent::current()->update([
+        'hero' => [
+            'primary_cta_label' => 'Discover Now',
+            'primary_cta_href' => '/shop?campaign=launch',
+            'secondary_cta_label' => 'Browse Drops',
+            'secondary_cta_href' => '/collections/new-arrivals',
+        ],
+        'support_cards' => [
+            [
+                'title' => 'Always On',
+                'description' => 'Weekly edits stay prominent on the homepage.',
+            ],
+            [
+                'title' => 'Pickup Ready',
+                'description' => 'Customers can choose delivery or in-store pickup.',
+            ],
+            [
+                'title' => 'Member Access',
+                'description' => 'Campaign hooks and account benefits stay visible.',
+            ],
+        ],
+        'editorial' => [
+            'kicker' => 'Community Notes',
+            'title' => 'Follow the latest COLORBOX stories.',
+            'description' => 'Homepage editorial content should reflect the saved CMS record.',
+            'cta_label' => '@colorboxstories',
+            'cta_href' => 'https://instagram.com/colorboxstories',
+        ],
+    ]);
+
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/Home')
+            ->where('homepageContent.hero.primary_cta_label', 'Discover Now')
+            ->where('homepageContent.support_cards.0.title', 'Always On')
+            ->where('homepageContent.editorial.cta_label', '@colorboxstories'));
 });
 
 it('reads active admin-managed store locations on the storefront location page', function () {

@@ -24,7 +24,7 @@ function ProductTile({ product }) {
     );
 }
 
-function HeroSlideshow({ banners }) {
+function HeroSlideshow({ banners, heroContent }) {
     const heroBanners = banners || [];
     const [activeBannerIndex, setActiveBannerIndex] = useState(0);
     const activeBanner = heroBanners[activeBannerIndex] || null;
@@ -89,11 +89,11 @@ function HeroSlideshow({ banners }) {
                     </h1>
                     <p className="mb-8 max-w-md text-base leading-7 text-white/90 lg:text-lg">{activeBanner.subtitle}</p>
                     <div className="flex flex-wrap gap-4">
-                        <Link href={activeBanner.cta_href || route('shop.index')}>
-                            <Button size="lg" className="bg-white text-[var(--cbx-primary)] hover:bg-gray-100 uppercase tracking-widest text-xs px-10 py-4 font-semibold">Shop Now</Button>
+                        <Link href={heroContent.primary_cta_href || activeBanner.cta_href || route('shop.index')}>
+                            <Button size="lg" className="bg-white text-[var(--cbx-primary)] hover:bg-gray-100 uppercase tracking-widest text-xs px-10 py-4 font-semibold">{heroContent.primary_cta_label || 'Shop Now'}</Button>
                         </Link>
-                        <Link href={route('collections.show', 'new-arrivals')}>
-                            <Button variant="secondary" size="lg" className="border-white/60 bg-white/10 text-white hover:border-white hover:bg-white/15 hover:text-white uppercase tracking-widest text-xs px-10 py-4 font-semibold">Explore All</Button>
+                        <Link href={heroContent.secondary_cta_href || route('collections.show', 'new-arrivals')}>
+                            <Button variant="secondary" size="lg" className="border-white/60 bg-white/10 text-white hover:border-white hover:bg-white/15 hover:text-white uppercase tracking-widest text-xs px-10 py-4 font-semibold">{heroContent.secondary_cta_label || 'Explore All'}</Button>
                         </Link>
                     </div>
                 </div>
@@ -136,13 +136,20 @@ function HeroSlideshow({ banners }) {
     );
 }
 
-export default function Home({ banners, categories, newArrivals, promoCollection, featuredProducts }) {
+export default function Home({ banners, categories, homepageContent, newArrivals, promoCollection, featuredProducts }) {
     const categoryAccents = [
         'from-[var(--cbx-brand-light-pink)] to-white',
         'from-[var(--cbx-neutral-light)] to-white',
         'from-[var(--cbx-secondary-container)]/20 to-white',
     ];
     const heroBanners = banners || [];
+    const heroContent = homepageContent.hero || {};
+    const supportCards = homepageContent.support_cards || [];
+    const flashSaleContent = homepageContent.flash_sale || {};
+    const categoryContent = homepageContent.category_discovery || {};
+    const newArrivalsContent = homepageContent.new_arrivals || {};
+    const editorialContent = homepageContent.editorial || {};
+    const featuredContent = homepageContent.featured_products || {};
     const socialImages = [
         ...heroBanners.map((banner) => banner.image_url),
         ...(featuredProducts || []).flatMap((product) => product.images?.map((image) => image.url) || []),
@@ -152,46 +159,40 @@ export default function Home({ banners, categories, newArrivals, promoCollection
 
     return (
         <StorefrontLayout title="Home" categories={categories}>
-            <HeroSlideshow banners={banners} />
+            <HeroSlideshow banners={banners} heroContent={heroContent} />
 
             <section className="grid gap-px overflow-hidden rounded-sm border border-[var(--cbx-border-subtle)] bg-[var(--cbx-border-subtle)] lg:grid-cols-3">
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
-                    <p className="cbx-kicker">New In Weekly</p>
-                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Rotating drops and curated edits get their own lane beneath the hero instead of competing above the fold.</p>
-                </div>
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
-                    <p className="cbx-kicker">Delivery & Pickup</p>
-                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Short, useful reassurance replaces scattered utility content throughout the homepage.</p>
-                </div>
-                <div className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
-                    <p className="cbx-kicker">Member Perks</p>
-                    <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">Wishlist, account, and campaign hooks still surface without overcrowding the hero.</p>
-                </div>
+                {supportCards.map((card, index) => (
+                    <div key={`${card.title}-${index}`} className="bg-[var(--cbx-surface-container-lowest)] px-4 py-4">
+                        <p className="cbx-kicker">{card.title}</p>
+                        <p className="mt-2 max-w-sm text-xs leading-6 text-[var(--cbx-on-surface-variant)]">{card.description}</p>
+                    </div>
+                ))}
             </section>
 
             {promoCollection ? (
                 <section className="space-y-6">
                     <div className="grid gap-6 rounded-sm border border-[var(--cbx-secondary)] bg-[linear-gradient(135deg,var(--cbx-secondary-container),var(--cbx-secondary))] p-6 text-white shadow-[var(--cbx-shadow-soft)] lg:grid-cols-[1fr_auto_auto] lg:items-center lg:px-8 lg:py-8">
                         <div>
-                            <Badge className="border-white/10 bg-black/10 text-white backdrop-blur">Flash Sale</Badge>
+                            <Badge className="border-white/10 bg-black/10 text-white backdrop-blur">{flashSaleContent.badge_label}</Badge>
                             <h2 className="mt-4 font-heading text-3xl font-black tracking-[-0.03em] text-white lg:text-4xl">{promoCollection.name}</h2>
                             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">{promoCollection.description}</p>
                         </div>
                         <div className="grid grid-cols-3 gap-3 text-center">
                             <div className="rounded-2xl bg-black/10 px-4 py-3 backdrop-blur">
                                 <div className="font-heading text-2xl font-bold">02</div>
-                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">Hours</div>
+                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{flashSaleContent.hours_label}</div>
                             </div>
                             <div className="rounded-2xl bg-black/10 px-4 py-3 backdrop-blur">
                                 <div className="font-heading text-2xl font-bold">45</div>
-                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">Mins</div>
+                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{flashSaleContent.minutes_label}</div>
                             </div>
                             <div className="rounded-2xl bg-black/10 px-4 py-3 backdrop-blur">
                                 <div className="font-heading text-2xl font-bold">12</div>
-                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">Secs</div>
+                                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{flashSaleContent.seconds_label}</div>
                             </div>
                         </div>
-                        <div className="rounded-md border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white">Limited-time pricing</div>
+                        <div className="rounded-md border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white">{flashSaleContent.highlight_label}</div>
                     </div>
                 </section>
             ) : null}
@@ -199,10 +200,10 @@ export default function Home({ banners, categories, newArrivals, promoCollection
             <section className="space-y-6">
                 <div className="flex items-end justify-between gap-4">
                     <div>
-                        <p className="cbx-kicker">Shop by Category</p>
-                        <h2 className="mt-2 font-heading text-3xl font-black tracking-[-0.04em] text-[var(--cbx-on-surface)] lg:text-5xl">Asymmetric discovery</h2>
+                        <p className="cbx-kicker">{categoryContent.kicker}</p>
+                        <h2 className="mt-2 font-heading text-3xl font-black tracking-[-0.04em] text-[var(--cbx-on-surface)] lg:text-5xl">{categoryContent.title}</h2>
                     </div>
-                    <Link href={route('shop.index')} className="text-sm font-semibold text-[var(--cbx-secondary)]">View all products</Link>
+                    <Link href={route('shop.index')} className="text-sm font-semibold text-[var(--cbx-secondary)]">{categoryContent.link_label}</Link>
                 </div>
                 <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2 lg:gap-6">
                     {categoryTiles.map((category, index) => {
@@ -223,10 +224,10 @@ export default function Home({ banners, categories, newArrivals, promoCollection
                                     <div className="relative mt-auto max-w-sm space-y-3">
                                         <p className="cbx-kicker text-white/70">{category.type || 'Category'}</p>
                                         <h3 className={`${isPrimary ? 'text-4xl lg:text-5xl' : 'text-3xl'} font-heading font-black leading-[0.95] tracking-[-0.03em]`}>
-                                            {isPrimary ? `The New Uniform: ${category.name}` : category.name}
+                                            {isPrimary ? `${categoryContent.tile_primary_prefix} ${category.name}` : category.name}
                                         </h3>
                                         <p className="max-w-xs text-sm leading-6 text-white/80">{category.description}</p>
-                                        <span className="inline-flex rounded-md bg-white px-4 py-3 text-sm font-semibold text-[var(--cbx-primary)]">Lihat Koleksi</span>
+                                        <span className="inline-flex rounded-md bg-white px-4 py-3 text-sm font-semibold text-[var(--cbx-primary)]">{categoryContent.tile_cta_label}</span>
                                     </div>
                                 </article>
                             </Link>
@@ -240,9 +241,9 @@ export default function Home({ banners, categories, newArrivals, promoCollection
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <p className="cbx-kicker">{newArrivals.name}</p>
-                            <h2 className="mt-3 font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)] sm:text-4xl">Fresh silhouettes for this week</h2>
+                            <h2 className="mt-3 font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)] sm:text-4xl">{newArrivalsContent.title}</h2>
                         </div>
-                        <Link href={route('collections.show', newArrivals.slug)} className="text-sm font-semibold text-[var(--cbx-secondary)]">Open collection</Link>
+                        <Link href={route('collections.show', newArrivals.slug)} className="text-sm font-semibold text-[var(--cbx-secondary)]">{newArrivalsContent.link_label}</Link>
                     </div>
                     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
                         {newArrivals.products?.slice(0, 4).map((product) => <ProductTile key={product.id} product={product} />)}
@@ -253,10 +254,10 @@ export default function Home({ banners, categories, newArrivals, promoCollection
             <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
                 <Card className="bg-[linear-gradient(180deg,var(--cbx-surface-container-lowest),var(--cbx-surface-container-low))]">
                     <CardContent className="space-y-5 p-8">
-                        <p className="cbx-kicker">Editorial / Community</p>
-                        <h2 className="font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)]">Follow the COLORBOX feed.</h2>
-                        <p className="max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">The social block becomes a real brand moment, not just a leftover gallery at the bottom of the page.</p>
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="cbx-button cbx-button-secondary w-fit px-5 py-3 text-sm">@colorbox</a>
+                        <p className="cbx-kicker">{editorialContent.kicker}</p>
+                        <h2 className="font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)]">{editorialContent.title}</h2>
+                        <p className="max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">{editorialContent.description}</p>
+                        <a href={editorialContent.cta_href} target="_blank" rel="noreferrer" className="cbx-button cbx-button-secondary w-fit px-5 py-3 text-sm">{editorialContent.cta_label}</a>
                         <div className="grid grid-cols-2 gap-3">
                             {socialImages.map((image, index) => (
                                 <Card key={`${image}-${index}`} className="overflow-hidden border-none shadow-none">
@@ -270,10 +271,10 @@ export default function Home({ banners, categories, newArrivals, promoCollection
                 <div className="space-y-6">
                     <div className="flex items-end justify-between gap-4">
                         <div>
-                            <p className="cbx-kicker">Trending</p>
-                            <h2 className="mt-2 font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)] lg:text-4xl">Storefront bestsellers</h2>
+                            <p className="cbx-kicker">{featuredContent.kicker}</p>
+                            <h2 className="mt-2 font-heading text-3xl font-black tracking-[-0.03em] text-[var(--cbx-on-surface)] lg:text-4xl">{featuredContent.title}</h2>
                         </div>
-                        <Link href={route('shop.index')} className="text-sm font-semibold text-[var(--cbx-secondary)]">View all products</Link>
+                        <Link href={route('shop.index')} className="text-sm font-semibold text-[var(--cbx-secondary)]">{featuredContent.link_label}</Link>
                     </div>
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4 xl:gap-5">
                         {featuredProducts.map((product) => <ProductTile key={product.id} product={product} />)}

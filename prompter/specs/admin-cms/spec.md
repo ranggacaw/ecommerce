@@ -20,11 +20,15 @@ Related capabilities: `inventory-management`, `order-management`.
 - **THEN** the system shows a dashboard entry point and navigation to the major CMS and operations sections
 
 ### Requirement: Catalog And Merchandising Management
-The system SHALL let staff or admins manage products, categories, collections, hero banners, and promotions using back-office workflows that update storefront-facing data without code changes.
+The system SHALL let staff or admins manage products, categories, collections, hero banners, promotions, and homepage section content using back-office workflows that update storefront-facing data without code changes.
 
 #### Scenario: Merchandiser updates storefront content
-- **WHEN** a staff or admin user creates or updates catalog or merchandising data in the CMS
+- **WHEN** a staff or admin user creates or updates catalog, merchandising, or homepage section data in the CMS
 - **THEN** the storefront uses the updated database-backed content in its normal page rendering flows
+
+#### Scenario: Staff member submits invalid homepage content
+- **WHEN** a staff or admin user submits invalid homepage URLs or incomplete required homepage content in the CMS
+- **THEN** the system rejects the submission with server-side validation errors and keeps the user in the admin workflow to correct the content
 
 ### Requirement: Store Location Management
 The system SHALL let staff or admins create, update, activate, deactivate, and order store locations that are shown on the storefront location page.

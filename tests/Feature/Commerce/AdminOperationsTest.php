@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\HomepageContent;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -175,6 +176,29 @@ it('allows staff to create merchandising content', function () {
     $this->assertDatabaseHas('promotions', [
         'name' => 'Holiday Savings',
         'code' => 'HOLIDAY10',
+    ]);
+});
+
+it('allows staff to update homepage content sections', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $this->actingAs($staff)
+        ->patch(route('admin.homepage-content.update'), [
+            'section' => 'hero',
+            'hero' => [
+                'primary_cta_label' => 'Discover Now',
+                'primary_cta_href' => '/shop?campaign=launch',
+                'secondary_cta_label' => 'Browse Drops',
+                'secondary_cta_href' => '/collections/new-arrivals',
+            ],
+        ])
+        ->assertRedirect();
+
+    expect(HomepageContent::current()->hero)->toBe([
+        'primary_cta_label' => 'Discover Now',
+        'primary_cta_href' => '/shop?campaign=launch',
+        'secondary_cta_label' => 'Browse Drops',
+        'secondary_cta_href' => '/collections/new-arrivals',
     ]);
 });
 
