@@ -11,9 +11,11 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Promotion;
+use App\Models\StorefrontContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,6 +37,7 @@ class CatalogController extends Controller
             'banners' => HeroBanner::query()->orderBy('sort_order')->get(),
             'homepageContent' => HomepageContent::current(),
             'promotions' => Promotion::query()->latest()->get(),
+            'storefrontContent' => StorefrontContent::currentMap(),
         ]);
     }
 
@@ -105,6 +108,170 @@ class CatalogController extends Controller
         return back()->with('success', 'Homepage content updated.');
     }
 
+    public function updateStorefrontContent(Request $request): RedirectResponse
+    {
+        $key = $request->string('key')->value();
+
+        if (! in_array($key, [
+            StorefrontContent::SHELL,
+            StorefrontContent::ABOUT,
+            StorefrontContent::CONTACT,
+            StorefrontContent::TERMS,
+            StorefrontContent::PRIVACY,
+        ], true)) {
+            abort(404);
+        }
+
+        $validated = match ($key) {
+            StorefrontContent::SHELL => $request->validate([
+                'key' => ['required', 'in:shell'],
+                'content.utility_labels' => ['required', 'array', 'size:3'],
+                'content.utility_labels.*' => ['required', 'string', 'max:60'],
+                'content.order_tracking.kicker' => ['required', 'string', 'max:100'],
+                'content.order_tracking.title' => ['required', 'string', 'max:255'],
+                'content.order_tracking.description' => ['required', 'string'],
+                'content.order_tracking.input_placeholder' => ['required', 'string', 'max:100'],
+                'content.order_tracking.button_label' => ['required', 'string', 'max:50'],
+                'content.account_cta.kicker' => ['required', 'string', 'max:100'],
+                'content.account_cta.title' => ['required', 'string', 'max:255'],
+                'content.account_cta.description' => ['required', 'string'],
+                'content.account_cta.guest_primary_label' => ['required', 'string', 'max:100'],
+                'content.account_cta.guest_secondary_label' => ['required', 'string', 'max:100'],
+                'content.account_cta.member_primary_label' => ['required', 'string', 'max:100'],
+                'content.footer.brand_description' => ['required', 'string'],
+                'content.footer.information_title' => ['required', 'string', 'max:100'],
+                'content.footer.shop_all_label' => ['required', 'string', 'max:100'],
+                'content.footer.new_arrivals_label' => ['required', 'string', 'max:100'],
+                'content.footer.create_account_label' => ['required', 'string', 'max:100'],
+                'content.footer.company_title' => ['required', 'string', 'max:100'],
+                'content.footer.about_label' => ['required', 'string', 'max:100'],
+                'content.footer.location_label' => ['required', 'string', 'max:100'],
+                'content.footer.contact_label' => ['required', 'string', 'max:100'],
+                'content.footer.terms_label' => ['required', 'string', 'max:100'],
+                'content.footer.customer_care_title' => ['required', 'string', 'max:100'],
+                'content.footer.shopping_bag_label' => ['required', 'string', 'max:100'],
+                'content.footer.customer_access_label' => ['required', 'string', 'max:100'],
+                'content.footer.back_to_top_label' => ['required', 'string', 'max:100'],
+                'content.footer.multi_brand_title' => ['required', 'string', 'max:100'],
+                'content.footer.multi_brand_labels' => ['required', 'array', 'size:3'],
+                'content.footer.multi_brand_labels.*' => ['required', 'string', 'max:60'],
+            ]),
+            StorefrontContent::ABOUT => $request->validate([
+                'key' => ['required', 'in:about'],
+                'content.hero.kicker' => ['required', 'string', 'max:100'],
+                'content.hero.title' => ['required', 'string', 'max:255'],
+                'content.hero.highlight' => ['required', 'string', 'max:100'],
+                'content.hero.description' => ['required', 'string'],
+                'content.hero.image_url' => ['required', 'url'],
+                'content.hero.image_alt' => ['required', 'string', 'max:255'],
+                'content.mission.title' => ['required', 'string', 'max:255'],
+                'content.mission.description' => ['required', 'string'],
+                'content.mission.quote' => ['required', 'string'],
+                'content.mission.image_url' => ['required', 'url'],
+                'content.mission.image_alt' => ['required', 'string', 'max:255'],
+                'content.timeline.title' => ['required', 'string', 'max:255'],
+                'content.timeline.kicker' => ['required', 'string', 'max:100'],
+                'content.timeline.items' => ['required', 'array', 'size:3'],
+                'content.timeline.items.*.year' => ['required', 'string', 'max:20'],
+                'content.timeline.items.*.title' => ['required', 'string', 'max:255'],
+                'content.timeline.items.*.description' => ['required', 'string'],
+                'content.timeline.items.*.featured' => ['required', 'boolean'],
+                'content.values.title' => ['required', 'string', 'max:255'],
+                'content.values.items' => ['required', 'array', 'size:4'],
+                'content.values.items.*.icon' => ['required', 'string', 'max:50'],
+                'content.values.items.*.label' => ['required', 'string', 'max:100'],
+                'content.values.items.*.description' => ['required', 'string'],
+                'content.values.items.*.color' => ['required', 'string', 'max:100'],
+                'content.cta.title' => ['required', 'string', 'max:255'],
+                'content.cta.button_label' => ['required', 'string', 'max:100'],
+                'content.cta.button_href' => ['required', 'string', 'max:255'],
+                'content.cta.image_url' => ['required', 'url'],
+                'content.cta.image_alt' => ['required', 'string', 'max:255'],
+            ]),
+            StorefrontContent::CONTACT => $request->validate([
+                'key' => ['required', 'in:contact'],
+                'content.intro.kicker' => ['required', 'string', 'max:100'],
+                'content.intro.title' => ['required', 'string', 'max:255'],
+                'content.intro.description' => ['required', 'string'],
+                'content.form.kicker' => ['required', 'string', 'max:100'],
+                'content.form.title' => ['required', 'string', 'max:255'],
+                'content.form.description' => ['required', 'string'],
+                'content.form.name_label' => ['required', 'string', 'max:100'],
+                'content.form.email_label' => ['required', 'string', 'max:100'],
+                'content.form.topic_label' => ['required', 'string', 'max:100'],
+                'content.form.topic_placeholder' => ['required', 'string', 'max:100'],
+                'content.form.order_number_label' => ['required', 'string', 'max:100'],
+                'content.form.message_label' => ['required', 'string', 'max:100'],
+                'content.form.message_placeholder' => ['required', 'string', 'max:255'],
+                'content.form.submit_note' => ['required', 'string'],
+                'content.form.submit_button_label' => ['required', 'string', 'max:100'],
+                'content.form.email_recipient' => ['required', 'email', 'max:255'],
+                'content.form.topics' => ['required', 'array', 'size:6'],
+                'content.form.topics.*.value' => ['required', 'string', 'max:50'],
+                'content.form.topics.*.label' => ['required', 'string', 'max:100'],
+                'content.support.kicker' => ['required', 'string', 'max:100'],
+                'content.support.title' => ['required', 'string', 'max:255'],
+                'content.support.channels' => ['required', 'array', 'size:3'],
+                'content.support.channels.*.icon' => ['required', 'string', 'max:50'],
+                'content.support.channels.*.title' => ['required', 'string', 'max:100'],
+                'content.support.channels.*.value' => ['required', 'string', 'max:255'],
+                'content.support.channels.*.detail' => ['required', 'string'],
+                'content.support.channels.*.href' => ['required', 'string', 'max:255'],
+                'content.faq.kicker' => ['required', 'string', 'max:100'],
+                'content.faq.title' => ['required', 'string', 'max:255'],
+                'content.faq.description' => ['required', 'string'],
+                'content.faq.button_label' => ['required', 'string', 'max:100'],
+                'content.visit.kicker' => ['required', 'string', 'max:100'],
+                'content.visit.title' => ['required', 'string', 'max:255'],
+                'content.visit.description' => ['required', 'string'],
+                'content.visit.button_label' => ['required', 'string', 'max:100'],
+            ]),
+            StorefrontContent::TERMS => $request->validate([
+                'key' => ['required', 'in:terms'],
+                'content.page_intro.kicker' => ['required', 'string', 'max:100'],
+                'content.page_intro.title' => ['required', 'string', 'max:255'],
+                'content.page_intro.description' => ['required', 'string'],
+                'content.last_updated' => ['required', 'string', 'max:100'],
+                'content.last_updated_label' => ['required', 'string', 'max:100'],
+                'content.page_summary' => ['required', 'string'],
+                'content.tab_labels.terms' => ['required', 'string', 'max:100'],
+                'content.tab_labels.privacy' => ['required', 'string', 'max:100'],
+                'content.section_kicker' => ['required', 'string', 'max:100'],
+                'content.section_title' => ['required', 'string', 'max:255'],
+                'content.sections' => ['required', 'array', 'size:3'],
+                'content.sections.*.title' => ['required', 'string', 'max:255'],
+                'content.sections.*.content' => ['required', 'string'],
+                'content.sections.*.points' => ['required', 'array'],
+                'content.sections.*.points.*' => ['required', 'string'],
+            ]),
+            StorefrontContent::PRIVACY => $request->validate([
+                'key' => ['required', 'in:privacy'],
+                'content.section_kicker' => ['required', 'string', 'max:100'],
+                'content.section_title' => ['required', 'string', 'max:255'],
+                'content.sections' => ['required', 'array', 'size:2'],
+                'content.sections.*.title' => ['required', 'string', 'max:255'],
+                'content.sections.*.content' => ['required', 'string'],
+                'content.security_title' => ['required', 'string', 'max:255'],
+                'content.security_standards' => ['required', 'array', 'size:3'],
+                'content.security_standards.*.icon' => ['required', 'string', 'max:50'],
+                'content.security_standards.*.title' => ['required', 'string', 'max:255'],
+                'content.security_standards.*.content' => ['required', 'string'],
+                'content.usage_title' => ['required', 'string', 'max:255'],
+                'content.usage_description' => ['required', 'string'],
+                'content.usage_highlights' => ['required', 'array', 'size:3'],
+                'content.usage_highlights.*.title' => ['required', 'string', 'max:100'],
+                'content.usage_highlights.*.content' => ['required', 'string'],
+                'content.usage_highlights.*.accent_class' => ['required', 'string', 'max:100'],
+            ]),
+        };
+
+        StorefrontContent::current($key)->update([
+            'content' => $validated['content'],
+        ]);
+
+        return back()->with('success', 'Storefront content updated.');
+    }
+
     public function storeCategory(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -139,37 +306,51 @@ class CatalogController extends Controller
 
     public function storeBanner(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'subtitle' => ['nullable', 'string'],
-            'image_url' => ['required', 'url'],
-            'cta_label' => ['nullable', 'string', 'max:100'],
-            'cta_href' => ['nullable', 'string', 'max:255'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $this->validateBanner($request);
 
         HeroBanner::create($validated);
 
         return back()->with('success', 'Banner saved.');
     }
 
+    public function updateBanner(Request $request, HeroBanner $heroBanner): RedirectResponse
+    {
+        $heroBanner->update($this->validateBanner($request));
+
+        return back()->with('success', 'Banner updated.');
+    }
+
+    public function destroyBanner(HeroBanner $heroBanner): RedirectResponse
+    {
+        $heroBanner->delete();
+
+        return back()->with('success', 'Banner deleted.');
+    }
+
     public function storePromotion(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'code' => ['nullable', 'string', 'max:50'],
-            'description' => ['nullable', 'string'],
-            'discount_type' => ['required', 'string', 'max:20'],
-            'discount_value' => ['required', 'numeric', 'min:0'],
-        ]);
+        $validated = $this->validatePromotion($request);
 
         Promotion::create([
             ...$validated,
-            'is_active' => true,
             'starts_at' => now(),
         ]);
 
         return back()->with('success', 'Promotion saved.');
+    }
+
+    public function updatePromotion(Request $request, Promotion $promotion): RedirectResponse
+    {
+        $promotion->update($this->validatePromotion($request, $promotion));
+
+        return back()->with('success', 'Promotion updated.');
+    }
+
+    public function destroyPromotion(Promotion $promotion): RedirectResponse
+    {
+        $promotion->delete();
+
+        return back()->with('success', 'Promotion deleted.');
     }
 
     public function storeProduct(Request $request): RedirectResponse
@@ -292,6 +473,31 @@ class CatalogController extends Controller
             'collection_ids' => ['nullable', 'array'],
             'collection_ids.*' => ['integer', 'exists:collections,id'],
             'variant_id' => ['nullable', 'integer'],
+        ]);
+    }
+
+    private function validateBanner(Request $request): array
+    {
+        return $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'subtitle' => ['nullable', 'string'],
+            'image_url' => ['required', 'url'],
+            'cta_label' => ['nullable', 'string', 'max:100'],
+            'cta_href' => ['nullable', 'string', 'max:255'],
+            'is_active' => ['required', 'boolean'],
+            'sort_order' => ['nullable', 'integer', 'min:0'],
+        ]);
+    }
+
+    private function validatePromotion(Request $request, ?Promotion $promotion = null): array
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'code' => ['nullable', 'string', 'max:50', Rule::unique('promotions', 'code')->ignore($promotion?->id)],
+            'description' => ['nullable', 'string'],
+            'discount_type' => ['required', 'string', 'max:20'],
+            'discount_value' => ['required', 'numeric', 'min:0'],
+            'is_active' => ['required', 'boolean'],
         ]);
     }
 }

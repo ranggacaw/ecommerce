@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Category;
+use App\Models\StorefrontContent;
 use App\Models\WishlistItem;
 use App\Services\CartService;
 use Illuminate\Http\Request;
@@ -47,12 +48,17 @@ class HandleInertiaRequests extends Middleware
         }
 
         $navigationCategories = [];
+        $storefrontShellContent = [];
 
         if (Schema::hasTable('categories')) {
             $navigationCategories = Category::query()
                 ->where('is_active', true)
                 ->orderBy('name')
                 ->get(['id', 'name', 'slug']);
+        }
+
+        if (Schema::hasTable('storefront_contents')) {
+            $storefrontShellContent = StorefrontContent::content(StorefrontContent::SHELL);
         }
 
         return [
@@ -64,6 +70,7 @@ class HandleInertiaRequests extends Middleware
             'cart' => $cart,
             'wishlist' => $wishlist,
             'navigationCategories' => $navigationCategories,
+            'storefrontShellContent' => $storefrontShellContent,
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

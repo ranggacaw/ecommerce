@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\StoreLocation;
+use App\Models\StorefrontContent;
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Support\Str;
@@ -121,6 +122,7 @@ it('reads admin-created banner content on the storefront home page', function ()
             'image_url' => 'https://example.com/cms-banner.jpg',
             'cta_label' => 'Explore',
             'cta_href' => '/shop',
+            'is_active' => true,
             'sort_order' => 0,
         ])
         ->assertRedirect();
@@ -171,6 +173,52 @@ it('renders saved homepage content on the storefront home page', function () {
             ->where('homepageContent.hero.primary_cta_label', 'Discover Now')
             ->where('homepageContent.support_cards.0.title', 'Always On')
             ->where('homepageContent.editorial.cta_label', '@colorboxstories'));
+});
+
+it('shares seeded storefront shell content with storefront layout pages', function () {
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/Home')
+            ->where('storefrontShellContent.order_tracking.title', 'Quick order utility')
+            ->where('storefrontShellContent.footer.multi_brand_labels.1', 'Lee'));
+});
+
+it('renders saved storefront page content from the cms', function () {
+    $about = StorefrontContent::content(StorefrontContent::ABOUT);
+    $about['hero']['description'] = 'CMS-managed about page copy.';
+    StorefrontContent::current(StorefrontContent::ABOUT)->update(['content' => $about]);
+
+    $contact = StorefrontContent::content(StorefrontContent::CONTACT);
+    $contact['support']['channels'][0]['value'] = '+62 800-0000-1111';
+    StorefrontContent::current(StorefrontContent::CONTACT)->update(['content' => $contact]);
+
+    $terms = StorefrontContent::content(StorefrontContent::TERMS);
+    $terms['sections'][0]['title'] = 'CMS terms heading';
+    StorefrontContent::current(StorefrontContent::TERMS)->update(['content' => $terms]);
+
+    $privacy = StorefrontContent::content(StorefrontContent::PRIVACY);
+    $privacy['usage_highlights'][0]['title'] = 'Customize';
+    StorefrontContent::current(StorefrontContent::PRIVACY)->update(['content' => $privacy]);
+
+    $this->get(route('storefront.about'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/About')
+            ->where('aboutContent.hero.description', 'CMS-managed about page copy.'));
+
+    $this->get(route('storefront.contact'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/ContactUs')
+            ->where('contactContent.support.channels.0.value', '+62 800-0000-1111'));
+
+    $this->get(route('storefront.terms'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/TermsPolicy')
+            ->where('termsContent.sections.0.title', 'CMS terms heading')
+            ->where('privacyContent.usage_highlights.0.title', 'Customize'));
 });
 
 it('reads active admin-managed store locations on the storefront location page', function () {

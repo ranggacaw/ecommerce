@@ -1,12 +1,15 @@
 <?php
 
 use App\Models\Category;
+use App\Models\HeroBanner;
 use App\Models\HomepageContent;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Promotion;
 use App\Models\Shipment;
 use App\Models\StoreLocation;
+use App\Models\StorefrontContent;
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Support\Str;
@@ -154,6 +157,7 @@ it('allows staff to create merchandising content', function () {
             'image_url' => 'https://example.com/banner.jpg',
             'cta_label' => 'Shop now',
             'cta_href' => '/shop',
+            'is_active' => true,
             'sort_order' => 1,
         ])
         ->assertRedirect();
@@ -165,6 +169,7 @@ it('allows staff to create merchandising content', function () {
             'description' => 'Seasonal markdown',
             'discount_type' => 'percentage',
             'discount_value' => 10,
+            'is_active' => true,
         ])
         ->assertRedirect();
 
@@ -176,6 +181,84 @@ it('allows staff to create merchandising content', function () {
     $this->assertDatabaseHas('promotions', [
         'name' => 'Holiday Savings',
         'code' => 'HOLIDAY10',
+    ]);
+});
+
+it('allows staff to update and delete merchandising records', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $banner = HeroBanner::create([
+        'title' => 'Launch Banner',
+        'subtitle' => 'Initial subtitle',
+        'image_url' => 'https://example.com/launch-banner.jpg',
+        'cta_label' => 'Explore',
+        'cta_href' => '/shop',
+        'is_active' => true,
+        'sort_order' => 1,
+    ]);
+
+    $promotion = Promotion::create([
+        'name' => 'Launch Offer',
+        'code' => 'LAUNCH15',
+        'description' => 'Initial offer copy',
+        'discount_type' => 'percentage',
+        'discount_value' => 15,
+        'is_active' => true,
+        'starts_at' => now(),
+    ]);
+
+    $this->actingAs($staff)
+        ->patch(route('admin.banners.update', $banner->id), [
+            'title' => 'Updated Launch Banner',
+            'subtitle' => 'Updated subtitle',
+            'image_url' => 'https://example.com/updated-banner.jpg',
+            'cta_label' => 'Browse now',
+            'cta_href' => '/collections/launch',
+            'is_active' => false,
+            'sort_order' => 3,
+        ])
+        ->assertRedirect();
+
+    $this->actingAs($staff)
+        ->patch(route('admin.promotions.update', $promotion->id), [
+            'name' => 'Updated Launch Offer',
+            'code' => 'LAUNCH20',
+            'description' => 'Updated offer copy',
+            'discount_type' => 'fixed',
+            'discount_value' => 20000,
+            'is_active' => false,
+        ])
+        ->assertRedirect();
+
+    $this->assertDatabaseHas('hero_banners', [
+        'id' => $banner->id,
+        'title' => 'Updated Launch Banner',
+        'is_active' => false,
+        'sort_order' => 3,
+    ]);
+
+    $this->assertDatabaseHas('promotions', [
+        'id' => $promotion->id,
+        'name' => 'Updated Launch Offer',
+        'code' => 'LAUNCH20',
+        'discount_type' => 'fixed',
+        'is_active' => false,
+    ]);
+
+    $this->actingAs($staff)
+        ->delete(route('admin.banners.destroy', $banner->id))
+        ->assertRedirect();
+
+    $this->actingAs($staff)
+        ->delete(route('admin.promotions.destroy', $promotion->id))
+        ->assertRedirect();
+
+    $this->assertDatabaseMissing('hero_banners', [
+        'id' => $banner->id,
+    ]);
+
+    $this->assertDatabaseMissing('promotions', [
+        'id' => $promotion->id,
     ]);
 });
 
@@ -200,6 +283,75 @@ it('allows staff to update homepage content sections', function () {
         'secondary_cta_label' => 'Browse Drops',
         'secondary_cta_href' => '/collections/new-arrivals',
     ]);
+});
+
+it('allows staff to update shared storefront shell content', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $shell = StorefrontContent::content(StorefrontContent::SHELL);
+    $shell['order_tracking']['title'] = 'Track every shipment';
+    $shell['footer']['brand_description'] = 'Updated footer copy from the merchandising CMS.';
+
+    $this->actingAs($staff)
+        ->patch(route('admin.storefront-content.update'), [
+            'key' => 'shell',
+            'content' => $shell,
+        ])
+        ->assertRedirect();
+
+    expect(StorefrontContent::content(StorefrontContent::SHELL)['order_tracking']['title'])->toBe('Track every shipment')
+        ->and(StorefrontContent::content(StorefrontContent::SHELL)['footer']['brand_description'])->toBe('Updated footer copy from the merchandising CMS.');
+});
+
+it('allows staff to update storefront about, contact, and legal content', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $about = StorefrontContent::content(StorefrontContent::ABOUT);
+    $about['hero']['description'] = 'Updated brand story copy.';
+
+    $contact = StorefrontContent::content(StorefrontContent::CONTACT);
+    $contact['intro']['title'] = 'Contact the team';
+    $contact['form']['email_recipient'] = 'support@colorbox.local';
+
+    $terms = StorefrontContent::content(StorefrontContent::TERMS);
+    $terms['last_updated'] = 'May 11, 2026';
+
+    $privacy = StorefrontContent::content(StorefrontContent::PRIVACY);
+    $privacy['usage_title'] = 'How customer information supports service';
+
+    $this->actingAs($staff)
+        ->patch(route('admin.storefront-content.update'), [
+            'key' => 'about',
+            'content' => $about,
+        ])
+        ->assertRedirect();
+
+    $this->actingAs($staff)
+        ->patch(route('admin.storefront-content.update'), [
+            'key' => 'contact',
+            'content' => $contact,
+        ])
+        ->assertRedirect();
+
+    $this->actingAs($staff)
+        ->patch(route('admin.storefront-content.update'), [
+            'key' => 'terms',
+            'content' => $terms,
+        ])
+        ->assertRedirect();
+
+    $this->actingAs($staff)
+        ->patch(route('admin.storefront-content.update'), [
+            'key' => 'privacy',
+            'content' => $privacy,
+        ])
+        ->assertRedirect();
+
+    expect(StorefrontContent::content(StorefrontContent::ABOUT)['hero']['description'])->toBe('Updated brand story copy.')
+        ->and(StorefrontContent::content(StorefrontContent::CONTACT)['intro']['title'])->toBe('Contact the team')
+        ->and(StorefrontContent::content(StorefrontContent::CONTACT)['form']['email_recipient'])->toBe('support@colorbox.local')
+        ->and(StorefrontContent::content(StorefrontContent::TERMS)['last_updated'])->toBe('May 11, 2026')
+        ->and(StorefrontContent::content(StorefrontContent::PRIVACY)['usage_title'])->toBe('How customer information supports service');
 });
 
 it('allows staff to create and update store locations', function () {

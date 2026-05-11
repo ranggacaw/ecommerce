@@ -6,12 +6,50 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Heart, Search, ShoppingBag, User2 } from 'lucide-react';
 import { useState } from 'react';
 
+const defaultShellContent = {
+    utility_labels: ['Executive', 'et cetera', 'Wrangler'],
+    order_tracking: {
+        kicker: 'Track Order',
+        title: 'Quick order utility',
+        description: 'Support tools stay accessible, but the presentation is quieter and cleaner.',
+        input_placeholder: 'Order ID',
+        button_label: 'Track',
+    },
+    account_cta: {
+        kicker: 'Join the Box',
+        title: 'Create your account',
+        description: 'Save favorites, review orders, and move through checkout faster.',
+        guest_primary_label: 'Create account',
+        guest_secondary_label: 'Sign in',
+        member_primary_label: 'Open account',
+    },
+    footer: {
+        brand_description: 'Tailored layers, fluid bottoms, and accessories designed for the office-to-evening switch.',
+        information_title: 'Information',
+        shop_all_label: 'Shop all',
+        new_arrivals_label: 'New arrivals',
+        create_account_label: 'Create account',
+        company_title: 'Company',
+        about_label: 'About',
+        location_label: 'Location',
+        contact_label: 'Contact Us',
+        terms_label: 'Term & Policy',
+        customer_care_title: 'Customer Care',
+        shopping_bag_label: 'Shopping bag',
+        customer_access_label: 'Customer access',
+        back_to_top_label: 'Back to top',
+        multi_brand_title: 'Multi-brand Links',
+        multi_brand_labels: ['Executive', 'Lee', 'Wrangler'],
+    },
+};
+
 export default function StorefrontLayout({ title, categories = [], children }) {
-    const { auth, cart, wishlist, appName, navigationCategories } = usePage().props;
+    const { auth, cart, wishlist, appName, navigationCategories, storefrontShellContent } = usePage().props;
     const [query, setQuery] = useState('');
     const [trackingNumber, setTrackingNumber] = useState('');
     const categoryLinks = categories.length ? categories : navigationCategories || [];
     const cartCount = cart?.count ?? cart?.items?.length ?? null;
+    const shellContent = storefrontShellContent?.utility_labels ? storefrontShellContent : defaultShellContent;
 
     const submitSearch = (event) => {
         event.preventDefault();
@@ -35,9 +73,9 @@ export default function StorefrontLayout({ title, categories = [], children }) {
             <div className="border-b border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-highest)]">
                 <div className="mx-auto flex max-w-7xl items-center justify-center gap-4 px-[4%] py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--cbx-neutral-mid)] sm:gap-6">
                     <span className="border-b border-[var(--cbx-primary)] pb-0.5 text-[var(--cbx-primary)]">{appName || 'Colorbox'}</span>
-                    <span>Executive</span>
-                    <span>et cetera</span>
-                    <span>Wrangler</span>
+                    {shellContent.utility_labels.map((label) => (
+                        <span key={label}>{label}</span>
+                    ))}
                 </div>
             </div>
 
@@ -101,29 +139,29 @@ export default function StorefrontLayout({ title, categories = [], children }) {
             <section className="border-t border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)] px-[4%]">
                 <div className="mx-auto grid max-w-[82rem] gap-px bg-[var(--cbx-border-subtle)] lg:grid-cols-2">
                     <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-8">
-                        <p className="cbx-kicker">Track Order</p>
-                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">Quick order utility</h3>
-                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Support tools stay accessible, but the presentation is quieter and cleaner.</p>
+                        <p className="cbx-kicker">{shellContent.order_tracking.kicker}</p>
+                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">{shellContent.order_tracking.title}</h3>
+                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">{shellContent.order_tracking.description}</p>
                         <form onSubmit={submitOrderTracking} className="mt-5 flex flex-col gap-3 sm:flex-row">
-                            <Input value={trackingNumber} onChange={(event) => setTrackingNumber(event.target.value)} placeholder="Order ID" className="h-12 flex-1 rounded-md bg-[var(--cbx-surface-container-low)]" />
-                            <Button type="submit" className="px-5 py-3">Track</Button>
+                            <Input value={trackingNumber} onChange={(event) => setTrackingNumber(event.target.value)} placeholder={shellContent.order_tracking.input_placeholder} className="h-12 flex-1 rounded-md bg-[var(--cbx-surface-container-low)]" />
+                            <Button type="submit" className="px-5 py-3">{shellContent.order_tracking.button_label}</Button>
                         </form>
                     </div>
                     <div className="bg-[var(--cbx-surface-container-lowest)] px-6 py-8">
-                        <p className="cbx-kicker">Join the Box</p>
-                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">Create your account</h3>
-                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">Save favorites, review orders, and move through checkout faster.</p>
+                        <p className="cbx-kicker">{shellContent.account_cta.kicker}</p>
+                        <h3 className="mt-3 font-heading text-2xl font-bold tracking-[-0.03em] text-[var(--cbx-on-surface)]">{shellContent.account_cta.title}</h3>
+                        <p className="mt-2 max-w-md text-sm leading-6 text-[var(--cbx-on-surface-variant)]">{shellContent.account_cta.description}</p>
                         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                             <Link href={auth.user ? route('dashboard') : route('register')} className="cbx-button cbx-button-primary px-5 py-3 text-sm">
-                                {auth.user ? 'Open account' : 'Create account'}
+                                {auth.user ? shellContent.account_cta.member_primary_label : shellContent.account_cta.guest_primary_label}
                             </Link>
-                            {!auth.user ? <Link href={route('login')} className="cbx-button cbx-button-secondary px-5 py-3 text-sm">Sign in</Link> : null}
+                            {!auth.user ? <Link href={route('login')} className="cbx-button cbx-button-secondary px-5 py-3 text-sm">{shellContent.account_cta.guest_secondary_label}</Link> : null}
                         </div>
                     </div>
                 </div>
             </section>
 
-            <StorefrontFooter />
+            <StorefrontFooter content={shellContent.footer} />
         </div>
     );
 }

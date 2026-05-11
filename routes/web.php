@@ -68,10 +68,15 @@ Route::prefix('/admin')
         Route::get('/catalog', [AdminCatalogController::class, 'index'])->name('catalog');
         Route::get('/merchandising', [AdminCatalogController::class, 'merchandising'])->name('merchandising');
         Route::patch('/catalog/homepage-content', [AdminCatalogController::class, 'updateHomepageContent'])->name('homepage-content.update');
+        Route::patch('/catalog/storefront-content', [AdminCatalogController::class, 'updateStorefrontContent'])->name('storefront-content.update');
         Route::post('/catalog/categories', [AdminCatalogController::class, 'storeCategory'])->name('categories.store');
         Route::post('/catalog/collections', [AdminCatalogController::class, 'storeCollection'])->name('collections.store');
         Route::post('/catalog/banners', [AdminCatalogController::class, 'storeBanner'])->name('banners.store');
+        Route::patch('/catalog/banners/{heroBanner}', [AdminCatalogController::class, 'updateBanner'])->name('banners.update');
+        Route::delete('/catalog/banners/{heroBanner}', [AdminCatalogController::class, 'destroyBanner'])->name('banners.destroy');
         Route::post('/catalog/promotions', [AdminCatalogController::class, 'storePromotion'])->name('promotions.store');
+        Route::patch('/catalog/promotions/{promotion}', [AdminCatalogController::class, 'updatePromotion'])->name('promotions.update');
+        Route::delete('/catalog/promotions/{promotion}', [AdminCatalogController::class, 'destroyPromotion'])->name('promotions.destroy');
         Route::post('/catalog/products', [AdminCatalogController::class, 'storeProduct'])->name('products.store');
         Route::patch('/catalog/products/{product}', [AdminCatalogController::class, 'updateProduct'])->name('products.update');
 
