@@ -13,9 +13,29 @@ use App\Models\Promotion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class CatalogController extends Controller
 {
+    public function index(): Response
+    {
+        return Inertia::render('Admin/Catalog', [
+            'products' => Product::query()->with(['category', 'promotion', 'variants', 'images', 'collections'])->latest()->get(),
+            'categories' => Category::query()->latest()->get(),
+            'collections' => Collection::query()->withCount('products')->latest()->get(),
+            'promotions' => Promotion::query()->latest()->get(),
+        ]);
+    }
+
+    public function merchandising(): Response
+    {
+        return Inertia::render('Admin/Merchandising', [
+            'banners' => HeroBanner::query()->orderBy('sort_order')->get(),
+            'promotions' => Promotion::query()->latest()->get(),
+        ]);
+    }
+
     public function storeCategory(Request $request): RedirectResponse
     {
         $validated = $request->validate([

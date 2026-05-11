@@ -1,4 +1,8 @@
-## ADDED Requirements
+# commerce-platform-foundation Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Laravel Commerce Application Foundation
 The system SHALL be implemented as a Laravel application that uses Inertia.js with React for the web interface, shadcn/ui-compatible component primitives for the design system layer, and PostgreSQL as the primary transactional database.
 
@@ -19,3 +23,4 @@ The system SHALL define provider-agnostic integration boundaries for payment and
 #### Scenario: Add a provider adapter
 - **WHEN** a new payment or logistics provider is introduced
 - **THEN** the platform can connect it through the existing integration boundary while preserving the internal checkout and shipment workflows
+

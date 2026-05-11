@@ -1,4 +1,8 @@
-## ADDED Requirements
+# cart-checkout Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Persistent Shopping Bag
 The system SHALL provide a shopping bag that persists across browsing sessions and can continue from guest state into an authenticated customer account.
 
@@ -25,3 +29,4 @@ Related capabilities: `commerce-platform-foundation`, `fulfillment-integrations`
 #### Scenario: Checkout offers multiple payment methods
 - **WHEN** a shopper reaches the payment step of checkout
 - **THEN** the system presents the supported payment methods and records the selected payment state against the order
+

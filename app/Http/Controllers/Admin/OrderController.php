@@ -13,6 +13,18 @@ use Inertia\Response as InertiaResponse;
 
 class OrderController extends Controller
 {
+    public function index(): InertiaResponse
+    {
+        return Inertia::render('Admin/Orders', [
+            'stats' => [
+                'open' => Order::query()->whereIn('status', ['pending', 'processing'])->count(),
+                'awaitingFulfillment' => Order::query()->whereIn('fulfillment_status', ['awaiting_fulfillment', 'packed'])->count(),
+                'paid' => Order::query()->where('payment_status', 'paid')->count(),
+            ],
+            'orders' => Order::query()->with(['items', 'payments', 'shipments'])->latest()->take(20)->get(),
+        ]);
+    }
+
     public function show(Order $order): InertiaResponse
     {
         return Inertia::render('Admin/OrderShow', [

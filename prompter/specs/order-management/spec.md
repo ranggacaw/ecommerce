@@ -1,4 +1,8 @@
-## ADDED Requirements
+# order-management Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Operational Order Dashboard
 The system SHALL provide staff or admins with an order-management dashboard for reviewing payment state, fulfillment state, customer information, and order-line details.
 
@@ -14,3 +18,4 @@ Related capabilities: `fulfillment-integrations`, `customer-account`.
 #### Scenario: Order advances to shipment
 - **WHEN** an order is ready for dispatch or receives a courier status update
 - **THEN** the system updates the shipment record and exposes the latest fulfillment state to operational users and customers
+

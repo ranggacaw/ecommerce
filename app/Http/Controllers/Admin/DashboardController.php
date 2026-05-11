@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\ProductVariant;
+use App\Models\StoreLocation;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,17 +22,22 @@ class DashboardController extends Controller
         return Inertia::render('Admin/Dashboard', [
             'stats' => [
                 'products' => Product::count(),
-                'variants' => ProductVariant::count(),
+                'categories' => Category::count(),
+                'collections' => Collection::count(),
+                'banners' => HeroBanner::count(),
+                'promotions' => Promotion::count(),
+                'locations' => StoreLocation::count(),
                 'orders' => Order::count(),
                 'lowStock' => ProductVariant::query()->whereRaw('stock_on_hand - stock_reserved <= 3')->count(),
             ],
-            'products' => Product::query()->with(['category', 'promotion', 'variants', 'images'])->latest()->get(),
-            'categories' => Category::query()->latest()->get(),
-            'collections' => Collection::query()->with('products')->latest()->get(),
-            'banners' => HeroBanner::query()->orderBy('sort_order')->get(),
-            'promotions' => Promotion::query()->latest()->get(),
-            'orders' => Order::query()->with(['items', 'payments', 'shipments'])->latest()->take(12)->get(),
-            'inventoryAdjustments' => InventoryAdjustment::query()->with(['variant.product', 'user'])->latest()->take(20)->get(),
+            'recentOrders' => Order::query()->latest()->take(5)->get(),
+            'lowStockVariants' => ProductVariant::query()
+                ->with('product')
+                ->whereRaw('stock_on_hand - stock_reserved <= 3')
+                ->orderByRaw('stock_on_hand - stock_reserved asc')
+                ->take(5)
+                ->get(),
+            'recentAdjustments' => InventoryAdjustment::query()->with(['variant.product', 'user'])->latest()->take(5)->get(),
         ]);
     }
 }

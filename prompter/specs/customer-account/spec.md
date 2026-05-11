@@ -1,4 +1,8 @@
-## ADDED Requirements
+# customer-account Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Customer Account Dashboard
 The system SHALL provide authenticated customers with an account area for profile management and order-history access.
 
@@ -12,3 +16,4 @@ The system SHALL allow authenticated customers to store shipping addresses and m
 #### Scenario: Customer saves an address and a product
 - **WHEN** an authenticated customer adds a shipping address or saves a product to their wishlist
 - **THEN** the system persists the data to the customer account for later reuse
+

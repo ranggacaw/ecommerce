@@ -7,9 +7,24 @@ use App\Models\InventoryAdjustment;
 use App\Models\ProductVariant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class InventoryController extends Controller
 {
+    public function index(): Response
+    {
+        return Inertia::render('Admin/Inventory', [
+            'variants' => ProductVariant::query()->with('product')->orderBy('sku')->get(),
+            'lowStockVariants' => ProductVariant::query()
+                ->with('product')
+                ->whereRaw('stock_on_hand - stock_reserved <= 3')
+                ->orderByRaw('stock_on_hand - stock_reserved asc')
+                ->get(),
+            'inventoryAdjustments' => InventoryAdjustment::query()->with(['variant.product', 'user'])->latest()->take(20)->get(),
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([

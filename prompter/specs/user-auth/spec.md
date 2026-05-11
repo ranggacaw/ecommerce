@@ -1,4 +1,8 @@
-## ADDED Requirements
+# user-auth Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Customer Authentication Flows
 The system SHALL provide customer registration, login, logout, password reset, and session handling within the Laravel + Inertia application.
 
@@ -16,3 +20,4 @@ The system SHALL support at least `customer`, `staff`, and `admin` roles for acc
 #### Scenario: Staff accesses back-office features
 - **WHEN** a user with a `staff` or `admin` role opens an operational route
 - **THEN** the application authorizes that user without granting the same access to standard customers
+

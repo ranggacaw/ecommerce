@@ -6,6 +6,8 @@ use App\Models\HeroBanner;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
+use App\Models\StoreLocation;
+use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Illuminate\Support\Str;
 
@@ -106,3 +108,66 @@ it('renders storefront information pages', function (string $routeName, string $
     ['storefront.contact', 'Storefront/ContactUs'],
     ['storefront.terms', 'Storefront/TermsPolicy'],
 ]);
+
+it('reads admin-created banner content on the storefront home page', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $this->actingAs($staff)
+        ->post(route('admin.banners.store'), [
+            'title' => 'CMS Banner',
+            'subtitle' => 'Managed from admin',
+            'image_url' => 'https://example.com/cms-banner.jpg',
+            'cta_label' => 'Explore',
+            'cta_href' => '/shop',
+            'sort_order' => 0,
+        ])
+        ->assertRedirect();
+
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/Home')
+            ->has('banners', 1)
+            ->where('banners.0.title', 'CMS Banner'));
+});
+
+it('reads active admin-managed store locations on the storefront location page', function () {
+    $staff = User::factory()->create(['role' => 'staff']);
+
+    $this->actingAs($staff)
+        ->post(route('admin.locations.store'), [
+            'name' => 'South Jakarta',
+            'address' => 'Jl. Metro 1',
+            'city' => 'Jakarta',
+            'latitude' => -6.2500000,
+            'longitude' => 106.8000000,
+            'distance' => 7.5,
+            'hours' => '10:00-22:00',
+            'phone' => '081234567890',
+            'services' => 'Pickup, Returns',
+            'is_active' => true,
+            'sort_order' => 1,
+        ])
+        ->assertRedirect();
+
+    StoreLocation::create([
+        'name' => 'Inactive Location',
+        'address' => 'Jl. Hidden 9',
+        'city' => 'Bandung',
+        'latitude' => -6.9000000,
+        'longitude' => 107.6000000,
+        'distance' => 15,
+        'hours' => '10:00-18:00',
+        'phone' => '080000000000',
+        'services' => ['Pickup'],
+        'is_active' => false,
+        'sort_order' => 2,
+    ]);
+
+    $this->get(route('storefront.location'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('Storefront/Location')
+            ->has('stores', 1)
+            ->where('stores.0.name', 'South Jakarta'));
+});

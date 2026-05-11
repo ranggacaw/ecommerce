@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CatalogController as AdminCatalogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\InventoryController as AdminInventoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\StoreLocationController as AdminStoreLocationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CheckoutController;
@@ -63,6 +64,9 @@ Route::prefix('/admin')
     ->middleware(['auth', 'role:staff,admin'])
     ->group(function () {
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/catalog', [AdminCatalogController::class, 'index'])->name('catalog');
+        Route::get('/merchandising', [AdminCatalogController::class, 'merchandising'])->name('merchandising');
         Route::post('/catalog/categories', [AdminCatalogController::class, 'storeCategory'])->name('categories.store');
         Route::post('/catalog/collections', [AdminCatalogController::class, 'storeCollection'])->name('collections.store');
         Route::post('/catalog/banners', [AdminCatalogController::class, 'storeBanner'])->name('banners.store');
@@ -70,8 +74,14 @@ Route::prefix('/admin')
         Route::post('/catalog/products', [AdminCatalogController::class, 'storeProduct'])->name('products.store');
         Route::patch('/catalog/products/{product}', [AdminCatalogController::class, 'updateProduct'])->name('products.update');
 
+        Route::get('/store-locations', [AdminStoreLocationController::class, 'index'])->name('locations');
+        Route::post('/store-locations', [AdminStoreLocationController::class, 'store'])->name('locations.store');
+        Route::patch('/store-locations/{storeLocation}', [AdminStoreLocationController::class, 'update'])->name('locations.update');
+
+        Route::get('/inventory', [AdminInventoryController::class, 'index'])->name('inventory');
         Route::post('/inventory/adjustments', [AdminInventoryController::class, 'store'])->name('inventory.adjustments.store');
 
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}', [AdminOrderController::class, 'update'])->name('orders.update');
         Route::get('/orders/{order}/label', [AdminOrderController::class, 'label'])->name('orders.label');

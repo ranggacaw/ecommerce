@@ -1,4 +1,8 @@
-## ADDED Requirements
+# catalog-administration Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Product And Promotion CMS
 The system SHALL provide back-office workflows for staff or admins to create, update, publish, and unpublish products, variants, categories, prices, and promotions without changing application code.
 
@@ -12,3 +16,4 @@ The system SHALL allow staff or admins to manage hero banners, new-arrivals grou
 #### Scenario: Team updates the seasonal hero banner
 - **WHEN** a staff or admin user changes active merchandising content
 - **THEN** the storefront home page uses the updated banner or collection placement
+

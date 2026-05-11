@@ -16,7 +16,7 @@ export default function OrderShow({ order }) {
     const shipment = order.shipments?.[0];
 
     return (
-        <AdminLayout title={`Order ${order.number}`}>
+        <AdminLayout title={`Order ${order.number}`} section="orders">
             <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
                 <Card>
                     <CardContent className="space-y-6">

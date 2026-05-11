@@ -1,4 +1,8 @@
-## ADDED Requirements
+# inventory-management Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Stock Availability And Reservation Control
 The system SHALL maintain stock availability per sellable variant and prevent overselling through reservation-aware order flows.
 
@@ -14,3 +18,4 @@ The system SHALL let operational users record stock receipts, manual adjustments
 #### Scenario: Physical stock changes after an adjustment
 - **WHEN** a staff or admin user records an adjustment or receives a synchronized stock update from another source
 - **THEN** the system updates on-hand inventory and preserves the resulting stock history
+

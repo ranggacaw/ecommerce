@@ -1,4 +1,8 @@
-## ADDED Requirements
+# storefront-catalog Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Home Merchandising And Category Navigation
 The system SHALL provide a storefront home page with high-visibility merchandising that includes hero banners, organized category navigation for apparel groupings such as tops, bottoms, and accessories, a new-arrivals entry point, and promo-focused collections.
 
@@ -19,3 +23,4 @@ The system SHALL provide product detail pages with multi-angle media, zoom suppo
 #### Scenario: Shopper evaluates a product
 - **WHEN** a shopper opens a product detail page
 - **THEN** the page provides the information needed to compare fit, material, imagery, and complementary products before adding the item to the cart
+

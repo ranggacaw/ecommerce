@@ -1,4 +1,8 @@
-## ADDED Requirements
+# fulfillment-integrations Specification
+
+## Purpose
+TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
+## Requirements
 ### Requirement: Shipping Rate Calculation
 The system SHALL calculate shipping-cost options from provider-agnostic logistics integrations based on shipment weight and destination.
 
@@ -16,3 +20,4 @@ Related capabilities: `order-management`, `customer-account`.
 #### Scenario: Courier marks a parcel as delivered
 - **WHEN** the logistics provider reports a shipment status change
 - **THEN** the system records the mapped internal status and exposes it in operational and customer-facing order views
+
