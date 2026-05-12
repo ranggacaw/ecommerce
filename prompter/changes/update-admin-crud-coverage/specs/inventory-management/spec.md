@@ -1,17 +1,4 @@
-# inventory-management Specification
-
-## Purpose
-TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
-## Requirements
-### Requirement: Stock Availability And Reservation Control
-The system SHALL maintain stock availability per sellable variant and prevent overselling through reservation-aware order flows.
-
-Related capabilities: `cart-checkout`, `order-management`.
-
-#### Scenario: Last unit is being purchased
-- **WHEN** a shopper attempts to purchase the remaining available stock for a variant
-- **THEN** the system updates sellable availability in a way that prevents the same stock from being oversold by another order
-
+## MODIFIED Requirements
 ### Requirement: Inventory Adjustments And Source Synchronization
 The system SHALL let operational users record, update, search, filter, reverse, and void stock receipts, manual adjustments, returns, and external source-sync events needed to keep inventory accurate across channels. Inventory delete behavior SHALL preserve history by using reversal or void workflows instead of destructive deletion.
 
@@ -26,4 +13,3 @@ The system SHALL let operational users record, update, search, filter, reverse, 
 #### Scenario: Operations user filters inventory activity
 - **WHEN** a staff or admin user searches or filters inventory variants or journal entries in the admin workspace
 - **THEN** the system returns the matching stock records and adjustments for operational review
-

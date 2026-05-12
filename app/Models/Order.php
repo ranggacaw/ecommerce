@@ -27,6 +27,8 @@ class Order extends Model
         'notes',
         'placed_at',
         'inventory_committed_at',
+        'archived_by',
+        'archived_at',
     ];
 
     protected $casts = [
@@ -37,6 +39,7 @@ class Order extends Model
         'address_snapshot' => 'array',
         'placed_at' => 'datetime',
         'inventory_committed_at' => 'datetime',
+        'archived_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

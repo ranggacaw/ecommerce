@@ -11,13 +11,30 @@ use Inertia\Response;
 
 class StoreLocationController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $filters = [
+            'q' => trim((string) $request->query('q', '')),
+            'status' => (string) $request->query('status', 'all'),
+        ];
+
         return Inertia::render('Admin/Locations', [
             'locations' => StoreLocation::query()
+                ->when($filters['q'] !== '', function ($query) use ($filters) {
+                    $query->where(function ($innerQuery) use ($filters) {
+                        $innerQuery
+                            ->where('name', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('city', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('address', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('phone', 'like', '%'.$filters['q'].'%');
+                    });
+                })
+                ->when($filters['status'] === 'active', fn ($query) => $query->where('is_active', true))
+                ->when($filters['status'] === 'inactive', fn ($query) => $query->where('is_active', false))
                 ->orderBy('sort_order')
                 ->orderBy('name')
                 ->get(),
+            'filters' => $filters,
         ]);
     }
 
@@ -33,6 +50,13 @@ class StoreLocationController extends Controller
         $storeLocation->update($this->validateLocation($request));
 
         return back()->with('success', 'Store location updated.');
+    }
+
+    public function destroy(StoreLocation $storeLocation): RedirectResponse
+    {
+        $storeLocation->delete();
+
+        return back()->with('success', 'Store location deleted.');
     }
 
     private function validateLocation(Request $request): array

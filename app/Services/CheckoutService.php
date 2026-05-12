@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\ProductVariant;
 use App\Models\Shipment;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -203,6 +204,94 @@ class CheckoutService
                     'stock_reserved' => max(0, $variant->stock_reserved - $item->quantity),
                 ]);
             }
+        });
+    }
+
+    public function createAdminOrder(array $validated): Order
+    {
+        return DB::transaction(function () use ($validated): Order {
+            $variant = ProductVariant::query()
+                ->with('product')
+                ->lockForUpdate()
+                ->findOrFail($validated['product_variant_id']);
+
+            if ($variant->available_stock < $validated['quantity']) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'The selected variant does not have enough available stock.',
+                ]);
+            }
+
+            $variant->increment('stock_reserved', $validated['quantity']);
+
+            $subtotal = $variant->price * $validated['quantity'];
+            $shippingTotal = $validated['shipping_total'];
+            $paymentStatus = $validated['payment_status'];
+            $userId = User::query()->where('email', $validated['email'])->value('id');
+
+            $order = Order::create([
+                'number' => 'CBX-'.Str::upper(Str::random(10)),
+                'user_id' => $userId,
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'status' => $paymentStatus === 'paid' ? 'processing' : 'pending',
+                'payment_status' => $paymentStatus,
+                'fulfillment_status' => 'awaiting_fulfillment',
+                'subtotal' => $subtotal,
+                'discount_total' => 0,
+                'shipping_total' => $shippingTotal,
+                'grand_total' => $subtotal + $shippingTotal,
+                'address_snapshot' => [
+                    'recipient_name' => $validated['recipient_name'],
+                    'phone' => $validated['phone'],
+                    'line1' => $validated['line1'],
+                    'city' => $validated['city'],
+                    'province' => $validated['province'],
+                    'postal_code' => $validated['postal_code'],
+                    'country' => $validated['country'],
+                ],
+                'notes' => $validated['notes'] ?? null,
+                'placed_at' => now(),
+            ]);
+
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_variant_id' => $variant->id,
+                'product_name' => $variant->product->name,
+                'variant_name' => $variant->display_name,
+                'sku' => $variant->sku,
+                'quantity' => $validated['quantity'],
+                'unit_price' => $variant->price,
+                'total_price' => $subtotal,
+                'metadata' => [
+                    'material' => $variant->product->material,
+                ],
+            ]);
+
+            Payment::create([
+                'order_id' => $order->id,
+                'provider' => 'admin-manual',
+                'method' => $validated['payment_method'],
+                'external_reference' => 'ADMIN-'.Str::upper(Str::random(8)),
+                'amount' => $subtotal + $shippingTotal,
+                'status' => $paymentStatus,
+                'payload' => ['created_via' => 'admin'],
+                'paid_at' => $paymentStatus === 'paid' ? now() : null,
+            ]);
+
+            Shipment::create([
+                'order_id' => $order->id,
+                'provider' => 'admin-manual',
+                'service_name' => $validated['shipping_service_name'],
+                'tracking_number' => $validated['tracking_number'] ?: 'ADM-'.Str::upper(Str::random(10)),
+                'weight_grams' => $validated['quantity'] * ($variant->weight_grams ?? 0),
+                'destination_summary' => implode(', ', array_filter([$validated['city'], $validated['province'], $validated['country']])),
+                'cost' => $shippingTotal,
+                'status' => 'ready_to_ship',
+                'label_url' => route('admin.orders.label', $order, false),
+                'payload' => ['created_via' => 'admin'],
+            ]);
+
+            return $order->fresh(['items', 'payments', 'shipments']);
         });
     }
 

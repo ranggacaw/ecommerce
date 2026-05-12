@@ -21,23 +21,77 @@ use Inertia\Response;
 
 class CatalogController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $filters = [
+            'q' => trim((string) $request->query('q', '')),
+            'category' => (string) $request->query('category', 'all'),
+            'status' => (string) $request->query('status', 'all'),
+        ];
+
+        $products = Product::query()
+            ->with(['category', 'promotion', 'variants', 'images', 'collections'])
+            ->when($filters['q'] !== '', function ($query) use ($filters) {
+                $query->where(function ($innerQuery) use ($filters) {
+                    $innerQuery
+                        ->where('name', 'like', '%'.$filters['q'].'%')
+                        ->orWhere('brand', 'like', '%'.$filters['q'].'%')
+                        ->orWhereHas('category', fn ($categoryQuery) => $categoryQuery->where('name', 'like', '%'.$filters['q'].'%'))
+                        ->orWhereHas('variants', fn ($variantQuery) => $variantQuery->where('sku', 'like', '%'.$filters['q'].'%'));
+                });
+            })
+            ->when($filters['category'] !== 'all', fn ($query) => $query->where('category_id', $filters['category']))
+            ->when($filters['status'] === 'active', function ($query) {
+                $query->where('is_active', true)->whereHas('variants', fn ($variantQuery) => $variantQuery->where('stock_on_hand', '>', 0));
+            })
+            ->when($filters['status'] === 'draft', fn ($query) => $query->where('is_active', false))
+            ->when($filters['status'] === 'out_of_stock', function ($query) {
+                $query->where('is_active', true)->whereHas('variants', fn ($variantQuery) => $variantQuery->where('stock_on_hand', '<=', 0));
+            })
+            ->latest()
+            ->get();
+
         return Inertia::render('Admin/Catalog', [
-            'products' => Product::query()->with(['category', 'promotion', 'variants', 'images', 'collections'])->latest()->get(),
-            'categories' => Category::query()->latest()->get(),
+            'products' => $products,
+            'categories' => Category::query()->withCount('products')->latest()->get(),
             'collections' => Collection::query()->withCount('products')->latest()->get(),
             'promotions' => Promotion::query()->latest()->get(),
+            'filters' => $filters,
         ]);
     }
 
-    public function merchandising(): Response
+    public function merchandising(Request $request): Response
     {
+        $filters = [
+            'q' => trim((string) $request->query('q', '')),
+        ];
+
         return Inertia::render('Admin/Merchandising', [
-            'banners' => HeroBanner::query()->orderBy('sort_order')->get(),
+            'banners' => HeroBanner::query()
+                ->when($filters['q'] !== '', function ($query) use ($filters) {
+                    $query->where(function ($innerQuery) use ($filters) {
+                        $innerQuery
+                            ->where('title', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('subtitle', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('cta_label', 'like', '%'.$filters['q'].'%');
+                    });
+                })
+                ->orderBy('sort_order')
+                ->get(),
             'homepageContent' => HomepageContent::current(),
-            'promotions' => Promotion::query()->latest()->get(),
+            'promotions' => Promotion::query()
+                ->when($filters['q'] !== '', function ($query) use ($filters) {
+                    $query->where(function ($innerQuery) use ($filters) {
+                        $innerQuery
+                            ->where('name', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('code', 'like', '%'.$filters['q'].'%')
+                            ->orWhere('description', 'like', '%'.$filters['q'].'%');
+                    });
+                })
+                ->latest()
+                ->get(),
             'storefrontContent' => StorefrontContent::currentMap(),
+            'filters' => $filters,
         ]);
     }
 
@@ -274,34 +328,65 @@ class CatalogController extends Controller
 
     public function storeCategory(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'type' => ['nullable', 'string', 'max:40'],
-        ]);
+        $validated = $this->validateCategory($request);
 
         Category::create([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $this->uniqueSlug(Category::class, $validated['name']),
         ]);
 
         return back()->with('success', 'Category saved.');
     }
 
+    public function updateCategory(Request $request, Category $category): RedirectResponse
+    {
+        $validated = $this->validateCategory($request);
+
+        $category->update([
+            ...$validated,
+            'slug' => $this->uniqueSlug(Category::class, $validated['name'], $category->id),
+        ]);
+
+        return back()->with('success', 'Category updated.');
+    }
+
+    public function destroyCategory(Category $category): RedirectResponse
+    {
+        $category->delete();
+
+        return back()->with('success', 'Category deleted.');
+    }
+
     public function storeCollection(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'kind' => ['required', 'string', 'max:40'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $validated = $this->validateCollection($request);
 
         Collection::create([
             ...$validated,
-            'slug' => Str::slug($validated['name']),
+            'slug' => $this->uniqueSlug(Collection::class, $validated['name']),
         ]);
 
         return back()->with('success', 'Collection saved.');
+    }
+
+    public function updateCollection(Request $request, Collection $collection): RedirectResponse
+    {
+        $validated = $this->validateCollection($request);
+
+        $collection->update([
+            ...$validated,
+            'slug' => $this->uniqueSlug(Collection::class, $validated['name'], $collection->id),
+        ]);
+
+        return back()->with('success', 'Collection updated.');
+    }
+
+    public function destroyCollection(Collection $collection): RedirectResponse
+    {
+        $collection->products()->detach();
+        $collection->delete();
+
+        return back()->with('success', 'Collection deleted.');
     }
 
     public function storeBanner(Request $request): RedirectResponse
@@ -410,6 +495,13 @@ class CatalogController extends Controller
         return back()->with('success', 'Product updated.');
     }
 
+    public function destroyProduct(Product $product): RedirectResponse
+    {
+        $product->delete();
+
+        return back()->with('success', 'Product deleted.');
+    }
+
     private function syncVariant(Product $product, array $validated, ?int $variantId = null): void
     {
         $variant = $variantId
@@ -476,6 +568,24 @@ class CatalogController extends Controller
         ]);
     }
 
+    private function validateCategory(Request $request): array
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'type' => ['nullable', 'string', 'max:40'],
+        ]);
+    }
+
+    private function validateCollection(Request $request): array
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'string', 'max:40'],
+            'description' => ['nullable', 'string'],
+        ]);
+    }
+
     private function validateBanner(Request $request): array
     {
         return $request->validate([
@@ -499,5 +609,22 @@ class CatalogController extends Controller
             'discount_value' => ['required', 'numeric', 'min:0'],
             'is_active' => ['required', 'boolean'],
         ]);
+    }
+
+    private function uniqueSlug(string $modelClass, string $name, ?int $ignoreId = null): string
+    {
+        $baseSlug = Str::slug($name) ?: Str::lower(Str::random(6));
+        $slug = $baseSlug;
+        $counter = 2;
+
+        while ($modelClass::query()
+            ->when($ignoreId, fn ($query) => $query->whereKeyNot($ignoreId))
+            ->where('slug', $slug)
+            ->exists()) {
+            $slug = $baseSlug.'-'.$counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }

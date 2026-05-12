@@ -70,7 +70,11 @@ Route::prefix('/admin')
         Route::patch('/catalog/homepage-content', [AdminCatalogController::class, 'updateHomepageContent'])->name('homepage-content.update');
         Route::patch('/catalog/storefront-content', [AdminCatalogController::class, 'updateStorefrontContent'])->name('storefront-content.update');
         Route::post('/catalog/categories', [AdminCatalogController::class, 'storeCategory'])->name('categories.store');
+        Route::patch('/catalog/categories/{category}', [AdminCatalogController::class, 'updateCategory'])->name('categories.update');
+        Route::delete('/catalog/categories/{category}', [AdminCatalogController::class, 'destroyCategory'])->name('categories.destroy');
         Route::post('/catalog/collections', [AdminCatalogController::class, 'storeCollection'])->name('collections.store');
+        Route::patch('/catalog/collections/{collection}', [AdminCatalogController::class, 'updateCollection'])->name('collections.update');
+        Route::delete('/catalog/collections/{collection}', [AdminCatalogController::class, 'destroyCollection'])->name('collections.destroy');
         Route::post('/catalog/banners', [AdminCatalogController::class, 'storeBanner'])->name('banners.store');
         Route::patch('/catalog/banners/{heroBanner}', [AdminCatalogController::class, 'updateBanner'])->name('banners.update');
         Route::delete('/catalog/banners/{heroBanner}', [AdminCatalogController::class, 'destroyBanner'])->name('banners.destroy');
@@ -79,17 +83,24 @@ Route::prefix('/admin')
         Route::delete('/catalog/promotions/{promotion}', [AdminCatalogController::class, 'destroyPromotion'])->name('promotions.destroy');
         Route::post('/catalog/products', [AdminCatalogController::class, 'storeProduct'])->name('products.store');
         Route::patch('/catalog/products/{product}', [AdminCatalogController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/catalog/products/{product}', [AdminCatalogController::class, 'destroyProduct'])->name('products.destroy');
 
         Route::get('/store-locations', [AdminStoreLocationController::class, 'index'])->name('locations');
         Route::post('/store-locations', [AdminStoreLocationController::class, 'store'])->name('locations.store');
         Route::patch('/store-locations/{storeLocation}', [AdminStoreLocationController::class, 'update'])->name('locations.update');
+        Route::delete('/store-locations/{storeLocation}', [AdminStoreLocationController::class, 'destroy'])->name('locations.destroy');
 
         Route::get('/inventory', [AdminInventoryController::class, 'index'])->name('inventory');
         Route::post('/inventory/adjustments', [AdminInventoryController::class, 'store'])->name('inventory.adjustments.store');
+        Route::patch('/inventory/adjustments/{inventoryAdjustment}', [AdminInventoryController::class, 'update'])->name('inventory.adjustments.update');
+        Route::patch('/inventory/adjustments/{inventoryAdjustment}/void', [AdminInventoryController::class, 'void'])->name('inventory.adjustments.void');
 
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::post('/orders', [AdminOrderController::class, 'store'])->name('orders.store');
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}', [AdminOrderController::class, 'update'])->name('orders.update');
+        Route::patch('/orders/{order}/cancel', [AdminOrderController::class, 'cancel'])->name('orders.cancel');
+        Route::patch('/orders/{order}/archive', [AdminOrderController::class, 'archive'])->name('orders.archive');
         Route::get('/orders/{order}/label', [AdminOrderController::class, 'label'])->name('orders.label');
     });
 

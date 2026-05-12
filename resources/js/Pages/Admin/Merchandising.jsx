@@ -3,7 +3,8 @@ import { Card, CardContent } from '@/Components/ui/Card';
 import { Input } from '@/Components/ui/Input';
 import { Textarea } from '@/Components/ui/Textarea';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 const selectClassName = 'cbx-field text-sm';
 
@@ -191,7 +192,17 @@ function PromotionEditor({ promotion }) {
     );
 }
 
-export default function Merchandising({ banners, homepageContent, promotions, storefrontContent }) {
+function formatPromotionValue(promotion) {
+    if (promotion.discount_type === 'percentage') {
+        return `${promotion.discount_value}%`;
+    }
+
+    return `Rp ${Number(promotion.discount_value || 0).toLocaleString('id-ID')}`;
+}
+
+export default function Merchandising({ banners, homepageContent, promotions, storefrontContent, filters }) {
+    const [selectedBannerId, setSelectedBannerId] = useState(banners[0]?.id ?? null);
+    const [selectedPromotionId, setSelectedPromotionId] = useState(promotions[0]?.id ?? null);
     const bannerForm = useForm(emptyBanner);
     const promoForm = useForm(emptyPromotion);
     const heroForm = useForm({ section: 'hero', hero: homepageContent.hero });
@@ -217,59 +228,83 @@ export default function Merchandising({ banners, homepageContent, promotions, st
         form.patch(route('admin.storefront-content.update'));
     };
 
+    const activeBannerCount = banners.filter((banner) => banner.is_active).length;
+    const activePromotionCount = promotions.filter((promotion) => promotion.is_active).length;
+    const selectedBanner = banners.find((banner) => banner.id === selectedBannerId) ?? banners[0] ?? null;
+    const selectedPromotion = promotions.find((promotion) => promotion.id === selectedPromotionId) ?? promotions[0] ?? null;
+    const homepageModuleCount = [
+        homepageContent.hero,
+        homepageContent.support_cards,
+        homepageContent.flash_sale,
+        homepageContent.category_discovery,
+        homepageContent.new_arrivals,
+        homepageContent.editorial,
+        homepageContent.featured_products,
+    ].filter(Boolean).length;
+
     return (
-        <AdminLayout title="Merchandising" section="merchandising">
+        <AdminLayout
+            title="Merchandising"
+            section="merchandising"
+            description="Shape campaign records and long-form storefront content from one merchandising workspace."
+            toolbarSearchValue={filters.q}
+            toolbarSearchAction={route('admin.merchandising')}
+            toolbarSearchPlaceholder="Search banners or promotions..."
+        >
             <div className="space-y-10">
                 <section className="space-y-6">
-                    <div>
-                        <p className="cbx-kicker">Quick edit</p>
-                        <h1 className="mt-2 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">About hero image</h1>
-                        <p className="mt-2 max-w-2xl text-sm text-[var(--cbx-on-surface-variant)]">
-                            Update the main About page image here without digging through the full page-content form.
-                        </p>
-                    </div>
-
-                    <SectionCard kicker="About page" title="Hero image and alt text">
-                        <form onSubmit={(event) => { event.preventDefault(); submitStorefrontSection(aboutForm); }} className="space-y-4">
-                            <div className="overflow-hidden rounded-xl border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)]">
-                                <img
-                                    src={aboutForm.data.content.hero.image_url}
-                                    alt={aboutForm.data.content.hero.image_alt}
-                                    className="h-64 w-full object-cover"
-                                />
+                    <Card>
+                        <CardContent className="space-y-4">
+                            <div>
+                                <p className="cbx-kicker">Campaign filters</p>
+                                <h2 className="mt-2 font-heading text-2xl font-semibold text-[var(--cbx-on-surface)]">Search campaign records</h2>
+                                <p className="mt-2 text-sm text-[var(--cbx-on-surface-variant)]">
+                                    Filter hero banners and promotions first, then move into create, update, and content maintenance workflows below.
+                                </p>
                             </div>
 
-                            <div className="space-y-2">
-                                <p className="cbx-kicker text-[var(--cbx-on-surface)]">Hero image URL</p>
-                                <Input
-                                    value={aboutForm.data.content.hero.image_url}
-                                    onChange={(event) => updateObjectField(aboutForm, 'hero', 'image_url', event.target.value)}
-                                    placeholder="Hero image URL"
-                                />
-                            </div>
+                            <form action={route('admin.merchandising')} method="get" className="grid gap-3 rounded-xl border border-[var(--cbx-border-subtle)] p-4 md:grid-cols-[1fr_auto_auto]">
+                                <Input name="q" defaultValue={filters.q} placeholder="Search banners or promotions" />
+                                <Button type="submit" variant="secondary">Apply</Button>
+                                <Link href={route('admin.merchandising')} className="inline-flex items-center justify-center rounded-lg border border-[var(--cbx-outline-variant)] px-4 py-2 text-sm font-semibold text-[var(--cbx-on-surface)] transition-colors hover:bg-[var(--cbx-surface-container-low)]">Reset</Link>
+                            </form>
+                        </CardContent>
+                    </Card>
 
-                            <div className="space-y-2">
-                                <p className="cbx-kicker text-[var(--cbx-on-surface)]">Hero image alt text</p>
-                                <Input
-                                    value={aboutForm.data.content.hero.image_alt}
-                                    onChange={(event) => updateObjectField(aboutForm, 'hero', 'image_alt', event.target.value)}
-                                    placeholder="Hero image alt"
-                                />
-                            </div>
+                    <div className="grid gap-6 xl:grid-cols-3">
+                        <SectionCard kicker="Quick edit" title="About hero image">
+                            <form onSubmit={(event) => { event.preventDefault(); submitStorefrontSection(aboutForm); }} className="space-y-4">
+                                <div className="overflow-hidden rounded-xl border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)]">
+                                    <img
+                                        src={aboutForm.data.content.hero.image_url}
+                                        alt={aboutForm.data.content.hero.image_alt}
+                                        className="h-48 w-full object-cover"
+                                    />
+                                </div>
 
-                            <Button type="submit">Save about hero image</Button>
-                        </form>
-                    </SectionCard>
-                </section>
+                                <div className="space-y-2">
+                                    <p className="cbx-kicker text-[var(--cbx-on-surface)]">Hero image URL</p>
+                                    <Input
+                                        value={aboutForm.data.content.hero.image_url}
+                                        onChange={(event) => updateObjectField(aboutForm, 'hero', 'image_url', event.target.value)}
+                                        placeholder="Hero image URL"
+                                    />
+                                </div>
 
-                <section className="space-y-6">
-                    <div>
-                        <p className="cbx-kicker">Storefront CMS</p>
-                        <h2 className="mt-2 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">Homepage and campaign merchandising</h2>
-                    </div>
+                                <div className="space-y-2">
+                                    <p className="cbx-kicker text-[var(--cbx-on-surface)]">Hero image alt text</p>
+                                    <Input
+                                        value={aboutForm.data.content.hero.image_alt}
+                                        onChange={(event) => updateObjectField(aboutForm, 'hero', 'image_alt', event.target.value)}
+                                        placeholder="Hero image alt"
+                                    />
+                                </div>
 
-                    <div className="grid gap-6 xl:grid-cols-2">
-                        <SectionCard kicker="Homepage" title="Hero banners">
+                                <Button type="submit">Save about hero image</Button>
+                            </form>
+                        </SectionCard>
+
+                        <SectionCard kicker="Campaign actions" title="Create hero banner">
                             <form onSubmit={(event) => {
                                 event.preventDefault();
                                 bannerForm.post(route('admin.banners.store'), {
@@ -293,30 +328,9 @@ export default function Merchandising({ banners, homepageContent, promotions, st
                                 </div>
                                 <Button type="submit">Create banner</Button>
                             </form>
-                            <div className="space-y-3">
-                                {banners.length === 0 ? (
-                                    <p className="text-sm text-[var(--cbx-on-surface-variant)]">No banners yet.</p>
-                                ) : banners.map((banner) => (
-                                    <BannerEditor key={banner.id} banner={banner} />
-                                ))}
-                            </div>
                         </SectionCard>
 
-                        <SectionCard kicker="Homepage" title="Hero CTA metadata">
-                            <form onSubmit={(event) => { event.preventDefault(); heroForm.patch(route('admin.homepage-content.update')); }} className="space-y-4">
-                                <div className="grid gap-3 md:grid-cols-2">
-                                    <Input value={heroForm.data.hero.primary_cta_label} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, primary_cta_label: event.target.value })} placeholder="Primary CTA label" />
-                                    <Input value={heroForm.data.hero.primary_cta_href} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, primary_cta_href: event.target.value })} placeholder="Primary CTA href" />
-                                </div>
-                                <div className="grid gap-3 md:grid-cols-2">
-                                    <Input value={heroForm.data.hero.secondary_cta_label} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, secondary_cta_label: event.target.value })} placeholder="Secondary CTA label" />
-                                    <Input value={heroForm.data.hero.secondary_cta_href} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, secondary_cta_href: event.target.value })} placeholder="Secondary CTA href" />
-                                </div>
-                                <Button type="submit">Save hero copy</Button>
-                            </form>
-                        </SectionCard>
-
-                        <SectionCard kicker="Promotions" title="Discount campaigns">
+                        <SectionCard kicker="Campaign actions" title="Create promotion">
                             <form onSubmit={(event) => {
                                 event.preventDefault();
                                 promoForm.post(route('admin.promotions.store'), {
@@ -340,13 +354,211 @@ export default function Merchandising({ banners, homepageContent, promotions, st
                                 </label>
                                 <Button type="submit">Create promotion</Button>
                             </form>
-                            <div className="space-y-3">
-                                {promotions.length === 0 ? (
-                                    <p className="text-sm text-[var(--cbx-on-surface-variant)]">No promotions yet.</p>
-                                ) : promotions.map((promotion) => (
-                                    <PromotionEditor key={promotion.id} promotion={promotion} />
-                                ))}
+                        </SectionCard>
+                    </div>
+
+                    <div className="grid gap-6 xl:grid-cols-2">
+                        <SectionCard kicker="Workspace" title="Manage hero banners">
+                            <div className="overflow-hidden rounded-xl border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)]">
+                                <div className="hidden overflow-x-auto lg:block">
+                                    <table className="w-full min-w-[760px] border-collapse text-left">
+                                        <thead>
+                                            <tr className="border-b border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)]">
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Banner</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">CTA</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Order</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Status</th>
+                                                <th className="px-4 py-4 text-right text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {banners.length === 0 ? (
+                                                <tr>
+                                                    <td colSpan={5} className="px-6 py-14 text-center text-sm text-[var(--cbx-on-surface-variant)]">No banners yet.</td>
+                                                </tr>
+                                            ) : banners.map((banner) => {
+                                                const isSelected = selectedBanner?.id === banner.id;
+
+                                                return (
+                                                    <tr key={banner.id} className={`border-b border-[var(--cbx-border-subtle)] last:border-b-0 hover:bg-[var(--cbx-surface-alt)] ${isSelected ? 'bg-[var(--cbx-surface-alt)]' : ''}`}>
+                                                        <td className="px-4 py-3">
+                                                            <div className="font-semibold text-[var(--cbx-on-surface)]">{banner.title}</div>
+                                                            <div className="text-xs text-[var(--cbx-on-surface-variant)]">{banner.subtitle || 'No subtitle'}</div>
+                                                        </td>
+                                                        <td className="px-4 py-3 text-sm text-[var(--cbx-on-surface-variant)]">{banner.cta_label || 'No CTA'}</td>
+                                                        <td className="px-4 py-3 text-sm text-[var(--cbx-on-surface)]">{banner.sort_order}</td>
+                                                        <td className="px-4 py-3">
+                                                            <span className={`inline-flex rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.05em] ${banner.is_active ? 'bg-[rgba(71,137,71,0.12)] text-[var(--cbx-brand-green)]' : 'bg-[var(--cbx-surface-container-low)] text-[var(--cbx-on-surface-variant)]'}`}>
+                                                                {banner.is_active ? 'Active' : 'Inactive'}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3 text-right">
+                                                            <Button type="button" variant="secondary" size="sm" onClick={() => setSelectedBannerId(banner.id)}>Edit</Button>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="space-y-4 p-4 lg:hidden">
+                                    {banners.length === 0 ? (
+                                        <p className="rounded-lg border border-[var(--cbx-border-subtle)] p-4 text-sm text-[var(--cbx-on-surface-variant)]">No banners yet.</p>
+                                    ) : banners.map((banner) => (
+                                        <div key={banner.id} className="rounded-xl border border-[var(--cbx-border-subtle)] p-4">
+                                            <div className="flex items-start justify-between gap-3">
+                                                <div>
+                                                    <p className="font-semibold text-[var(--cbx-on-surface)]">{banner.title}</p>
+                                                    <p className="text-sm text-[var(--cbx-on-surface-variant)]">{banner.cta_label || 'No CTA'}</p>
+                                                </div>
+                                                <span className={`inline-flex rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.05em] ${banner.is_active ? 'bg-[rgba(71,137,71,0.12)] text-[var(--cbx-brand-green)]' : 'bg-[var(--cbx-surface-container-low)] text-[var(--cbx-on-surface-variant)]'}`}>
+                                                    {banner.is_active ? 'Active' : 'Inactive'}
+                                                </span>
+                                            </div>
+                                            <p className="mt-3 text-sm text-[var(--cbx-on-surface-variant)]">Sort order: {banner.sort_order}</p>
+                                            <div className="mt-4">
+                                                <Button type="button" variant="secondary" size="sm" onClick={() => setSelectedBannerId(banner.id)}>Edit</Button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
+
+                            {selectedBanner ? (
+                                <div className="space-y-3 rounded-xl border border-[var(--cbx-border-subtle)] p-4">
+                                    <div>
+                                        <p className="cbx-kicker">Selected banner</p>
+                                        <h3 className="mt-2 font-heading text-xl font-semibold text-[var(--cbx-on-surface)]">Edit {selectedBanner.title}</h3>
+                                    </div>
+                                    <BannerEditor key={selectedBanner.id} banner={selectedBanner} />
+                                </div>
+                            ) : null}
+                        </SectionCard>
+
+                        <SectionCard kicker="Workspace" title="Manage promotions">
+                            <div className="overflow-hidden rounded-xl border border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-lowest)]">
+                                <div className="hidden overflow-x-auto lg:block">
+                                    <table className="w-full min-w-[760px] border-collapse text-left">
+                                        <thead>
+                                            <tr className="border-b border-[var(--cbx-border-subtle)] bg-[var(--cbx-surface-container-low)]">
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Promotion</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Code</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Discount</th>
+                                                <th className="px-4 py-4 text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Status</th>
+                                                <th className="px-4 py-4 text-right text-xs font-bold uppercase tracking-[0.05em] text-[var(--cbx-on-surface-variant)]">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {promotions.length === 0 ? (
+                                                <tr>
+                                                    <td colSpan={5} className="px-6 py-14 text-center text-sm text-[var(--cbx-on-surface-variant)]">No promotions yet.</td>
+                                                </tr>
+                                            ) : promotions.map((promotion) => {
+                                                const isSelected = selectedPromotion?.id === promotion.id;
+
+                                                return (
+                                                    <tr key={promotion.id} className={`border-b border-[var(--cbx-border-subtle)] last:border-b-0 hover:bg-[var(--cbx-surface-alt)] ${isSelected ? 'bg-[var(--cbx-surface-alt)]' : ''}`}>
+                                                        <td className="px-4 py-3">
+                                                            <div className="font-semibold text-[var(--cbx-on-surface)]">{promotion.name}</div>
+                                                            <div className="text-xs text-[var(--cbx-on-surface-variant)]">{promotion.description || 'No description'}</div>
+                                                        </td>
+                                                        <td className="px-4 py-3 text-sm text-[var(--cbx-on-surface-variant)]">{promotion.code || 'No code'}</td>
+                                                        <td className="px-4 py-3 text-sm text-[var(--cbx-on-surface)]">{formatPromotionValue(promotion)}</td>
+                                                        <td className="px-4 py-3">
+                                                            <span className={`inline-flex rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.05em] ${promotion.is_active ? 'bg-[rgba(71,137,71,0.12)] text-[var(--cbx-brand-green)]' : 'bg-[var(--cbx-surface-container-low)] text-[var(--cbx-on-surface-variant)]'}`}>
+                                                                {promotion.is_active ? 'Active' : 'Inactive'}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3 text-right">
+                                                            <Button type="button" variant="secondary" size="sm" onClick={() => setSelectedPromotionId(promotion.id)}>Edit</Button>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="space-y-4 p-4 lg:hidden">
+                                    {promotions.length === 0 ? (
+                                        <p className="rounded-lg border border-[var(--cbx-border-subtle)] p-4 text-sm text-[var(--cbx-on-surface-variant)]">No promotions yet.</p>
+                                    ) : promotions.map((promotion) => (
+                                        <div key={promotion.id} className="rounded-xl border border-[var(--cbx-border-subtle)] p-4">
+                                            <div className="flex items-start justify-between gap-3">
+                                                <div>
+                                                    <p className="font-semibold text-[var(--cbx-on-surface)]">{promotion.name}</p>
+                                                    <p className="text-sm text-[var(--cbx-on-surface-variant)]">{promotion.code || 'No code'}</p>
+                                                </div>
+                                                <span className={`inline-flex rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.05em] ${promotion.is_active ? 'bg-[rgba(71,137,71,0.12)] text-[var(--cbx-brand-green)]' : 'bg-[var(--cbx-surface-container-low)] text-[var(--cbx-on-surface-variant)]'}`}>
+                                                    {promotion.is_active ? 'Active' : 'Inactive'}
+                                                </span>
+                                            </div>
+                                            <p className="mt-3 text-sm text-[var(--cbx-on-surface-variant)]">Discount: {formatPromotionValue(promotion)}</p>
+                                            <div className="mt-4">
+                                                <Button type="button" variant="secondary" size="sm" onClick={() => setSelectedPromotionId(promotion.id)}>Edit</Button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {selectedPromotion ? (
+                                <div className="space-y-3 rounded-xl border border-[var(--cbx-border-subtle)] p-4">
+                                    <div>
+                                        <p className="cbx-kicker">Selected promotion</p>
+                                        <h3 className="mt-2 font-heading text-xl font-semibold text-[var(--cbx-on-surface)]">Edit {selectedPromotion.name}</h3>
+                                    </div>
+                                    <PromotionEditor key={selectedPromotion.id} promotion={selectedPromotion} />
+                                </div>
+                            ) : null}
+                        </SectionCard>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-3">
+                        <Card>
+                            <CardContent>
+                                <p className="cbx-kicker">Active banners</p>
+                                <p className="mt-4 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">{activeBannerCount}</p>
+                                <p className="mt-2 text-sm text-[var(--cbx-on-surface-variant)]">Homepage banners currently live in the filtered result set.</p>
+                            </CardContent>
+                        </Card>
+                        <Card>
+                            <CardContent>
+                                <p className="cbx-kicker">Live promotions</p>
+                                <p className="mt-4 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">{activePromotionCount}</p>
+                                <p className="mt-2 text-sm text-[var(--cbx-on-surface-variant)]">Discount campaigns currently active for storefront use.</p>
+                            </CardContent>
+                        </Card>
+                        <Card>
+                            <CardContent>
+                                <p className="cbx-kicker">Homepage modules</p>
+                                <p className="mt-4 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">{homepageModuleCount}</p>
+                                <p className="mt-2 text-sm text-[var(--cbx-on-surface-variant)]">Core editable homepage modules tracked in this workspace.</p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </section>
+
+                <section className="space-y-6">
+                    <div>
+                        <p className="cbx-kicker">Storefront CMS</p>
+                        <h2 className="mt-2 font-heading text-3xl font-semibold text-[var(--cbx-on-surface)]">Homepage content modules</h2>
+                    </div>
+
+                    <div className="grid gap-6 xl:grid-cols-2">
+                        <SectionCard kicker="Homepage" title="Hero CTA metadata">
+                            <form onSubmit={(event) => { event.preventDefault(); heroForm.patch(route('admin.homepage-content.update')); }} className="space-y-4">
+                                <div className="grid gap-3 md:grid-cols-2">
+                                    <Input value={heroForm.data.hero.primary_cta_label} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, primary_cta_label: event.target.value })} placeholder="Primary CTA label" />
+                                    <Input value={heroForm.data.hero.primary_cta_href} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, primary_cta_href: event.target.value })} placeholder="Primary CTA href" />
+                                </div>
+                                <div className="grid gap-3 md:grid-cols-2">
+                                    <Input value={heroForm.data.hero.secondary_cta_label} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, secondary_cta_label: event.target.value })} placeholder="Secondary CTA label" />
+                                    <Input value={heroForm.data.hero.secondary_cta_href} onChange={(event) => heroForm.setData('hero', { ...heroForm.data.hero, secondary_cta_href: event.target.value })} placeholder="Secondary CTA href" />
+                                </div>
+                                <Button type="submit">Save hero copy</Button>
+                            </form>
                         </SectionCard>
 
                         <SectionCard kicker="Homepage" title="Support cards">

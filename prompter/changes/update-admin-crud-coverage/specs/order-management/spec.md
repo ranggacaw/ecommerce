@@ -1,8 +1,4 @@
-# order-management Specification
-
-## Purpose
-TBD - created by archiving change add-fashion-ecommerce-platform. Update Purpose after archive.
-## Requirements
+## MODIFIED Requirements
 ### Requirement: Operational Order Dashboard
 The system SHALL provide staff or admins with an order-management dashboard for creating, searching, filtering, reviewing, updating, cancelling, and archiving orders, along with payment state, fulfillment state, customer information, and order-line details.
 
@@ -21,13 +17,3 @@ The system SHALL provide staff or admins with an order-management dashboard for 
 #### Scenario: Operations team filters the order queue
 - **WHEN** a staff or admin user searches or filters orders by queue-relevant criteria in the admin workspace
 - **THEN** the system returns the matching order records for review and follow-up
-
-### Requirement: Shipment Label And Status Workflows
-The system SHALL support printable shipment-label workflows and status updates that keep internal users and customers aligned on fulfillment progress.
-
-Related capabilities: `fulfillment-integrations`, `customer-account`.
-
-#### Scenario: Order advances to shipment
-- **WHEN** an order is ready for dispatch or receives a courier status update
-- **THEN** the system updates the shipment record and exposes the latest fulfillment state to operational users and customers
-

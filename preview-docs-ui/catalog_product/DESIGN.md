@@ -109,11 +109,6 @@ rounded:
   lg: 0.5rem
   xl: 0.75rem
   full: 9999px
-
-## Border Radius Guidelines
-- **Prefer rounded-sm** (0.125rem / 2px) for cards, containers, and sections — subtle rounding looks more professional and modern
-- Avoid large border-radius values like rounded-[1.5rem] or rounded-[1.75rem] — excessive rounding makes UI feel cartoonish
-- Use rounded-full (9999px) only for circular elements (avatars, badges, icon buttons)
 spacing:
   container-padding: 4%
   section-gap: 40px
@@ -158,27 +153,6 @@ The layout utilizes a combination of CSS Grid and Flexbox for responsive and ada
 *   **Forms:** Search input, newsletter subscription.
 *   **Image Carousel/Slider:** For hero and product listings.
 
-## 6.1 Admin CMS Shell
-The admin interface should use one shared shell across all admin pages.
-
-*   **Sidebar:** Fixed left navigation on desktop with COLORBOX wordmark, section links, and a storefront shortcut at the bottom.
-*   **Top navbar:** Sticky top app bar with a catalog search field on the left and utility actions on the right.
-*   **Content canvas:** Full-width admin workspace to the right of the sidebar, using `4%` horizontal padding and generous vertical spacing.
-*   **Page header:** Each admin page starts with a consistent title block, optional description, and primary action area.
-*   **Tables:** Dense, editorial-style data tables with muted headers, soft row hover states, and compact icon actions.
-*   **Cards:** Use bordered neutral cards for forms and lists, and use strong black/red emphasis cards only for key metrics.
-*   **Responsive behavior:** Mobile admin pages should collapse the sidebar into a drawer while preserving the top app bar and page header.
-
-## 6.2 Admin Workspace Page Reference
-`resources/js/Pages/Admin/Catalog.jsx` is the canonical reference for admin section/workspace page composition.
-
-*   **Applies to:** Workspace pages that manage records or editable content collections, including Catalog, Merchandising, Locations, Inventory, and Orders.
-*   **Exceptions:** Dashboard summary pages and record-detail pages such as `resources/js/Pages/Admin/OrderShow.jsx` stay aligned to the same shell and tokens, but they do not need to follow the full catalog workspace sequence.
-*   **Required sequence:** Each workspace page should present a section search or filter area first, then visible create or management actions, then a responsive list or table workspace, then a compact insight or mini-graph section.
-*   **Action pattern:** Use create, update, and delete controls when the domain permits them. If a section must preserve history, use safe lifecycle actions such as archive, cancel, or void in the same action zones instead of destructive delete controls.
-*   **Responsive listing:** Prefer dense tables on desktop and switch to stacked cards or equivalent row summaries on smaller screens while preserving the same key data and actions.
-*   **Insight block:** End each workspace page with up to three compact KPI cards or a mini graph that summarizes the current section state.
-
 ## 7. Visual Design Specification
 
 ### 7.1. Design System Tokens
@@ -196,4 +170,4 @@ The admin interface should use one shared shell across all admin pages.
 *   **Shadows:**
     *   `box-shadow: 0px 2px 12px #e5e8eb`
     *   `box-shadow: 0px 2px 12px rgba(229, 232, 235, 0.5)`
-    
+    *   `box-shadow: 0 3px 3px rgba(0, 0

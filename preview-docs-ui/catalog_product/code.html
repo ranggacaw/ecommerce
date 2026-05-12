@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "brand-pink": "#FF369C",
+                        "accent-gold": "#A77A06",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-background": "#1b1b1b",
+                        "surface-tint": "#5e5e5e",
+                        "surface-container-lowest": "#ffffff",
+                        "brand-green": "#478947",
+                        "on-secondary-fixed": "#410003",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed-dim": "#ffb3ac",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-secondary-container": "#fffbff",
+                        "on-tertiary-container": "#848484",
+                        "on-surface": "#1b1b1b",
+                        "secondary-container": "#d93633",
+                        "background": "#f9f9f9",
+                        "border-subtle": "#e5e8eb",
+                        "outline": "#7e7576",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-fixed": "#ffdad6",
+                        "primary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "accent-forest": "#3C9342",
+                        "surface-variant": "#e2e2e2",
+                        "secondary": "#b5191e",
+                        "on-primary-fixed": "#1b1b1b",
+                        "neutral-light": "#ededed",
+                        "inverse-surface": "#303030",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#1b1b1b",
+                        "primary": "#000000",
+                        "on-primary-container": "#848484",
+                        "inverse-primary": "#c6c6c6",
+                        "neutral-mid": "#565656",
+                        "on-secondary-fixed-variant": "#93000f",
+                        "brand-light-pink": "#F0AAA4",
+                        "inverse-on-surface": "#f1f1f1",
+                        "accent-crimson": "#A70100",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "tertiary": "#000000",
+                        "neutral-dark": "#212121",
+                        "outline-variant": "#cfc4c5",
+                        "surface-alt": "#fafafa",
+                        "tertiary-container": "#1b1b1b",
+                        "on-surface-variant": "#4c4546"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "touch-padding": "10px",
+                        "container-padding": "4%",
+                        "component-gap": "16px",
+                        "grid-gutter": "12px",
+                        "section-gap": "40px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Epilogue"],
+                        "body-md": ["Inter"],
+                        "h1": ["Epilogue"],
+                        "h2": ["Epilogue"],
+                        "body-sm": ["Inter"],
+                        "price-display": ["Epilogue"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "price-display": ["20px", {"lineHeight": "1", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-neutral-dark border-r border-border-subtle dark:border-neutral-mid flex flex-col py-6 px-4">
+<div class="mb-10 px-4">
+<h1 class="font-h2 text-h2 font-bold tracking-tighter text-primary dark:text-white">COLORBOX</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Admin CMS</p>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-neutral-light px-4 py-3 hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<!-- Active State: Products -->
+<a class="flex items-center gap-3 bg-primary text-on-primary dark:bg-primary-fixed dark:text-on-primary-fixed rounded-lg px-4 py-3 opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-caps text-label-caps">Products</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-neutral-light px-4 py-3 hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-neutral-light px-4 py-3 hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Customers</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-neutral-light px-4 py-3 hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-border-subtle">
+<div class="flex items-center gap-3 px-4">
+<div class="w-10 h-10 rounded-full bg-neutral-light flex items-center justify-center overflow-hidden">
+<img alt="Admin User" class="w-full h-full object-cover" data-alt="A professional portrait of a modern office administrator in a minimalist setting. The lighting is soft and high-key, reflecting a clean light-mode aesthetic. The color palette consists of neutral whites and soft greys with subtle red accents in the background, maintaining a high-contrast corporate look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8QAWv-sRsQ5YJ-I55Qxj2xJGIJ5X0a55TZam4zG4varAdUvtjqEGFQe3gvIyrsUemaEEGKHu9lQLO9Ftakmt2rvr5l_9lwqdC52Ns-o3lcZUKciEYpkFbbU_nlX5zw1yM6h5sv-k8PpIjLNLu8a4LjgeT6y6PqPj_RKTh-jGencE9LXNoIYg0Cp3oni21c7y3lDkkZI7hb9cugczx2HRTy9gOdBYR01-Aob90seeKKfG_fyM4B37bznaRcZGNV84QF3I4avFzNiM"/>
+</div>
+<div class="overflow-hidden">
+<p class="font-label-caps text-label-caps truncate">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface dark:bg-neutral-dark border-b border-border-subtle dark:border-neutral-mid flex justify-between items-center px-container-padding z-40">
+<div class="flex items-center gap-4 flex-grow">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg pl-10 pr-4 py-2 font-body-sm text-body-sm focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" placeholder="Search orders, products..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">help_outline</button>
+<div class="h-8 w-[1px] bg-border-subtle mx-2"></div>
+<span class="font-label-caps text-label-caps text-primary">COLORBOX CMS</span>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 pb-12 px-container-padding">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-h1 text-h2 font-bold text-primary mb-1">Products</h2>
+<p class="font-body-md text-on-surface-variant">Manage your inventory and product listings.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-caps text-label-caps">Add New Product</span>
+</button>
+</div>
+<!-- Filter Bar -->
+<div class="bg-surface border border-border-subtle p-4 mb-6 flex flex-wrap items-center gap-4">
+<div class="flex-grow min-w-[200px]">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-white border border-border-subtle text-body-sm focus:outline-none focus:border-primary" placeholder="Filter by name..." type="text"/>
+</div>
+</div>
+<div class="w-48">
+<select class="w-full px-4 py-2 bg-white border border-border-subtle text-body-sm focus:outline-none focus:border-primary appearance-none">
+<option>Category: All</option>
+<option>Clothing</option>
+<option>Accessories</option>
+<option>Footwear</option>
+</select>
+</div>
+<div class="w-48">
+<select class="w-full px-4 py-2 bg-white border border-border-subtle text-body-sm focus:outline-none focus:border-primary appearance-none">
+<option>Status: All</option>
+<option>Active</option>
+<option>Draft</option>
+<option>Out of Stock</option>
+</select>
+</div>
+<button class="px-4 py-2 border border-primary text-primary font-label-caps text-label-caps hover:bg-neutral-light transition-colors">
+                    Reset
+                </button>
+</div>
+<!-- Dense Data Table -->
+<div class="bg-white border border-border-subtle overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant">Image</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant">Product Name</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant">Category</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant">Price</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant text-center">Stock</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant">Status</th>
+<th class="px-4 py-4 font-label-caps text-label-caps text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-4 py-3">
+<div class="w-12 h-12 bg-neutral-light rounded overflow-hidden">
+<img alt="Oversized Graphic Tee" class="w-full h-full object-cover" data-alt="A studio photograph of a premium oversized graphic t-shirt in white, featuring bold black typography. The lighting is crisp and editorial, highlighting the heavy cotton texture. Set against a minimalist off-white background to match a high-end retail CMS aesthetic. The mood is modern, youth-oriented, and fashionable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzPSfV1_JadD28mWyyQR_3SYQPTFJVtBaQOE5oY8nOq11ZsxNpy9YsQUVVqiJbcrIXhiK26wY4M6JRrxfbSSDQbhBTy9YjgQieXuJ-XwWBdmMPzSXatUjeROSFbucZJYbU7cDo1EvsV6X5A5VsGrO3TywUfsiKbSFy8HMh-1bo9NxHixTIKkqocQMK1nBZTVI-rG8bjevX_XgSJ7ULQr-fXzMcvHobt3DyWEBF01avt8TpbVCQ67ZEMU7VVLesS5JvqOz-66aOWFc"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-body-md font-bold text-primary">Oversized Graphic Tee</div>
+<div class="text-[10px] text-on-surface-variant">SKU: CB-TEE-001</div>
+</td>
+<td class="px-4 py-3 font-body-sm">Clothing</td>
+<td class="px-4 py-3 font-price-display text-price-display">Rp 199.000</td>
+<td class="px-4 py-3 font-body-sm text-center">45</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-green/10 text-brand-green">ACTIVE</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-neutral-light rounded transition-colors text-on-surface-variant" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container hover:text-error rounded transition-colors text-on-surface-variant" title="Delete">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-4 py-3">
+<div class="w-12 h-12 bg-neutral-light rounded overflow-hidden">
+<img alt="Speed Runner Sneakers" class="w-full h-full object-cover" data-alt="A professional product shot of vibrant red athletic sneakers on a white background. High-contrast lighting emphasizes the sleek design and high-quality materials. The aesthetic is energetic and fast-paced, reflecting a bold youth retail brand. Crisp details and saturated colors dominate the frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO0jFKfGO_L-07-2_xzjyCbGxB6WTbRy9XFKEbOo0AJUyBN6JNJd2RWnLW7HEs0HiwjeyqUwhiSti4PLamQ6L6LSxWMvAOu_oLaYOTf5Lt7cSVHlzscKIrk4YA11ajUvkHfn6Wjh2pegArgR81PDdOK-uKEp0GfGIrXWX_ad_oy1Ok5MCM_RXP7fdHvPJsyMy0rHgFUB4En7wiI90gpasPXt3OLCPkIZ9xkev_Mp-cpT9QEKJlk3QFHKdK3wx4255GgRf9mMkMFGw"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-body-md font-bold text-primary">Speed Runner Sneakers</div>
+<div class="text-[10px] text-on-surface-variant">SKU: CB-FTW-023</div>
+</td>
+<td class="px-4 py-3 font-body-sm">Footwear</td>
+<td class="px-4 py-3 font-price-display text-price-display">Rp 549.000</td>
+<td class="px-4 py-3 font-body-sm text-center">12</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-green/10 text-brand-green">ACTIVE</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-neutral-light rounded transition-colors text-on-surface-variant" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container hover:text-error rounded transition-colors text-on-surface-variant" title="Delete">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-4 py-3">
+<div class="w-12 h-12 bg-neutral-light rounded overflow-hidden">
+<img alt="Minimalist Leather Tote" class="w-full h-full object-cover" data-alt="A studio photo of a black leather tote bag with a sleek, minimalist design. The lighting is soft and ambient, casting subtle shadows that define its shape. The background is a clean light grey, emphasizing the premium quality of the leather. The mood is sophisticated and modern corporate retail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWXBwAQFLGQcVFQsmCEQt3WzC8yShez25eOZvJZ5atyasPx2l5hbdgdMK_K6v0wm2NmpWiSEKHFjSx9rRh5NrzPKx96zpBRfbKK18Hf___GUwr2s-1nobOIFdiawtmQe_Y-mTeyYVnrr9M3Tu6jH9T4wxQRYmi8R2BxKHGFQSFNW6xtSsbzFzebdQCL1UxvKmJ8Gm0VP_HZnKKFDfMYaKezHUaWG0AIy1Sqir4xDT-mzpkl3y6XhN05yEuo4gST7tpWWpECeM6OP0"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-body-md font-bold text-primary">Minimalist Leather Tote</div>
+<div class="text-[10px] text-on-surface-variant">SKU: CB-ACC-088</div>
+</td>
+<td class="px-4 py-3 font-body-sm">Accessories</td>
+<td class="px-4 py-3 font-price-display text-price-display">Rp 899.000</td>
+<td class="px-4 py-3 font-body-sm text-center">0</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-neutral-light text-on-surface-variant">DRAFT</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-neutral-light rounded transition-colors text-on-surface-variant" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container hover:text-error rounded transition-colors text-on-surface-variant" title="Delete">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-4 py-3">
+<div class="w-12 h-12 bg-neutral-light rounded overflow-hidden">
+<img alt="White Linen Shirt" class="w-full h-full object-cover" data-alt="A clean, minimalist shot of a white linen button-down shirt neatly folded on a light wood surface. Natural, soft daylight creates a bright and airy atmosphere. The focus is on the textile's fine weave and quality construction. The overall aesthetic is calm, orderly, and fashion-forward." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHYkKwRBaWaCPDC1_ZTBFF5OQSnaeS8Ri9t0VxqEtZRvEurfvgW0-Rz7Fxa8niht9bovzzeeyUzWraYrmCkCqEenA61yqniFqLLZwgGUosvM2F-1FxjH0mBFCf5qDaKf6K7pCy4eVvBz3f5cpyTQv5f7pyb6ggySWzXPZIJyIhPmZDdSxRWgy1qihb0Q0lsvf-bKbfyzEMrLYTmAVpMgm08rvLObdlHCZYAP_7ia13o3qP3RZSodiIxnpP7naDyb0DVcT7HgeecRs"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-body-md font-bold text-primary">White Linen Shirt</div>
+<div class="text-[10px] text-on-surface-variant">SKU: CB-SHR-042</div>
+</td>
+<td class="px-4 py-3 font-body-sm">Clothing</td>
+<td class="px-4 py-3 font-price-display text-price-display">Rp 349.000</td>
+<td class="px-4 py-3 font-body-sm text-center">28</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-green/10 text-brand-green">ACTIVE</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-neutral-light rounded transition-colors text-on-surface-variant" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container hover:text-error rounded transition-colors text-on-surface-variant" title="Delete">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-alt transition-colors group">
+<td class="px-4 py-3">
+<div class="w-12 h-12 bg-neutral-light rounded overflow-hidden">
+<img alt="Urban Cargo Pants" class="w-full h-full object-cover" data-alt="A stylish flat lay of olive green urban cargo pants. The composition is structured and modern, shot from a top-down perspective on a light concrete floor. Strong directional lighting creates sharp, fashionable shadows. The mood is gritty yet polished, fitting a youth-oriented retail CMS environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7mhmW1BO4kwUKE2tkyZcd66aIM55BBBOC8hg9jKz18mm1WDnzeZABGCzjtUCxH5Fz5fAAqI1uhkytpRO5cpF1WoLc_N628TjoJCJyM0nAT6u0dM-6YT1Sm-HsJWFL3efP2Mboj10CCtXXNdWQ6Wwkd7b3kXkknV7R-rFqIkk5sW3pAq2yOYKOGj96KrckvbWwYWEz9QrhrdNKcKbyrOUaq44DCnIWKic1PgSYHs6_LPm3l06A2QiqmxavHl8bKQyfD2w5MzjHOyI"/>
+</div>
+</td>
+<td class="px-4 py-3">
+<div class="font-body-md font-bold text-primary">Urban Cargo Pants</div>
+<div class="text-[10px] text-on-surface-variant">SKU: CB-PNT-112</div>
+</td>
+<td class="px-4 py-3 font-body-sm">Clothing</td>
+<td class="px-4 py-3 font-price-display text-price-display">Rp 429.000</td>
+<td class="px-4 py-3 font-body-sm text-center">8</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-green/10 text-brand-green">ACTIVE</span>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-neutral-light rounded transition-colors text-on-surface-variant" title="Edit">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container hover:text-error rounded transition-colors text-on-surface-variant" title="Delete">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 flex items-center justify-between bg-surface-container-low border-t border-border-subtle">
+<p class="font-body-sm text-on-surface-variant">Showing 1 to 5 of 124 results</p>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:bg-neutral-light rounded transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary font-label-caps text-label-caps rounded">1</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-neutral-light font-label-caps text-label-caps rounded">2</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-neutral-light font-label-caps text-label-caps rounded">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-neutral-light font-label-caps text-label-caps rounded">25</button>
+<button class="p-2 text-on-surface-variant hover:bg-neutral-light rounded transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Insight (Bento Style) -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-primary p-6 flex flex-col justify-between min-h-[140px]">
+<span class="font-label-caps text-label-caps text-on-primary-container">TOTAL STOCK VALUE</span>
+<h3 class="font-h1 text-h1 text-white mt-2">Rp 2.4B</h3>
+<div class="flex items-center gap-2 text-brand-green mt-4">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="text-[12px] font-bold">+12.5% this month</span>
+</div>
+</div>
+<div class="bg-secondary p-6 flex flex-col justify-between min-h-[140px]">
+<span class="font-label-caps text-label-caps text-on-secondary-container">LOW STOCK ALERTS</span>
+<h3 class="font-h1 text-h1 text-white mt-2">14 Items</h3>
+<div class="text-white/80 text-[12px] mt-4 font-bold">Action required immediately</div>
+</div>
+<div class="bg-surface border border-border-subtle p-6 flex flex-col justify-between min-h-[140px]">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BEST SELLING CATEGORY</span>
+<h3 class="font-h1 text-h1 text-primary mt-2">Apparel</h3>
+<div class="text-on-surface-variant text-[12px] mt-4">58% of total revenue</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
